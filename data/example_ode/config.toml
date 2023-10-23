@@ -5,12 +5,13 @@ experiments_file = "experiments.toml"
 likelihood = true
 
 [cmdstanpy_config]
-iter_warmup = 0
-iter_sampling = 1
-chains = 1
+iter_warmup = 5
+iter_sampling = 5
+chains = 4
+refresh = 1
 
 [ode_solver_config]
 max_num_steps = 1e9
 
 [laplace_options]
-draws=100
+draws=500

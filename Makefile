@@ -1,4 +1,4 @@
-.phony: figure_3 figure_4 sample validate build
+.phony: figure_3 figure_4 sample_methionine sample_example_ode validate_methionine validate_example_ode build
 
 MAIN_IDATA_6 = results/methionine/idata.nc
 MAIN_IDATA_6_missing_ahcys = results/methionine_missing_ahcys/idata.nc
@@ -39,10 +39,15 @@ figure_3: $(FIGURE_3)
 
 figure_4: $(FIGURE_4)
 
-sample: $(MAIN_IDATA_6) $(MAIN_IDATA_6_missing_ahcys)
+sample_methionine: $(MAIN_IDATA_6) $(MAIN_IDATA_6_missing_ahcys)
 
-validate: $(VALIDATE_6) $(VALIDATE_6_missing_ahcys)
+sample_example_ode: $(MAIN_IDATA_EXAMPLE_ODE)
+
+validate_methionine: $(VALIDATE_6) $(VALIDATE_6_missing_ahcys)
+
+validate_example_ode: $(VALIDATE_ODE)
 
 build: requirements.txt
 	virtualenv .venv --prompt=maud
-	.venv/bin/pip install -r requirments.txt
+	.venv/bin/pip install --upgrade pip
+	.venv/bin/pip install -r requirements.txt
