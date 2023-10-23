@@ -1,0 +1,2 @@
+arviz==0.16.1
+maud-metabolic-models==0.7.0.0

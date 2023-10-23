@@ -43,7 +43,6 @@ sample: $(MAIN_IDATA_6) $(MAIN_IDATA_6_missing_ahcys)
 
 validate: $(VALIDATE_6) $(VALIDATE_6_missing_ahcys)
 
-build:
+build: requirements.txt
 	virtualenv .venv --prompt=maud
-	.venv/bin/pip install maud-metabolic-models
-	cp -rf .venv/lib/python*/site-packages/maud/data/example_inputs/methionine data
+	.venv/bin/pip install -r requirments.txt
