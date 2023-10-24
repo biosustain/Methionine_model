@@ -21,13 +21,13 @@ $(MAIN_IDATA_EXAMPLE_ODE): data/example_ode/config.toml
 
 $(VALIDATE_ODE): $(MAIN_IDATA_EXAMPLE_ODE)
 	.venv/bin/maud predict results/example_ode | tail -n 1 | xargs -I "{}" mv {} results/example_ode_validation
-	.venv/bin/maud predict results/example_ode | tail -n 1 | xargs -I "{}" mv {} results/example_ode_laplace_validation
+	.venv/bin/maud predict results/example_ode_laplace | tail -n 1 | xargs -I "{}" mv {} results/example_ode_laplace_validation
 
 $(VALIDATE_6): $(MAIN_IDATA_6)
-	.venv/bin/maud predict results/methionine_cycle_6 --oos_path="data/methionine_cycle_6" | tail -n 1 | xargs -I '{}' mv {}  results/methionine_cycle_6_validation
+	.venv/bin/maud predict results/methionine_cycle_6 | tail -n 1 | xargs -I '{}' mv {}  results/methionine_cycle_6_validation
 
 $(VALIDATE_6_missing_ahcys): $(MAIN_IDATA_6_missing_ahcys)
-	.venv/bin/maud predict results/methionine_cycle_6_missing_ahcys --oos_path="data/methionine_cycle_6_missing_ahcys" | tail -n 1 | xargs -I '{}' mv {}  results/methionine_cycle_6_missing_ahcys_validation
+	.venv/bin/maud predict results/methionine_cycle_6_missing_ahcys | tail -n 1 | xargs -I '{}' mv {}  results/methionine_cycle_6_missing_ahcys_validation
 
 $(FIGURE_3): $(MAIN_IDATA)
 	.venv/bin/python plot_figure_3.py

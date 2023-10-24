@@ -36,6 +36,8 @@ kcat = [
 conc_unbalanced = [
   {metabolite = "A", compartment = "c", experiment = "condition1", exploc = 5, scale = 0.2},
   {metabolite = "D", compartment = "c", experiment = "condition1", exploc = 0.5, scale = 0.2},
+  {metabolite = "A", compartment = "c", experiment = "condition2", exploc = 5, scale = 0.2},
+  {metabolite = "D", compartment = "c", experiment = "condition2", exploc = 0.5, scale = 0.2},
 ]
 
 conc_enzyme = [
@@ -44,6 +46,11 @@ conc_enzyme = [
   {enzyme = "r2B", experiment = "condition1", exploc = 3, scale = 0.2},
   {enzyme = "r3", experiment = "condition1", exploc = 2, scale = 0.2},
   {enzyme = "r4", experiment = "condition1", exploc = 3, scale = 0.2},
+  {enzyme = "r1", experiment = "condition2", exploc = 1, scale = 0.2},
+  {enzyme = "r2A", experiment = "condition2", exploc = 2, scale = 0.2},
+  {enzyme = "r2B", experiment = "condition2", exploc = 3, scale = 0.2},
+  {enzyme = "r3", experiment = "condition2", exploc = 2, scale = 0.2},
+  {enzyme = "r4", experiment = "condition2", exploc = 3, scale = 0.2},
 ]
 
 dgf = [
