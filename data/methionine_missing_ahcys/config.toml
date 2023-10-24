@@ -13,7 +13,7 @@ chains = 4
 save_warmup = true
 refresh = 1
 metric = "dense_e"
-adapt_delta = 0.99
+adapt_delta = 0.95
 
 [ode_solver_config]
 rel_tol = 1e-5
