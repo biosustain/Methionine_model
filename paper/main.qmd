@@ -1,6 +1,6 @@
 ---
-title: "Hierarchical Bayesian regression modelling predicts biochemical rection energies and facilitates quantitative modelling of cell metabolism"
-toc: true
+title: "Bayesian regression modelling facilitates quantitative modelling of cell metabolism"
+keywords: Bayesian inference, kinetic models of cell metabolism 
 abstract: >
   This paper presents Maud, a command-line application that implements
   Bayesian statistical inference for kinetic models of biochemical metabolic
@@ -14,17 +14,28 @@ author:
   - name: "Teddy Groves"
     orcid: 0000-0002-7109-3270
     email: tedgro@biosustain.dtu.dk
-    affiliation: DTU Biosustain
+    affiliations: 
+    - id: biosustain
+      name: DTU Biosustain
   - name: "Nicholas Luke Cowie"
-    affiliation: DTU Biosustain
+    affiliations: 
+    - ref: biosustain
   - name: "Lars Keld Nielsen"
-    affiliation: DTU Biosustain
+    affiliations: 
+    - ref: biosustain
 bibliography: bibliography.bib
 format:
   acs-pdf:
     keep-tex: true
-  html:
+    journal:
+      id: asbcd6  #This is an identifier for the target journal: from https://pubs.acs.org/, the identifier is the part of the URL after https://pubs.acs.org/journal/, e.g. for J. Org. Chem. it would be joceah.
+      type: article  #article, note, communication, review, letter, or perspectivee
+      layout: traditional #traditional or twocolumn, twocolumn currently broken for longtables
+      hide-email: false # if enabled, hides email addresses (and fax/phone)
+      abbreviations: IR,NMR,UV
+  acs-html:
    include-in-header: mathjax.html
+   embed-resources: true
   docx: default
 ---
 

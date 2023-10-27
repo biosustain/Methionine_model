@@ -3,7 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
-\documentclass[journal=,manuscript=]{achemso}
+\documentclass[journal=asbcd6,manuscript=article,layout=traditional]{achemso}
 \usepackage[version=3]{mhchem}
 \newcommand*\mycommand[1]{\texttt{\emph{#1}}}
 
@@ -139,8 +139,9 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Hierarchical Bayesian regression modelling predicts biochemical rection energies and facilitates quantitative modelling of cell metabolism},
+  pdftitle={Bayesian regression modelling facilitates quantitative modelling of cell metabolism},
   pdfauthor={Teddy Groves; Nicholas Luke Cowie; Lars Keld Nielsen},
+  pdfkeywords={Bayesian inference, kinetic models of cell metabolism},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -163,10 +164,10 @@
 
 
 
+\keywords{Bayesian inference, kinetic models of cell metabolism}
 
-\title[]{Hierarchical Bayesian regression modelling predicts biochemical
-rection energies and facilitates quantitative modelling of cell
-metabolism}
+\title[]{Bayesian regression modelling facilitates quantitative
+modelling of cell metabolism}
 \makeatletter
 \begin{document}
 \maketitle
@@ -181,14 +182,8 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, breakable, sharp corners, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, interior hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
 
-\renewcommand*\contentsname{Table of contents}
-{
-\hypersetup{linkcolor=}
-\setcounter{tocdepth}{3}
-\tableofcontents
-}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
