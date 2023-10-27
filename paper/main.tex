@@ -181,7 +181,7 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, breakable, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, frame hidden, sharp corners, boxrule=0pt, breakable, interior hidden, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -579,7 +579,7 @@ distribution, as the marginal distribution of the total log probability
 density is clearly different. This was confirmed using the
 Kolmogorov-Smirnov test, which is a test to differentiate two empirical
 univariate distributions. The two distributions were significantly
-different with a p-value indistinguishable from 0.
+different with a p-value indistinguishable from zero.
 
 The difference between the Laplace approximation output and the true
 posterior distribution manifests itself not only in the parameter space,
@@ -652,12 +652,12 @@ measurements in both models also indicated that removing the ahcys
 measurement did not result in catastrophic model failure.
 
 The missing measurements did affect Maud's ability to infer parameter
-values correctly. As we can see in the \#lower left plot
-of~\ref{fig-missing}, the model with full metabolomics learned the true
-value for the displayed dissociation constant, despite this value being
-far from the mean of the corresponding marginal prior distribution,
-whereas the model with the missing measurements stayed in the
-neighbourhood of the prior.
+values correctly. The lower left plot of Figure~\ref{fig-missing} shows
+that the model with full metabolomics learned the true value for the
+displayed dissociation constant, despite this value being far from the
+mean of the corresponding marginal prior distribution. In contrast, the
+model with missing measurements stayed in the neighbourhood of the
+prior.
 
 This result is reassuring because not having access to all measurements
 is a common situation in multi-omics studies. For instance, measuring

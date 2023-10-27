@@ -353,7 +353,7 @@ to the true posterior distribution, as the marginal distribution of the
 total log probability density is clearly different. This was confirmed using
 the Kolmogorov-Smirnov test, which is a test to differentiate two empirical
 univariate distributions. The two distributions were significantly different
-with a p-value indistinguishable from 0.
+with a p-value indistinguishable from zero.
 
 The difference between the Laplace approximation output and the true posterior
 distribution manifests itself not only in the parameter space, but also in
@@ -409,11 +409,11 @@ indicated that removing the ahcys measurement did not result in catastrophic
 model failure.
 
 The missing measurements did affect Maud’s ability to infer parameter values
-correctly. As we can see in the [#lower left plot of @fig-missing], the model
-with full metabolomics learned the true value for the displayed dissociation
-constant, despite this value being far from the mean of the corresponding
-marginal prior distribution, whereas the model with the missing measurements
-stayed in the neighbourhood of the prior.
+correctly. The lower left plot of @fig-missing shows that the model with full
+metabolomics learned the true value for the displayed dissociation constant,
+despite this value being far from the mean of the corresponding marginal prior
+distribution. In contrast, the model with missing measurements stayed in the
+neighbourhood of the prior.
 
 This result is reassuring because not having access to all measurements is a
 common situation in multi-omics studies. For instance, measuring all metabolites
