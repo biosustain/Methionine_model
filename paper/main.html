@@ -210,10 +210,14 @@ S\cdot f(C;\theta) = 0
 <p>To show that Maud is robust to missing measurements we compared the results of fitting the full dataset with an intentionally incomplete dataset. To demonstrate why a full Bayesian approach is preferable to an approach based on a Laplace approximation of the posterior distribution, we also fit our methionine cycle model using the latter method and compared the results with MCMC sampling.</p>
 <p>Finally, we investigated our results to find out what our model learned about the contributions of different regulatory factors to the flux through GNMT, an important reaction. This analysis illustrates how Maud can be used to generate actionable insights about metabolism without the need for further statistical analysis.</p>
 <p>The methionine cycle, illustrated in <a href="#fig-methionine-reactions">Figure&nbsp;1</a>, is a fundamental pathway in human metabolism, whose intermediate metabolites participate in a variety of mechanisms which must compete for the same resources. Due to this competition, as well as the fact that all the functions occur simultaneously, the methionine cycle is highly regulated, with 6 known allosteric effectors (REFERENCE). This complex regulation means that quantitative modelling of the methionine cycle requires a detailed kinetic model: this is why we chose it as a case study for Maud.</p>
-<div id="fig-methionine-reactions" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-methionine-reactions" class="quarto-layout-panel">
 <figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="./figures/methionine-reactions.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: CAPTION - FILL THIS IN!</figcaption>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: The methionine cycle as modelled, with the solid black lines representing the reactions, the green lines representing allosteric interaction, and the red lines representing allosteric inhibition. The bold fonts are the reaction names and the regular font represents the metabolites.</figcaption><p></p>
 </figure>
 </div>
 <section id="dataset-and-model-specification" class="level2">
@@ -273,10 +277,14 @@ S\cdot f(C;\theta) = 0
 <p>To further explore why this is the case we compared samples from the true posterior and the Laplace approximation for the pairwise marginal distributions of two Michaelis-Menten constants [LATEX CONSTANT]- and [LATEX CONSTANT]: see the bottom right cell of figure 5. This comparison demonstrates that the Laplace method is not able to capture the correct relationships between parameters’ distributions.</p>
 <p>This result shows that MCMC, while slower than Laplace approximation, is unfortunately preferable for posterior inference in this case. We expect that this is typical of kinetic models of realistic metabolic networks in general, so we recommend that Maud users use MCMC sampling if possible.</p>
 <p>Our results here also provide circumstantial evidence that the parameter correlations in Bayesian kinetic model posteriors tend to be non-linear, as a posterior with only linear correlations would likely be more germane to Laplace approximation. A conclusion that we drew from this analysis was that the results of fitting our model cannot be summarised simply, for example by fitting a multivariate normal distribution to the posterior draws. We therefore recommend that Maud users store the full set of MCMC draws rather than using such an approximation. This does not preclude the possibility that there is an alternative, more compact, way to summarise the results of Bayesian kinetic model inference; we leave research into this topic to future work.</p>
-<div id="fig-laplace" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-laplace" class="quarto-layout-panel">
 <figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="./figures/laplace.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: CAPTION: FILL THIS IN!</figcaption>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: CAPTION: FILL THIS IN!</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -286,10 +294,14 @@ S\cdot f(C;\theta) = 0
 <p><a href="#fig-missing">Figure&nbsp;3</a> shows that, as might be expected, the model with missing measurements did not correctly infer the missing ahcys concentrations. Nonetheless, the remaining measured metabolites were still well predicted, suggesting that information about the network is still preserved despite the missing measurements. Comparison of flux measurements in both models also indicated that removing the ahcys measurement did not result in catastrophic model failure.</p>
 <p>The missing measurements did affect Maud’s ability to infer parameter values correctly. As we can see in the <a href="#fig-missing">#lower left plot of&nbsp;3</a>, the model with full metabolomics learned the true value for the displayed dissociation constant, despite this value being far from the mean of the corresponding marginal prior distribution, whereas the model with the missing measurements stayed in the neighbourhood of the prior.</p>
 <p>This result is reassuring because not having access to all measurements is a common situation in multi-omics studies. For instance, measuring all metabolites in a pathway can be infeasible because of limitations of mass spectrometers, availability of standards, column effects, and compartmentalisation. However, provided that sufficient information is available from other sources, our approach can produce sensible results from incomplete metabolomics data.</p>
-<div id="fig-missing" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-missing" class="quarto-layout-panel">
 <figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="./figures/missing.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: CAPTION: FILL THIS IN!</figcaption>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Results of removing concentration measurements for the metabolite <span class="math inline">\(ahcys_c\)</span> from our case study dataset. (<strong>Top</strong>) A comparison of metabolite concentration residuals between the full measurement dataset (blue-green) and the missing-data dataset (grey), displayed on natural logarithmic scale. The missing-data model was unable to predict the withheld <span class="math inline">\(ahcys_c\)</span> concentrations. (<strong>Bottom Left</strong>) The marginal posterior distribution for the Michaelis constant <span class="math inline">\(K_m^{AHC1,ahcys_c}\)</span> in each model, alongside the true parameter value used to generate both datasets. The true value is recovered by the complete-data model but not by the missing-data model. (<strong>Bottom Right</strong>) The distribution of total log-likelihood for out-of-sample flux measurements in both models. There is a significant overlap between the two distributions, suggesting that removing the <span class="math inline">\(ahcys_c\)</span> measurement did not cause catastrophic prediction failure. However, overall the complete-data model tended to make better predictions.</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -300,10 +312,14 @@ S\cdot f(C;\theta) = 0
 <p>We demonstrate that Maud can accurately reproduce the regulatory effect between the two conditions by comparing it to the ground truth. As the true values are well within our probability mass of the posterior we can say that Maud is able to accurately reproduce the regulatory behaviour of metabolic networks and also provides a tool for statistical inference of the regulatory behaviour.</p>
 <p>Here we have demonstrated a key feature in Maud, that is, direct inference on any parameter that arises from the data generating process. More succinctly, we show the benefit of error propagation that Bayesian inference provides as researchers can directly use quantiles for hypothesis testing.</p>
 <p>Our tool allows inference directly on the joint posterior distribution rather than the marginal parameter. The implication is that inference will be better than that of the marginal distributions due to correlated parameter values, if the data generating process can be directly modelled.</p>
-<div id="fig-decomposition" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-decomposition" class="quarto-layout-panel">
 <figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p><img src="./figures/decomposition.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: CAPTION: FILL THIS IN!</figcaption>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Illustration of how analysing a system with Maud can yield actionable insights about the underlying metabolic network. (<strong>Top Left</strong>) A schematic of the regulatory interactions associated with the enzyme <span class="math inline">\(GNMT1\)</span>. Dashed green lines represents allosteric activation, dashed red lines indicate allosteric inhibition and solid red lines represent competitive inhibition. (<strong>Bottom Left</strong>) Comparison of marginal posterior distributions for <span class="math inline">\(GNMT\)</span> flux in conditions 1 and 2. (<strong>Right</strong>) Log-scale ratios of the regulatory elements defined in equation <span class="math inline">\(\eqref{eq-decomposition}\)</span>. Note that the <span class="math inline">\(Reversibility\)</span> and <span class="math inline">\(k_cat\)</span> components are excluded: this is because this reaction was modelled as irreversible, and <span class="math inline">\(k_{cat}\)</span> was modelled as constant across conditions. These plots identify why flux in condition 2 is higher than in condition 1: the flux increase is due to allostery and saturation with no control from enzyme concentration changes.</figcaption><p></p>
 </figure>
 </div>
 </section>

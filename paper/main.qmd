@@ -181,7 +181,16 @@ the methionine cycle is highly regulated, with 6 known allosteric effectors
 methionine cycle requires a detailed kinetic model: this is why we chose it as a
 case study for Maud.
 
-![CAPTION - FILL THIS IN!](./figures/methionine-reactions.png){#fig-methionine-reactions}
+::: {#fig-methionine-reactions layout-ncol=1}
+
+![](./figures/methionine-reactions.png)
+
+The methionine cycle as modelled, with the solid black lines representing the
+reactions, the green lines representing allosteric interaction, and the red
+lines representing allosteric inhibition. The bold fonts are the reaction names
+and the regular font represents the metabolites.
+
+:::
 
 ## Dataset and model specification
 
@@ -378,7 +387,13 @@ such an approximation. This does not preclude the possibility that there is
 an alternative, more compact, way to summarise the results of Bayesian kinetic
 model inference; we leave research into this topic to future work.
 
-![CAPTION: FILL THIS IN!](./figures/laplace.png){#fig-laplace}
+::: {#fig-laplace layout-ncol=1}
+
+![](./figures/laplace.png)
+
+CAPTION: FILL THIS IN!
+
+:::
 
 ### Effect of missing metabolite concentration measurements 
 
@@ -407,7 +422,26 @@ availability of standards, column effects, and compartmentalisation. However,
 provided that sufficient information is available from other sources, our
 approach can produce sensible results from incomplete metabolomics data.
 
-![CAPTION: FILL THIS IN!](./figures/missing.png){#fig-missing}
+::: {#fig-missing layout-ncol=1}
+
+![](./figures/missing.png)
+
+Results of removing concentration measurements for the metabolite $ahcys_c$
+from our case study dataset.  (**Top**) A comparison of metabolite concentration
+residuals between the full measurement dataset (blue-green) and the missing-data
+dataset (grey), displayed on natural logarithmic scale. The missing-data
+model was unable to predict the withheld $ahcys_c$ concentrations.  (**Bottom
+Left**) The marginal posterior distribution for the Michaelis constant
+$K_m^{AHC1,ahcys_c}$ in each model, alongside the true parameter value used to
+generate both datasets. The true value is recovered by the complete-data model
+but not by the missing-data model.  (**Bottom Right**) The distribution of total
+log-likelihood for out-of-sample flux measurements in both models. There is a
+significant overlap between the two distributions, suggesting that removing the
+$ahcys_c$ measurement did not cause catastrophic prediction failure. However,
+overall the complete-data model tended to make better predictions.
+
+:::
+
 
 ### Application to regulatory understanding 
 
@@ -443,7 +477,26 @@ than the marginal parameter. The implication is that inference will be better
 than that of the marginal distributions due to correlated parameter values, if
 the data generating process can be directly modelled.
 
-![CAPTION: FILL THIS IN!](./figures/decomposition.png){#fig-decomposition}
+::: {#fig-decomposition layout-ncol=1}
+
+![](./figures/decomposition.png)
+
+Illustration of how analysing a system with Maud can yield actionable insights
+about the underlying metabolic network.  (**Top Left**) A schematic of the
+regulatory interactions associated with the enzyme $GNMT1$. Dashed green
+lines represents allosteric activation, dashed red lines indicate allosteric
+inhibition and solid red lines represent competitive inhibition. (**Bottom
+Left**) Comparison of marginal posterior distributions for $GNMT$ flux in
+conditions 1 and 2. (**Right**) Log-scale ratios of the regulatory elements
+defined in equation \eqref{eq-decomposition}. Note that the $Reversibility$
+and $k_cat$ components are excluded: this is because this reaction was modelled
+as irreversible, and $k_{cat}$ was modelled as constant across conditions.
+These plots identify why flux in condition 2 is higher than in condition 1: the
+flux increase is due to allostery and saturation with no control from enzyme
+concentration changes.
+
+:::
+
 
 # Methods
 

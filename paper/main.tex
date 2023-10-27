@@ -181,7 +181,7 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, breakable, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -362,11 +362,25 @@ kinetic model: this is why we chose it as a case study for Maud.
 
 \begin{figure}
 
-{\centering \includegraphics{./figures/methionine-reactions.png}
+\begin{minipage}[t]{\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{./figures/methionine-reactions.png}
 
 }
 
-\caption{\label{fig-methionine-reactions}CAPTION - FILL THIS IN!}
+}
+
+\end{minipage}%
+
+\caption{\label{fig-methionine-reactions}The methionine cycle as
+modelled, with the solid black lines representing the reactions, the
+green lines representing allosteric interaction, and the red lines
+representing allosteric inhibition. The bold fonts are the reaction
+names and the regular font represents the metabolites.}
 
 \end{figure}
 
@@ -603,9 +617,19 @@ research into this topic to future work.
 
 \begin{figure}
 
-{\centering \includegraphics{./figures/laplace.png}
+\begin{minipage}[t]{\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{./figures/laplace.png}
 
 }
+
+}
+
+\end{minipage}%
 
 \caption{\label{fig-laplace}CAPTION: FILL THIS IN!}
 
@@ -645,11 +669,36 @@ from incomplete metabolomics data.
 
 \begin{figure}
 
-{\centering \includegraphics{./figures/missing.png}
+\begin{minipage}[t]{\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{./figures/missing.png}
 
 }
 
-\caption{\label{fig-missing}CAPTION: FILL THIS IN!}
+}
+
+\end{minipage}%
+
+\caption{\label{fig-missing}Results of removing concentration
+measurements for the metabolite \(ahcys_c\) from our case study dataset.
+(\textbf{Top}) A comparison of metabolite concentration residuals
+between the full measurement dataset (blue-green) and the missing-data
+dataset (grey), displayed on natural logarithmic scale. The missing-data
+model was unable to predict the withheld \(ahcys_c\) concentrations.
+(\textbf{Bottom Left}) The marginal posterior distribution for the
+Michaelis constant \(K_m^{AHC1,ahcys_c}\) in each model, alongside the
+true parameter value used to generate both datasets. The true value is
+recovered by the complete-data model but not by the missing-data model.
+(\textbf{Bottom Right}) The distribution of total log-likelihood for
+out-of-sample flux measurements in both models. There is a significant
+overlap between the two distributions, suggesting that removing the
+\(ahcys_c\) measurement did not cause catastrophic prediction failure.
+However, overall the complete-data model tended to make better
+predictions.}
 
 \end{figure}
 
@@ -697,11 +746,35 @@ modelled.
 
 \begin{figure}
 
-{\centering \includegraphics{./figures/decomposition.png}
+\begin{minipage}[t]{\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{./figures/decomposition.png}
 
 }
 
-\caption{\label{fig-decomposition}CAPTION: FILL THIS IN!}
+}
+
+\end{minipage}%
+
+\caption{\label{fig-decomposition}Illustration of how analysing a system
+with Maud can yield actionable insights about the underlying metabolic
+network. (\textbf{Top Left}) A schematic of the regulatory interactions
+associated with the enzyme \(GNMT1\). Dashed green lines represents
+allosteric activation, dashed red lines indicate allosteric inhibition
+and solid red lines represent competitive inhibition. (\textbf{Bottom
+Left}) Comparison of marginal posterior distributions for \(GNMT\) flux
+in conditions 1 and 2. (\textbf{Right}) Log-scale ratios of the
+regulatory elements defined in equation \eqref{eq-decomposition}. Note
+that the \(Reversibility\) and \(k_cat\) components are excluded: this
+is because this reaction was modelled as irreversible, and \(k_{cat}\)
+was modelled as constant across conditions. These plots identify why
+flux in condition 2 is higher than in condition 1: the flux increase is
+due to allostery and saturation with no control from enzyme
+concentration changes.}
 
 \end{figure}
 
