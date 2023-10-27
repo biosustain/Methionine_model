@@ -223,10 +223,11 @@ measurement model described below in @sec-methionine-measurement-model.
 ### Measurement model {#sec-methionine-measurement-model}
 
 Generating an artificial dataset required a specification of the true
-measurement error; we specified a standard deviation of 0.1 on logarithmic
-scale for enzyme and metabolite concentration measurements, corresponding to
-approximately 10% measurement error and a standard deviation for each reaction
-measurement approximately 10% of the simulated value.
+measurement error. For enzyme and metabolite concentration measurements
+we specified a standard deviation of 0.1 on natural logarithmic scale,
+corresponding to approximately 10% measurement error. For each reaction
+measurement a measurement standard deviation of approximately 10% of the
+simulated value.
 
 These measurement error specifications are somewhat optimistic considering the
 many sources of variation and uncertainty affecting quantitative proteomics,
@@ -445,37 +446,32 @@ overall the complete-data model tended to make better predictions.
 
 ### Application to regulatory understanding 
 
-To investigate how the flux of GNMT between conditions [X] and [Y] changes
-we compared the regulatory contributions in the posterior distribution.
-Presented in [@fig-decomposition top left] is the regulatory description of
-GNMT, an irreversible enzyme that is homotropically activated by its substrate,
-competitively inhibited by its product and heterotropically inhibited. The
-diverse regulation makes it the ideal test case to elucidate regulatory changes.
+To demonstrate how Maud's output can be used to yield useful metabolic insights
+we used the results of our case study to explain why the flux of the enzyme
+$GNMT$ is higher in condition 1 than in condition 2. GNMT is an irreversible
+enzyme that is homotropically activated by its substrate, competitively
+inhibited by its product and heterotropically inhibited. The diverse regulation
+makes it the ideal test case to elucidate regulatory changes.
 
-Here we found that saturation and allosteric effects were the main drivers
-of regulation between the two conditions. @fig-decomposition shows the distributions
-of the regulatory components as the log-ratio of each component with [X] in
-the numerator and [Y] in the denominator, positive values suggest that this
-component was increased in experiment [X] relative to [Y], with 0 indicating no
-difference. Naturally, this presents the ideal statistical test when evaluating
-the regulation, with the probability of regulation given by the relative
-proportion of samples above and below the 0 point.
+@fig-decomposition shows the regulatory description of GNMT, according to the
+results our main case study analysis. Each curve shows the marginal posterior
+distribution of the ratio of the corresponding regulatory component in condition
+1 compared with condition 2. A positive value indicates that the component
+was increased in condition 1 relative to condition 2, with 0 indicating no
+difference. The probability, according to our model, of the component acting in
+each direction is given by the relative area under the curve on each side of the
+0 point.
 
-We demonstrate that Maud can accurately reproduce the regulatory effect between
-the two conditions by comparing it to the ground truth. As the true values are
-well within our probability mass of the posterior we can say that Maud is able
-to accurately reproduce the regulatory behaviour of metabolic networks and also
-provides a tool for statistical inference of the regulatory behaviour.
+Our model correctly inferred that saturation and allosteric effects were the
+main drivers of regulation between the two conditions in this case, with the
+curves for each component aligning with the ground truth shown in red.
 
-Here we have demonstrated a key feature in Maud, that is, direct inference on
-any parameter that arises from the data generating process. More succinctly,
-we show the benefit of error propagation that Bayesian inference provides as
-researchers can directly use quantiles for hypothesis testing.
-
-Our tool allows inference directly on the joint posterior distribution rather
-than the marginal parameter. The implication is that inference will be better
-than that of the marginal distributions due to correlated parameter values, if
-the data generating process can be directly modelled.
+Importantly, this form of analysis takes into account all modelled sources of
+uncertainty, including uncertainty about the true values of the flux in each
+condition, and propagates this uncertainty into the final conclusion. Our result
+shows that Maud could be used in this realistic case not only to provide a user
+with an explanation for an observed difference in fluxes, but also a reasonable
+judgement as to the explanation's robustness.
 
 ::: {#fig-decomposition layout-ncol=1}
 
