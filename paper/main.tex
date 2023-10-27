@@ -181,7 +181,7 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable, frame hidden, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -266,8 +266,9 @@ sacrificing mechanistic accuracy. Measurement uncertainty can naturally
 be represented in a Bayesian measurement model, whereas the prior model
 can represent quantitative uncertainty about kinetic parameters.
 Finally, kinetic rate laws can be represented in Bayesian data
-generation models with arbitrarily high fidelity. See (REFERENCES) for
-more about Bayesian inference and (REFERENCE) for a discussion of
+generation models with arbitrarily high fidelity. See
+\citet{gelmanBayesianDataAnalysis2020a} for more about Bayesian
+inference and \citet{gelmanBayesianWorkflow2020} for a discussion of
 practical Bayesian workflow.
 
 Another advantage is that Bayesian inference problems are well-posed
@@ -374,12 +375,22 @@ kinetic model: this is why we chose it as a case study for Maud.
 specification}\label{dataset-and-model-specification}}
 
 The simulated dataset and underlying kinetic model that we used for our
-analysis can be found in {[}\#Supplementary Info{]}.
+analysis can be found at
+\url{https://github.com/biosustain/Methionine_model/tree/main/data/methionine}
+and is described in supplementary information section {[}REFERENCE{]}.
 
 We constructed a kinetic model of the methionine cycle in Maud's format
 using the description in \citet{korendyaseva_allosteric_2008}. The
 ordinary differential equation system describing this model is shown in
 Equation\,\eqref{eq-meth-ode}.
+
+\begin{align}
+\frac{d[met]}{dt} &= v_{Influx} - v_{PROT} - v_{MAT} +v_{MS} + v_{BHMT} \label{eq-meth-ode} \\
+\frac{d[amet]}{dt} &= v_{MAT} - v_{GNMT} - v_{METH} \nonumber \\
+\frac{d[ahyc]}{dt} &= v_{GNMT} + v_{METH} - v_{AHC} \nonumber \\
+\frac{d[hyc-L]}{dt} &= v_{AHC} - v_{CBS} - v_{MS} - v_{BHMT} \nonumber \\
+\frac{d[5mthf]}{dt} &= v_{MTHFR} - v_{MS} \nonumber 
+\end{align}
 
 After specifying the qualitative aspects of the kinetic model, we
 selected parameter values to use as ground truth by Monte Carlo sampling
@@ -389,14 +400,12 @@ using a previous model of the methionine cycle as a starting point (see
 We used these parameters to simulate steady states in a range of
 plausible experimental conditions, again using \citet{saa_general_2015}
 as a starting point. These steady states were then used to generate
-simulated measurements using the measurement model described below.
+simulated measurements using the measurement model described below in
+Section~\ref{sec-methionine-measurement-model}.
 
-\begin{equation}
-a = b \label{eq-meth-ode}
-\end{equation}
-
-\hypertarget{measurement-model}{%
-\subsubsection{Measurement model}\label{measurement-model}}
+\hypertarget{sec-methionine-measurement-model}{%
+\subsubsection{Measurement
+model}\label{sec-methionine-measurement-model}}
 
 Generating an artificial dataset required a specification of the true
 measurement error; we specified a standard deviation of 0.1 on
@@ -443,18 +452,20 @@ specification}\label{maud-input-specification}}
 We constructed inputs in Maud's format for each of the analysed
 datasets, based on the scenario that the true kinetic model was known
 except for parameter values, which needed to be inferred from the
-training data and priors. These inputs can be found at XXXX.
+training data and priors. These inputs can be found at
+\url{https://github.com/biosustain/Methionine_model/tree/main/data}.
 
 The prior distributions and corresponding true parameter values used in
-our case study are shown in {[}Supplementary{]}. The first two columns
-show the 1\% and 99\% quantiles of each marginal prior distribution.
-True parameter value are shown in column three, and the last column
-shows the z-score on log scale of the true parameter value according the
-marginal prior distribution. As seen in table 2 {[}REFERENCE{]} there
-are 7 parameters for which the true value is outside the 1\%-99\% range.
-This is desirable, making the case study more realistic, because extreme
-deviance from the prior distribution is likely to occur in practice due
-to in vivo to in vitro measurement differences.
+our case study are shown in supplementary materials section
+{[}REFERENCE{]}. The first two columns show the 1\% and 99\% quantiles
+of each marginal prior distribution. True parameter value are shown in
+column three, and the last column shows the z-score on log scale of the
+true parameter value according the marginal prior distribution. As can
+be seen from the table, there are 7 parameters for which the true value
+is outside the 1\%-99\% range. This is desirable, making the case study
+more realistic, because extreme deviance from the prior distribution is
+likely to occur in practice due to in vivo to in vitro measurement
+differences.
 
 \hypertarget{computation}{%
 \subsubsection{Computation}\label{computation}}
@@ -511,14 +522,15 @@ distribution. This finding is consistent with previous analyses of
 biological systems that found they are ``sloppy'', that is, sensitive to
 parameter combinations rather than marginal parameter values, with
 important combinations, scales and regions of sensitivity being
-difficult to ascertain in advance \citet{gutenkunst_2007},
-\citet{poirier_revising_1998}.
+difficult to ascertain in advance
+\citep{gutenkunst_2007, poirier_revising_1998}.
 
 The question naturally arises whether the crucial high-dimensional
 parameter correlations are linear or non-linear. This is relevant to the
 question of model performance, as linear correlations are easier to
 correct for. A linearly correlated posterior space would also be easier
-to summarise. We address this question below in section XXX.
+to summarise. We address this question below in
+Section~\ref{sec-laplace}.
 
 This case study illustrates the type of kinetic model and dataset that
 Maud can fit. The model we analysed has XXX reactions, XXX state
@@ -527,12 +539,13 @@ Hamiltonian Monte Carlo generated XXX ESS/hour. Generalising from this
 result, we conclude that it is feasible to use this method to fit models
 in the same order of magnitude, but not, for example, genome-scale
 kinetic models. To fit larger models, faster steady state solving
-methods or alternative inference algorithms will be required. Section
-XXX addresses whether Laplace approximation is a suitable candidate.
+methods or alternative inference algorithms will be required.
+Section~\ref{sec-laplace} addresses whether Laplace approximation is a
+suitable candidate.
 
-\hypertarget{comparison-with-laplace-approximation}{%
+\hypertarget{sec-laplace}{%
 \subsubsection{Comparison with Laplace
-approximation}\label{comparison-with-laplace-approximation}}
+approximation}\label{sec-laplace}}
 
 We found that the Laplace method was not able to produce an accurate
 posterior approximation for our model and dataset.
@@ -541,7 +554,8 @@ The Laplace approximation yielded XXX samples in XXX time. The
 diagnostics indicated that our algorithm was able to find the maximum a
 posteriori parameter configuration, approximate the Hessian and use
 these quantities to generate approximate posterior samples. The results
-can be found at XXX.
+can be found at
+\url{https://github.com/biosustain/Methionine_model/tree/main/results}.
 
 Figure~\ref{fig-laplace} summarises the results of comparing the Laplace
 approximation of our case study's posterior distribution with the true
@@ -698,9 +712,9 @@ Maud is a command line application implementing Bayesian inference for a
 wide range of realistic kinetic models. Maud is written in Python
 \citep{vanrossumPythonReferenceManual2009}, designed for use on Windows,
 macOS and Linux, registered on the Python Package Index as
-\texttt{maud-metabolic-models}, documented at \textless https://maud-
-metabolic-models.readthedocs.io\textgreater{} and actively developed and
-maintained at \url{https://github.com/biosustain/Maud/}.
+\texttt{maud-metabolic-models}, documented at
+\url{https://maud-metabolic-models.readthedocs.io} and actively
+developed and maintained at \url{https://github.com/biosustain/Maud/}.
 
 To use Maud, a user must first collate appropriate input information,
 represent it in files with Maud's required formats (see section
@@ -712,7 +726,7 @@ stored in files, using a structured, interoperable format.
 \subsection{Input format}\label{input-format}}
 
 Maud inputs are structured directories, somewhat inspired by the PEtab
-format \citet{SchmiesterSch2021}. A Maud input directory must contain a
+format \citep{SchmiesterSch2021}. A Maud input directory must contain a
 toml \citep{preston-wernertomandgedampradyunTOMLSpecification0rc2020}
 file called \texttt{config.toml} which gives the input a name,
 configures how Maud will be run and tells Maud where to find the other
@@ -752,8 +766,8 @@ Maud's kinetic model decomposes into factors as shown in equation
 F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allostery \label{eq-decomposition}
 \end{equation}
 
-Each of the terms on the right-hand side of (REFER TO EQUATION) is a
-function of \(C\) and \(\theta\). This idea is taken from
+Each of the terms on the right-hand side of \eqref{eq-decomposition} is
+a function of \(C\) and \(\theta\). This idea is taken from
 \citet{noor_note_2013}. The terms usefully gather physically meaningful
 and conceptually distinct factors contributing to reaction fluxes.
 \(Enzyme\) captures the effect of enzyme concentration, \(k_{cat}\) that
@@ -796,14 +810,15 @@ Maud's prior model includes unknown parameters corresponding to
 quantities in the kinetic model that are assumed to be unknown, other
 than steady state metabolite concentrations and fluxes, which are
 derived from the values of other parameters by solving the steady state
-problem. See Table 1 (REFERENCE) for a description of all these
-parameters and their dimensions. Note that some quantities in Maud's
-kinetic model are not treated as parameters: for example, temperatures,
-compartment volumes and the formation energy of water. Maud treats these
-quantities as if they were known precisely: they can be configured by
-the user or default values can be used. Although in practice there can
-be considerable uncertainty regarding these quantities, we chose to
-disregard this uncertainty in the interest of simplicity.
+problem. See table (REFERENCE) in this paper's supplementary materials
+for a description of all these parameters and their dimensions. Note
+that some quantities in Maud's kinetic model are not treated as
+parameters: for example, temperatures, compartment volumes and the
+formation energy of water. Maud treats these quantities as if they were
+known precisely: they can be configured by the user or default values
+can be used. Although in practice there can be considerable uncertainty
+regarding these quantities, we chose to disregard this uncertainty in
+the interest of simplicity.
 
 Except for metabolites' standard condition Gibbs energy changes of
 formation, Maud uses independent normal prior distributions for
@@ -814,8 +829,8 @@ multivariate normal prior distribution. Location, scale and covariance
 parameters for all these prior distributions can be selected freely by
 the user.
 
-\hypertarget{measurement-model-1}{%
-\subsubsection{Measurement model}\label{measurement-model-1}}
+\hypertarget{measurement-model}{%
+\subsubsection{Measurement model}\label{measurement-model}}
 
 Maud's measurement model considers three types of measurement:
 metabolite concentration measurements, enzyme concentration measurements
@@ -834,17 +849,14 @@ of quantitative metabolomics and proteomics experiments. The likelihood
 functions for such measurements are shown in equations
 Equation\,\eqref{eq-yconc} and Equation\,\eqref{eq-yenz}.
 
-\begin{equation}
-y_i^{conc} \sim LN(\ln{\hat{y}_i^{conc}}, \sigma_i^{conc})\label{eq-yconc}
-\end{equation}
-
-\begin{equation}
-y_i^{enz} \sim LN(\ln{\hat{y}_i^{enz}}, \sigma_i^{enz})\label{eq-yenz}
-\end{equation}
+\begin{align}
+y_i^{conc} &\sim LN(\ln{\hat{y}_i^{conc}}, \sigma_i^{conc})\label{eq-yconc} \\
+y_i^{enz} &\sim LN(\ln{\hat{y}_i^{enz}}, \sigma_i^{enz})\label{eq-yenz}
+\end{align}
 
 Both equations are log-normal generalised linear models with a standard
 link function (the natural logarithm \(\ln\)) and known standard
-deviation \$ \sigma\_\{𝑐𝑜𝑛𝑐\}\$. The use of this measurement model is
+deviation \(\sigma_{𝑐𝑜𝑛𝑐}\). The use of this measurement model is
 motivated by the consideration that concentrations are constrained to be
 non-negative, so the measurement model should avoid assigning positive
 probability mass to negative metabolite concentration values. In
@@ -895,12 +907,13 @@ Finally, the reader may wonder why Maud uses a linear regression model
 for reaction flux measurements even though this creates the potential
 for erroneous double counting and requires non-trivial upstream
 modelling, as intracellular fluxes typically cannot be measured
-directly, but must be inferred from isotope labelling experiments using
-metabolic flux analysis (see REFERENCE). Ideally Maud's measurement
-model for fluxes would extend from fluxes to the results of potential
-labelling experiments, thereby removing the need for upstream analysis
-and avoiding any double counting. This option has not yet been pursued,
-again for the sake of simplicity.
+directly. Instead, fluxes are typically inferred from isotope labelling
+experiments using metabolic flux analysis: see
+\citet{daiUnderstandingMetabolismFlux2017} for more about this method.
+Ideally Maud's measurement model for fluxes would extend from fluxes to
+the results of potential labelling experiments, thereby removing the
+need for upstream analysis and avoiding any double counting. This option
+has not yet been pursued, again for the sake of simplicity.
 
 \hypertarget{implementation}{%
 \subsection{Implementation}\label{implementation}}
@@ -935,8 +948,8 @@ Although integrals of the joint probability model for kinetic models are
 typically analytically intractable, they can be approximated numerically
 using Markov Chain Monte Carlo (MCMC) and other methods. Maud uses MCMC
 primarily because there exist many methods for verifying that MCMC
-samples really do approximate the target probability distribution:
-see@vehtariRankNormalizationFoldingLocalization2021 and
+samples really do approximate the target probability distribution: see
+\citet{vehtariRankNormalizationFoldingLocalization2021} and
 \citet{taltsValidatingBayesianInference2018} for discussion of this
 point. In addition, there are several examples of successful Bayesian
 kinetic modelling projects using MCMC including
