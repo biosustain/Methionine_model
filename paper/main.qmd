@@ -548,7 +548,7 @@ by the user.
 
 Maud’s measurement model considers three types of measurement: metabolite
 concentration measurements, enzyme concentration measurements and flux
-measurements, represented by vectors $𝑦_{𝑐𝑜𝑛𝑐}$ $𝑦_{𝑒𝑛𝑧}$ and $𝑦_{𝑓𝑙𝑢𝑥}$
+measurements, represented by vectors $𝑦^{𝑐𝑜𝑛𝑐}$ $𝑦^{𝑒𝑛𝑧}$ and $𝑦^{𝑓𝑙𝑢𝑥}$
 respectively.
 
 All measurements are specific to an experimental condition; that is, a case
@@ -560,9 +560,16 @@ number of times in any condition.
 
 Metabolite and enzyme measurements are intended to represent the results of
 quantitative metabolomics and proteomics experiments. The likelihood functions
-for such measurements are shown in equations Equation 6 and Equation 7.
+for such measurements are shown in equations Equation \eqref{eq-yconc} and
+Equation \eqref{eq-yenz}.
 
-EQUATIONS
+\begin{equation}
+y_i^{conc} \sim LN(\ln{\hat{y}_i^{conc}}, \sigma_i^{conc})\label{eq-yconc}
+\end{equation}
+
+\begin{equation}
+y_i^{enz} \sim LN(\ln{\hat{y}_i^{enz}}, \sigma_i^{enz})\label{eq-yenz}
+\end{equation}
 
 Both equations are log-normal generalised linear models with a standard
 link function (the natural logarithm $\ln$) and known standard deviation
@@ -579,7 +586,7 @@ measuring apparatus.
 
 Flux measurements, representing the results of quantitative fluxomics analyses,
 are modelled using a likelihood function from a standard linear regression
-model, as shown in equation 8 (REFERENCE). Flux measurements can be obtained
+model, as shown in equation \eqref{eq-yflux}. Flux measurements can be obtained
 from the results of isotope labelling experiments using metabolic flux analysis,
 for example as described in (Young 2014). When entering flux measurements,
 it is important only to specify measurements for a network’s free fluxes, as
@@ -588,7 +595,9 @@ by others, with the result that dependent fluxes cannot typically be measured
 separately. If measurements of multiple dependent fluxes are entered,
 information will inappropriately be double counted.
 
-EQUATION
+\begin{equation}
+y_i^{flux} \sim LN(\ln{\hat{y}_i^{flux}}, \sigma_i^{flux})\label{eq-yflux}
+\end{equation}
 
 Our measurement model improves on analyses of metabolomics and proteomics
 data that assume a regression model with normally distributed errors, whether
