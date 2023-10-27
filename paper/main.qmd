@@ -52,7 +52,7 @@ kinetic models pose serious computational challenges for Bayesian inference
 The scope of a kinetic model is defined by a stoichiometric matrix, $S$, in
 which rows represent metabolites, columns represent reactions, and matrix
 elements $s_{ij}$ represent the stoichiometric coefficient of metabolite $i$ in
-reaction $j$. The change in metabolite concentrations is
+reaction $j$. The change in metabolite concentrations is:
 
 \begin{equation}\label{eq-1}
 \frac{dC}{dt} = S\cdot v - \mu\cdot C 
@@ -106,7 +106,7 @@ Another advantage is that Bayesian inference problems are well-posed even when
 not all parameters are strongly identified. Sloppy models in which measurable
 quantities are sensitive to combinations of parameters but not to individual
 marginal parameter values are ubiquitous in models of biological systems
-[gutenkunst_2007; @white_2016]. The parameter correlation structure represents
+[@gutenkunst_2007; @white_2016]. The parameter correlation structure represents
 the set of potential models that describe the observed data. As we demonstrate
 in our case study below, capturing this correlation structure is difficult
 outside a Bayesian context.
@@ -192,7 +192,7 @@ We constructed a kinetic model of the methionine cycle in Maud’s format using
 the description in @korendyaseva_allosteric_2008. The ordinary differential
 equation system describing this model is shown in Equation \eqref{eq-meth-ode}.
 
-After specifying the qualitative aspects of the kinetic model, we chose
+After specifying the qualitative aspects of the kinetic model, we selected
 parameter values to use as ground truth by Monte Carlo sampling using a previous
 model of the methionine cycle as a starting point (see @saa_general_2015 for
 this model).
@@ -257,7 +257,7 @@ to in vivo to in vitro measurement differences.
 ### Computation
 
 We conducted adaptive Hamiltonian Monte Carlo sampling for the full and missing-
-data datasets, obtaining XXX post-warmup samples after XXX of total computation
+-data datasets, obtaining XXX post-warmup samples after XXX of total computation
 time. For the Laplace approximation comparison, we used Maud’s Laplace mode.
 Full details as well as instructions for reproducing our analysis can be found
 at XXX.
@@ -273,7 +273,7 @@ was within 1% of 1, indicating appropriate mixing within and between Markov
 chains. Additionally, the number of effective samples was high, indicating
 that we generated enough posterior samples to support inferences about the
 bulks of the distributions of the sampled parameters. Furthermore, we observed
-no post-warmup divergent transitions, indicating that the sampler was able to
+no post warm-up divergent transitions, indicating that the sampler was able to
 transform the log-posterior distribution, avoiding any regions with excessive
 curvature that might inhibit exploration via HMC.
 
@@ -287,13 +287,13 @@ these are highly correlated. The marginal posterior distributions for most
 kinetic parameters did not shrink significantly compared with the corresponding
 marginal prior distributions, even though these parameters’ joint posterior
 distribution contained enough information to make accurate out of sample
-predictions. In some cases, there were two-dimensional correlations such as the
-one shown in the bottom left of figure 3; in this case the marginal distribution
-of the two parameters is roughly banana shaped. More commonly, however, two-
-dimensional pair plots were insufficient to reveal the underlying correlation
-structure, as seen in the bottom-right plot in figure 3. This does not mean that
-the parameters were uncorrelated, but rather that the correlations involve more
-than two parameters.
+predictions. In some cases, there were two-dimensional correlations such
+as the one shown in the bottom left of figure 3; in this case the marginal
+distribution of the two parameters is roughly banana shaped. More commonly,
+however, two-dimensional pair plots were insufficient to reveal the underlying
+correlation structure, as seen in the bottom-right plot in figure 3. This does
+not mean that the parameters were uncorrelated, but rather that the correlations
+involve more than two parameters.
 
 Overall, our results show that Maud can fit a realistic pathway-sized dataset.
 This was achieved without fixing the marginal values of kinetic parameters: the
@@ -326,7 +326,7 @@ approximation for our model and dataset.
 
 The Laplace approximation yielded XXX samples in XXX time. The diagnostics
 indicated that our algorithm was able to find the maximum a posteriori parameter
-configuration, approximate the Hessian  and use these quantities to generate
+configuration, approximate the Hessian and use these quantities to generate
 approximate posterior samples. The results can be found at XXX.
 
 @fig-laplace summarises the results of comparing the Laplace approximation of our
@@ -362,7 +362,7 @@ we recommend that Maud users use MCMC sampling if possible.
 Our results here also provide circumstantial evidence that the parameter
 correlations in Bayesian kinetic model posteriors tend to be non-linear, as
 a posterior with only linear correlations would likely be more germane to
-Laplace approximation.A conclusion that we drew from this analysis was that
+Laplace approximation. A conclusion that we drew from this analysis was that
 the results of fitting our model cannot be summarised simply, for example by
 fitting a multivariate normal distribution to the posterior draws. We therefore
 recommend that Maud users store the full set of MCMC draws rather than using
@@ -441,7 +441,7 @@ the data generating process can be directly modelled.
 
 Maud is a command line application implementing Bayesian inference for
 a wide range of realistic kinetic models. Maud is written in Python
-[@vanrossumPythonReferenceManual2009], designed for use on Windows, Macos
+[@vanrossumPythonReferenceManual2009], designed for use on Windows, macOS
 and Linux, registered on the Python Package Index as `maud-metabolic-models`,
 documented at <https://maud- metabolic-models.readthedocs.io> and actively
 developed and maintained at <https://github.com/biosustain/Maud/>.
@@ -475,9 +475,9 @@ requirements for an input format included that it be mathematics-free, so that
 all mathematical details are encapsulated in source code, and that it has a
 detailed, verifiable structure. These requirements made toml more attractive
 than SBML: toml is easier for humans to read and edit and can straightforwardly
-be validated using tools like pydantic. Further, an SBML representation of our
+be validated using tools like Pydantic. Further, an SBML representation of our
 desired input would not contain differential equations.  It would therefore not
-be interoperable with most SBML-targeting software, which typically assumes that
+be interoperable with most SBML targeting software, which typically assumes that
 differential equations are available and does not know about Maud’s structure.
 
 ## Kinetic model 
@@ -489,8 +489,8 @@ Maud’s kinetic model decomposes into factors as shown in equation
 F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allostery \label{eq-decomposition}
 \end{equation}
 
- Each of the terms on the right-hand side of (REFER TO EQUATION) is a function
-of  $C$ and $\theta$. This idea is taken from @noor_note_2013. The terms
+Each of the terms on the right-hand side of (REFER TO EQUATION) is a function
+of $C$ and $\theta$. This idea is taken from @noor_note_2013. The terms
 usefully gather physically meaningful and conceptually distinct factors
 contributing to reaction fluxes. $Enzyme$ captures the effect of enzyme
 concentration, $k_{cat}$ that of enzyme efficiency, $Reversibility$ quantifies
@@ -541,8 +541,8 @@ Maud uses independent normal prior distributions for parameters that can in
 principle be both negative and positive. For parameters that are constrained to
 be positive, Maud uses independent log-normal distributions. Formation energy
 parameters have a multivariate normal prior distribution. Location, scale and
-covariance parameters for all these prior distributions can be chosen freely by
-the user.
+covariance parameters for all these prior distributions can be selected freely
+by the user.
 
 ### Measurement model 
 
@@ -551,7 +551,7 @@ concentration measurements, enzyme concentration measurements and flux
 measurements, represented by vectors $𝑦_{𝑐𝑜𝑛𝑐}$ $𝑦_{𝑒𝑛𝑧}$ and $𝑦_{𝑓𝑙𝑢𝑥}$
 respectively.
 
-All measurements are specific to an experimental condition - that is, a case
+All measurements are specific to an experimental condition; that is, a case
 where the true state of the network, including knockouts, boundary conditions
 and state variables as well as kinetic and thermodynamic parameters, can safely
 be assumed to be the same. Maud’s statistical model allows for arbitrarily many
@@ -579,13 +579,13 @@ measuring apparatus.
 
 Flux measurements, representing the results of quantitative fluxomics analyses,
 are modelled using a likelihood function from a standard linear regression
-model, as shown in equation Equation 8 (REFERENCE). Flux measurements can be
-obtained from the results of isotope labelling experiments using metabolic
-flux analysis, for example as described in (Young 2014). When entering flux
-measurements, it is important only to specify measurements for a network’s free
-fluxes, as the values of some steady state fluxes in a metabolic network are
-constrained by others, with the result that dependent fluxes cannot typically be
-measured separately. If measurements of multiple dependent fluxes are entered,
+model, as shown in equation 8 (REFERENCE). Flux measurements can be obtained
+from the results of isotope labelling experiments using metabolic flux analysis,
+for example as described in (Young 2014). When entering flux measurements,
+it is important only to specify measurements for a network’s free fluxes, as
+the values of some steady state fluxes in a metabolic network are constrained
+by others, with the result that dependent fluxes cannot typically be measured
+separately. If measurements of multiple dependent fluxes are entered,
 information will inappropriately be double counted.
 
 EQUATION
@@ -608,7 +608,7 @@ measurement accuracy. However, we chose to use a simpler measurement model
 to avoid the complexity and potential fitting issues that these changes would
 entail.
 
-Finally, the reader may wonder why we chose a linear regression model for
+Finally, the reader may wonder why Maud uses a linear regression model for
 reaction flux measurements even though this creates the potential for erroneous
 double counting and requires non-trivial upstream modelling, as intracellular
 fluxes typically cannot be measured directly, but must be inferred from isotope
@@ -621,18 +621,18 @@ for the sake of simplicity.
 ## Implementation 
 
 Maud uses the Python library click [@clickdevelopersClickPythonComposable2022]
-to implement a command line interface. The command line interface loads
-input files as Python dictionaries, which are parsed using the Python library
-`toml` [@pearsonTomlPythonLibrary2020] and then validated and converted into
-structured `MaudInput` objects using Pydantic [@pydanticdevelopersPydantic2022].
-Maud’s statistical model is implemented in the probabilistic programming
-language Stan [@carpenterStanProbabilisticProgramming2017] and accessed using
-the interface cmdstanpy [@standevelopmentteamCmdStanPy2022]. For posterior
-sampling, Maud uses the `MaudInput` to create a Stan input json file and
-obtain configuration information for cmdstanpy, which it uses to (if necessary)
-generate a model executable file and then trigger posterior sampling using
-adaptive Hamiltonian Monte Carlo. When sampling is complete, Maud converts to
-the output into the standard format InferenceData using the Python library arviz
+to implement a command line interface. The command line interface loads input
+files as Python dictionaries, which are parsed using the Python library `toml`
+[@pearsonTomlPythonLibrary2020] and then validated and converted into structured
+`MaudInput` objects using Pydantic [@pydanticdevelopersPydantic2022]. Maud’s
+statistical model is implemented in the probabilistic programming language Stan
+[@carpenterStanProbabilisticProgramming2017] and accessed using the interface
+cmdstanpy [@standevelopmentteamCmdStanPy2022]. For posterior sampling, Maud
+uses the `MaudInput` to create a Stan input json file and obtain configuration
+information for cmdstanpy, which it uses to (if necessary) generate a
+model executable file and then trigger posterior sampling using adaptive
+Hamiltonian Monte Carlo. When sampling is complete, Maud converts to the
+output into the standard format `InferenceData` using the Python library arviz
 [@kumarArviZUnifiedLibrary2019] and saves it as a json file, along with some
 information for debugging.
 
@@ -659,7 +659,7 @@ repeatedly solve the steady state problem \eqref{eq-3} and find its
 gradients with respect to all parameters. To achieve this, Maud uses a
 hybrid method involving two numerical solvers from the SUNDIALS suite
 [@serbanCVODESSensitivityEnabledODE2005]: CVODES and IDAS. These solvers are
-accessed via their interface from Stan. The hybrid method follows that propsed
+accessed via their interface from Stan. The hybrid method follows that proposed
 by @margossianComputingSteadyStates2018, and involves numerically evolving
 the ODE system for a short period of time, then using the difference between
 the evolved and starting concentrations as the target for a numerical algebra

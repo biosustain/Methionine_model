@@ -3,10 +3,11 @@
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
-\documentclass[
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod]{scrartcl}
+\documentclass[journal=,manuscript=]{achemso}
+\usepackage[version=3]{mhchem}
+\newcommand*\mycommand[1]{\texttt{\emph{#1}}}
+
+
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -77,31 +78,7 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\KOMAoption{captions}{tableheading}
 \makeatletter
 \makeatother
 \makeatletter
@@ -171,12 +148,26 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Hierarchical Bayesian regression modelling predicts biochemical
+\author{Teddy Groves}
+\affiliation{ DTU Biosustain,  }
+
+
+\email{tedgro@biosustain.dtu.dk}
+\author{Nicholas Luke Cowie}
+\affiliation{ DTU Biosustain,  }
+
+
+\author{Lars Keld Nielsen}
+\affiliation{ DTU Biosustain,  }
+
+
+
+
+
+\title[]{Hierarchical Bayesian regression modelling predicts biochemical
 rection energies and facilitates quantitative modelling of cell
 metabolism}
-\author{Teddy Groves \and Nicholas Luke Cowie \and Lars Keld Nielsen}
-\date{}
-
+\makeatletter
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -190,7 +181,7 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, breakable, sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, enhanced, frame hidden, breakable, boxrule=0pt, sharp corners, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -205,28 +196,29 @@ A kinetic model of cellular metabolism aims to express what is known
 about a cellular process in the form of an \emph{in silico}
 representation of the underlying network of chemical reactions. Kinetic
 models can be used to improve production of target molecules, determine
-regulatory networks (Christodoulou et al. 2018) and identify potential
-drug targets (DeBerardinis and Chandel 2016; Liberti et al. 2017).
-However, the use of kinetic models in practice is hindered by their
-dependence on noisy and uncertain information sources. Quantitative in
-vivo measurements of chemical abundances, and in vitro measurements
-relating to kinetic parameters, both contain vital information but are
-notoriously inaccurate (REFERENCES). Practically useful kinetic
-modelling therefore requires a principled statistical approach that
-encompasses multiple possible model parameterisations.
+regulatory networks \citep{christodoulou_reserve_2018} and identify
+potential drug targets
+\citep{deberardinis_fundamentals_2016, Liberti2017}. However, the use of
+kinetic models in practice is hindered by their dependence on noisy and
+uncertain information sources. Quantitative in vivo measurements of
+chemical abundances, and in vitro measurements relating to kinetic
+parameters, both contain vital information but are notoriously
+inaccurate (REFERENCES). Practically useful kinetic modelling therefore
+requires a principled statistical approach that encompasses multiple
+possible model parameterisations.
 
 Bayesian statistical inference can combine the structural information
 implicit in kinetic models with knowledge about metabolic parameters and
-information from omics measurements (P. A. Saa and Nielsen 2016;
-Gopalakrishnan, Dash, and Maranas 2020). However, kinetic models pose
-serious computational challenges for Bayesian inference (Gutenkunst et
-al. 2007; A. Raue et al. 2010).
+information from omics measurements
+\citep{saa_construction_2016, gopalakrishnan_k-fit_2020}. However,
+kinetic models pose serious computational challenges for Bayesian
+inference \citep{gutenkunst_2007, raue_identifiability_2010}.
 
 The scope of a kinetic model is defined by a stoichiometric matrix,
 \(S\), in which rows represent metabolites, columns represent reactions,
 and matrix elements \(s_{ij}\) represent the stoichiometric coefficient
 of metabolite \(i\) in reaction \(j\). The change in metabolite
-concentrations is
+concentrations is:
 
 \begin{equation}\label{eq-1}
 \frac{dC}{dt} = S\cdot v - \mu\cdot C 
@@ -282,11 +274,11 @@ Another advantage is that Bayesian inference problems are well-posed
 even when not all parameters are strongly identified. Sloppy models in
 which measurable quantities are sensitive to combinations of parameters
 but not to individual marginal parameter values are ubiquitous in models
-of biological systems {[}gutenkunst\_2007; White et al. (2016){]}. The
-parameter correlation structure represents the set of potential models
-that describe the observed data. As we demonstrate in our case study
-below, capturing this correlation structure is difficult outside a
-Bayesian context.
+of biological systems \citep{gutenkunst_2007, white_2016}. The parameter
+correlation structure represents the set of potential models that
+describe the observed data. As we demonstrate in our case study below,
+capturing this correlation structure is difficult outside a Bayesian
+context.
 
 Previous Bayesian kinetic models have either sacrificed mechanistic
 accuracy or have attempted to fit realistic kinetic models using
@@ -295,36 +287,38 @@ obsolete or unreliable computational methods.
 The most popular algorithm for fitting Bayesian statistical models is
 Markov Chain Monte Carlo (MCMC). Modern MCMC algorithms allow
 exploration of high- dimensional posterior distributions, have robust
-failure diagnostics (Vehtari et al. 2021) and can incorporate fast
-numerical solvers, thereby making inference feasible for Bayesian
-kinetic models. Nonetheless, the kinetic modelling literature reports an
-aversion to MCMC, rooted mainly in concerns about sampling time and the
-presumed difficulty of implementing the required statistical model
-(Andreas Raue et al. 2013; P. A. Saa and Nielsen 2016). We are only
-aware of two recent attempts to implement a Bayesian kinetic modelling
-approach using MCMC. Stapor et al. (2018) fitted detailed kinetic models
-using relatively inefficient MCMC algorithms that do not scale well to
-high dimensional parameter spaces limiting the scope of modelling.
-Conversely, St. John et al. (2018) utilises an efficient sampling
-algorithm but uses approximate kinetics, namely lin-log kinetics Visser
-and Heijnen (2003), limiting the scope of interpreting parameters and
-inferring cellular behaviour in experimental conditions outside the
-reference dataset.
+failure diagnostics
+\citep{vehtariRankNormalizationFoldingLocalization2021} and can
+incorporate fast numerical solvers, thereby making inference feasible
+for Bayesian kinetic models. Nonetheless, the kinetic modelling
+literature reports an aversion to MCMC, rooted mainly in concerns about
+sampling time and the presumed difficulty of implementing the required
+statistical model \citep{raue_joining_2013, saa_construction_2016}. We
+are only aware of two recent attempts to implement a Bayesian kinetic
+modelling approach using MCMC. \citet{stapor_pesto_2018} fitted detailed
+kinetic models using relatively inefficient MCMC algorithms that do not
+scale well to high dimensional parameter spaces limiting the scope of
+modelling. Conversely, \citet{st.johnBayesianInferenceMetabolic2018}
+utilises an efficient sampling algorithm but uses approximate kinetics,
+namely lin-log kinetics \citet{visser_dynamic_2003}, limiting the scope
+of interpreting parameters and inferring cellular behaviour in
+experimental conditions outside the reference dataset.
 
 There have also been efforts to implement Bayesian inference for kinetic
 models without the use of MCMC. Examples of alternative inference
-methods include variational inference as in St. John et al. (2018),
-rejection sampling and approximate Bayesian computation P. A. Saa and
-Nielsen (2016) and Laplace approximation, in which the Fisher
-information matrix is used to calculate a normal approximation around
-the maximum a posteriori parameter configuration (Liebermeister and Noor
-2021; Gopalakrishnan, Dash, and Maranas 2020; Stapor et al. 2018;
-Andreas Raue et al. 2013). Non-MCMC-based Bayesian kinetic models have
-limited utility because they lack reliable diagnostic tools for
-verifying that their results approximate the target posterior
-distribution. This is a problem because realistic kinetic models tend to
-induce highly correlated, non-Gaussian, joint probability distributions
-(Gutenkunst et al. 2007; Stapor et al. 2018).
+methods include variational inference as in
+\citet{st.johnBayesianInferenceMetabolic2018}, rejection sampling and
+approximate Bayesian computation \citet{saa_construction_2016} and
+Laplace approximation, in which the Fisher information matrix is used to
+calculate a normal approximation around the maximum a posteriori
+parameter configuration
+\citep{liebermeister_model_2021, gopalakrishnan_k-fit_2020, stapor_pesto_2018, raue_joining_2013}.
+Non-MCMC-based Bayesian kinetic models have limited utility because they
+lack reliable diagnostic tools for verifying that their results
+approximate the target posterior distribution. This is a problem because
+realistic kinetic models tend to induce highly correlated, non-Gaussian,
+joint probability distributions
+\citep{gutenkunst_2007, stapor_pesto_2018}.
 
 Our application Maud is the first Bayesian kinetic model to combine
 biologically realistic mechanistic accuracy---including accurate rate
@@ -383,17 +377,17 @@ The simulated dataset and underlying kinetic model that we used for our
 analysis can be found in {[}\#Supplementary Info{]}.
 
 We constructed a kinetic model of the methionine cycle in Maud's format
-using the description in Korendyaseva et al. (2008). The ordinary
-differential equation system describing this model is shown in
+using the description in \citet{korendyaseva_allosteric_2008}. The
+ordinary differential equation system describing this model is shown in
 Equation\,\eqref{eq-meth-ode}.
 
-After specifying the qualitative aspects of the kinetic model, we chose
-parameter values to use as ground truth by Monte Carlo sampling using a
-previous model of the methionine cycle as a starting point (see P. Saa
-and Nielsen (2015) for this model).
+After specifying the qualitative aspects of the kinetic model, we
+selected parameter values to use as ground truth by Monte Carlo sampling
+using a previous model of the methionine cycle as a starting point (see
+\citet{saa_general_2015} for this model).
 
 We used these parameters to simulate steady states in a range of
-plausible experimental conditions, again using P. Saa and Nielsen (2015)
+plausible experimental conditions, again using \citet{saa_general_2015}
 as a starting point. These steady states were then used to generate
 simulated measurements using the measurement model described below.
 
@@ -466,7 +460,7 @@ to in vivo to in vitro measurement differences.
 \subsubsection{Computation}\label{computation}}
 
 We conducted adaptive Hamiltonian Monte Carlo sampling for the full and
-missing- data datasets, obtaining XXX post-warmup samples after XXX of
+missing- -data datasets, obtaining XXX post-warmup samples after XXX of
 total computation time. For the Laplace approximation comparison, we
 used Maud's Laplace mode. Full details as well as instructions for
 reproducing our analysis can be found at XXX.
@@ -479,12 +473,13 @@ reproducing our analysis can be found at XXX.
 
 Running standard diagnostic checks indicated that the samples we
 generated were from the target posterior distribution. The improved
-\(\hat{R}\) statistic (Vehtari et al. 2021) for every sampled variable
-was within 1\% of 1, indicating appropriate mixing within and between
-Markov chains. Additionally, the number of effective samples was high,
-indicating that we generated enough posterior samples to support
-inferences about the bulks of the distributions of the sampled
-parameters. Furthermore, we observed no post-warmup divergent
+\(\hat{R}\) statistic
+\citep{vehtariRankNormalizationFoldingLocalization2021} for every
+sampled variable was within 1\% of 1, indicating appropriate mixing
+within and between Markov chains. Additionally, the number of effective
+samples was high, indicating that we generated enough posterior samples
+to support inferences about the bulks of the distributions of the
+sampled parameters. Furthermore, we observed no post warm-up divergent
 transitions, indicating that the sampler was able to transform the
 log-posterior distribution, avoiding any regions with excessive
 curvature that might inhibit exploration via HMC.
@@ -502,7 +497,7 @@ parameters' joint posterior distribution contained enough information to
 make accurate out of sample predictions. In some cases, there were
 two-dimensional correlations such as the one shown in the bottom left of
 figure 3; in this case the marginal distribution of the two parameters
-is roughly banana shaped. More commonly, however, two- dimensional pair
+is roughly banana shaped. More commonly, however, two-dimensional pair
 plots were insufficient to reveal the underlying correlation structure,
 as seen in the bottom-right plot in figure 3. This does not mean that
 the parameters were uncorrelated, but rather that the correlations
@@ -516,8 +511,8 @@ distribution. This finding is consistent with previous analyses of
 biological systems that found they are ``sloppy'', that is, sensitive to
 parameter combinations rather than marginal parameter values, with
 important combinations, scales and regions of sensitivity being
-difficult to ascertain in advance Gutenkunst et al. (2007), Poirier
-(1998).
+difficult to ascertain in advance \citet{gutenkunst_2007},
+\citet{poirier_revising_1998}.
 
 The question naturally arises whether the crucial high-dimensional
 parameter correlations are linear or non-linear. This is relevant to the
@@ -583,7 +578,7 @@ possible.
 Our results here also provide circumstantial evidence that the parameter
 correlations in Bayesian kinetic model posteriors tend to be non-linear,
 as a posterior with only linear correlations would likely be more
-germane to Laplace approximation.A conclusion that we drew from this
+germane to Laplace approximation. A conclusion that we drew from this
 analysis was that the results of fitting our model cannot be summarised
 simply, for example by fitting a multivariate normal distribution to the
 posterior draws. We therefore recommend that Maud users store the full
@@ -700,9 +695,9 @@ modelled.
 \section{Methods}\label{methods}}
 
 Maud is a command line application implementing Bayesian inference for a
-wide range of realistic kinetic models. Maud is written in Python (Van
-Rossum and Drake 2009), designed for use on Windows, Macos and Linux,
-registered on the Python Package Index as
+wide range of realistic kinetic models. Maud is written in Python
+\citep{vanrossumPythonReferenceManual2009}, designed for use on Windows,
+macOS and Linux, registered on the Python Package Index as
 \texttt{maud-metabolic-models}, documented at \textless https://maud-
 metabolic-models.readthedocs.io\textgreater{} and actively developed and
 maintained at \url{https://github.com/biosustain/Maud/}.
@@ -717,32 +712,33 @@ stored in files, using a structured, interoperable format.
 \subsection{Input format}\label{input-format}}
 
 Maud inputs are structured directories, somewhat inspired by the PEtab
-format Schmiester et al. (2021). A Maud input directory must contain a
-toml (Preston-Werner, Tom and Gedam, Pradyun 2020) file called
-\texttt{config.toml} which gives the input a name, configures how Maud
-will be run and tells Maud where to find the other files, allowing these
-to have custom names. It must also include a file containing a kinetic
-model definition, a file specifying information about parameters and a
-file with information experiments. The required structure of these files
-is documented at \textless https://
+format \citet{SchmiesterSch2021}. A Maud input directory must contain a
+toml \citep{preston-wernertomandgedampradyunTOMLSpecification0rc2020}
+file called \texttt{config.toml} which gives the input a name,
+configures how Maud will be run and tells Maud where to find the other
+files, allowing these to have custom names. It must also include a file
+containing a kinetic model definition, a file specifying information
+about parameters and a file with information experiments. The required
+structure of these files is documented at \textless https://
 maud-metabolic-models.readthedocs.io/en/latest/inputting.html\textgreater.
-The input is validated against a Pydantic (Pydantic developers 2022)
-data model which can be inspected at
-\url{https://github.com/biosustain/Maud/tree/main/maud/data_model}.
+The input is validated against a Pydantic
+\citep{pydanticdevelopersPydantic2022} data model which can be inspected
+at \url{https://github.com/biosustain/Maud/tree/main/maud/data_model}.
 
 We chose to implement a custom input format despite the existence of
-standard formats in similar areas, including SBML (Keating et al. 2020)
-and PEtab (Schmiester et al. 2021). This choice was partly motivated by
-the need to ensure flexibility as Maud was developed, but there are also
-features of SBML and PEtab that make them structurally unsuitable in
-this context. Our requirements for an input format included that it be
+standard formats in similar areas, including SBML
+\citep{keatingSBMLLevelExtensible2020} and PEtab
+\citep{SchmiesterSch2021}. This choice was partly motivated by the need
+to ensure flexibility as Maud was developed, but there are also features
+of SBML and PEtab that make them structurally unsuitable in this
+context. Our requirements for an input format included that it be
 mathematics-free, so that all mathematical details are encapsulated in
 source code, and that it has a detailed, verifiable structure. These
 requirements made toml more attractive than SBML: toml is easier for
 humans to read and edit and can straightforwardly be validated using
-tools like pydantic. Further, an SBML representation of our desired
+tools like Pydantic. Further, an SBML representation of our desired
 input would not contain differential equations. It would therefore not
-be interoperable with most SBML-targeting software, which typically
+be interoperable with most SBML targeting software, which typically
 assumes that differential equations are available and does not know
 about Maud's structure.
 
@@ -757,23 +753,24 @@ F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allo
 \end{equation}
 
 Each of the terms on the right-hand side of (REFER TO EQUATION) is a
-function of \(C\) and \(\theta\). This idea is taken from Noor et al.
-(2013). The terms usefully gather physically meaningful and conceptually
-distinct factors contributing to reaction fluxes. \(Enzyme\) captures
-the effect of enzyme concentration, \(k_{cat}\) that of enzyme
-efficiency, \(Reversibility\) quantifies thermodynamic effects,
-\(Saturation\) the effect of enzyme availability and \(Allostery\) the
-effect of post translational modifications.
+function of \(C\) and \(\theta\). This idea is taken from
+\citet{noor_note_2013}. The terms usefully gather physically meaningful
+and conceptually distinct factors contributing to reaction fluxes.
+\(Enzyme\) captures the effect of enzyme concentration, \(k_{cat}\) that
+of enzyme efficiency, \(Reversibility\) quantifies thermodynamic
+effects, \(Saturation\) the effect of enzyme availability and
+\(Allostery\) the effect of post translational modifications.
 
-We used the model of enzyme saturation from Liebermeister, Uhlendorf,
-and Klipp (2010) and the generalised Monod-Wyman-Changeux model of
-Allosteric regulation introduced in (Monod, Wyman, and Changeux 1965;
-Changeux 2013; Popova and Sel'kov 1975, 1979) and used more recently in
-Matos et al. (2022). To capture the effect on enzyme activity of coupled
-phosphorylation and dephosphorylation processes we developed a new
-mathematical model inspired by the generalised MWC model of allosteric
-regulation. Full details of all mathematical aspects of Maud's kinetic
-model can be found in supplementary material section (REFERENCE).
+We used the model of enzyme saturation from
+\citet{liebermeister_modular_2010} and the generalised
+Monod-Wyman-Changeux model of Allosteric regulation introduced in
+\citep{monod_nature_1965, changeux_2013, popova_generalization_1975, popova_description_1979}
+and used more recently in \citet{matosGRASPComputationalPlatform2022}.
+To capture the effect on enzyme activity of coupled phosphorylation and
+dephosphorylation processes we developed a new mathematical model
+inspired by the generalised MWC model of allosteric regulation. Full
+details of all mathematical aspects of Maud's kinetic model can be found
+in supplementary material section (REFERENCE).
 
 \hypertarget{statistical-model}{%
 \subsection{Statistical model}\label{statistical-model}}
@@ -814,8 +811,8 @@ parameters that can in principle be both negative and positive. For
 parameters that are constrained to be positive, Maud uses independent
 log-normal distributions. Formation energy parameters have a
 multivariate normal prior distribution. Location, scale and covariance
-parameters for all these prior distributions can be chosen freely by the
-user.
+parameters for all these prior distributions can be selected freely by
+the user.
 
 \hypertarget{measurement-model-1}{%
 \subsubsection{Measurement model}\label{measurement-model-1}}
@@ -825,7 +822,7 @@ metabolite concentration measurements, enzyme concentration measurements
 and flux measurements, represented by vectors \(𝑦_{𝑐𝑜𝑛𝑐}\) \(𝑦_{𝑒𝑛𝑧}\)
 and \(𝑦_{𝑓𝑙𝑢𝑥}\) respectively.
 
-All measurements are specific to an experimental condition - that is, a
+All measurements are specific to an experimental condition; that is, a
 case where the true state of the network, including knockouts, boundary
 conditions and state variables as well as kinetic and thermodynamic
 parameters, can safely be assumed to be the same. Maud's statistical
@@ -855,8 +852,8 @@ of variation of the measuring apparatus.
 
 Flux measurements, representing the results of quantitative fluxomics
 analyses, are modelled using a likelihood function from a standard
-linear regression model, as shown in equation Equation\,8 (REFERENCE).
-Flux measurements can be obtained from the results of isotope labelling
+linear regression model, as shown in equation\,8 (REFERENCE). Flux
+measurements can be obtained from the results of isotope labelling
 experiments using metabolic flux analysis, for example as described in
 (Young 2014). When entering flux measurements, it is important only to
 specify measurements for a network's free fluxes, as the values of some
@@ -886,7 +883,7 @@ possible bias due to incorrect assessments of measurement accuracy.
 However, we chose to use a simpler measurement model to avoid the
 complexity and potential fitting issues that these changes would entail.
 
-Finally, the reader may wonder why we chose a linear regression model
+Finally, the reader may wonder why Maud uses a linear regression model
 for reaction flux measurements even though this creates the potential
 for erroneous double counting and requires non-trivial upstream
 modelling, as intracellular fluxes typically cannot be measured
@@ -900,21 +897,24 @@ again for the sake of simplicity.
 \hypertarget{implementation}{%
 \subsection{Implementation}\label{implementation}}
 
-Maud uses the Python library click (Click Developers 2022) to implement
-a command line interface. The command line interface loads input files
-as Python dictionaries, which are parsed using the Python library
-\texttt{toml} (Pearson 2020) and then validated and converted into
-structured \texttt{MaudInput} objects using Pydantic (Pydantic
-developers 2022). Maud's statistical model is implemented in the
-probabilistic programming language Stan (Carpenter et al. 2017) and
-accessed using the interface cmdstanpy (Stan Development Team 2022). For
+Maud uses the Python library click
+\citep{clickdevelopersClickPythonComposable2022} to implement a command
+line interface. The command line interface loads input files as Python
+dictionaries, which are parsed using the Python library \texttt{toml}
+\citep{pearsonTomlPythonLibrary2020} and then validated and converted
+into structured \texttt{MaudInput} objects using Pydantic
+\citep{pydanticdevelopersPydantic2022}. Maud's statistical model is
+implemented in the probabilistic programming language Stan
+\citep{carpenterStanProbabilisticProgramming2017} and accessed using the
+interface cmdstanpy \citep{standevelopmentteamCmdStanPy2022}. For
 posterior sampling, Maud uses the \texttt{MaudInput} to create a Stan
 input json file and obtain configuration information for cmdstanpy,
 which it uses to (if necessary) generate a model executable file and
 then trigger posterior sampling using adaptive Hamiltonian Monte Carlo.
 When sampling is complete, Maud converts to the output into the standard
-format InferenceData using the Python library arviz (Kumar et al. 2019)
-and saves it as a json file, along with some information for debugging.
+format \texttt{InferenceData} using the Python library arviz
+\citep{kumarArviZUnifiedLibrary2019} and saves it as a json file, along
+with some information for debugging.
 
 Two details of Maud's implementation are important to highlight: the
 method of posterior sampling and how Maud solves the steady state
@@ -928,10 +928,12 @@ typically analytically intractable, they can be approximated numerically
 using Markov Chain Monte Carlo (MCMC) and other methods. Maud uses MCMC
 primarily because there exist many methods for verifying that MCMC
 samples really do approximate the target probability distribution:
-see@vehtariRankNormalizationFoldingLocalization2021 and Talts et al.
-(2018) for discussion of this point. In addition, there are several
-examples of successful Bayesian kinetic modelling projects using MCMC
-including St. John et al. (2018) and Xing et al. (2010 Jan-Feb).
+see@vehtariRankNormalizationFoldingLocalization2021 and
+\citet{taltsValidatingBayesianInference2018} for discussion of this
+point. In addition, there are several examples of successful Bayesian
+kinetic modelling projects using MCMC including
+\citet{st.johnBayesianInferenceMetabolic2018} and
+\citet{xingModelingKineticsLargescale2010}.
 
 \hypertarget{solving-the-steady-state-problem}{%
 \subsubsection{Solving the steady state
@@ -941,12 +943,12 @@ In order to implement adaptive Hamiltonian Monte Carlo, Maud must
 repeatedly solve the steady state problem \eqref{eq-3} and find its
 gradients with respect to all parameters. To achieve this, Maud uses a
 hybrid method involving two numerical solvers from the SUNDIALS suite
-(Serban and Hindmarsh 2005): CVODES and IDAS. These solvers are accessed
-via their interface from Stan. The hybrid method follows that propsed by
-Margossian (2018), and involves numerically evolving the ODE system for
-a short period of time, then using the difference between the evolved
-and starting concentrations as the target for a numerical algebra
-solver.
+\citep{serbanCVODESSensitivityEnabledODE2005}: CVODES and IDAS. These
+solvers are accessed via their interface from Stan. The hybrid method
+follows that proposed by \citet{margossianComputingSteadyStates2018},
+and involves numerically evolving the ODE system for a short period of
+time, then using the difference between the evolved and starting
+concentrations as the target for a numerical algebra solver.
 
 \hypertarget{acknowledgements}{%
 \section{Acknowledgements}\label{acknowledgements}}
@@ -954,241 +956,9 @@ solver.
 \hypertarget{references}{%
 \section{References}\label{references}}
 
-\hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-carpenterStanProbabilisticProgramming2017}{}}%
-Carpenter, Bob, Andrew Gelman, Matthew D. Hoffman, Daniel Lee, Ben
-Goodrich, Michael Betancourt, Marcus Brubaker, Jiqiang Guo, Peter Li,
-and Allen Riddell. 2017. {``Stan: {A Probabilistic Programming
-Language}.''} \emph{Journal of Statistical Software} 76 (1): 1--32.
-\url{https://doi.org/10.18637/jss.v076.i01}.
+\renewcommand{\bibsection}{}
+\bibliography{bibliography.bib}
 
-\leavevmode\vadjust pre{\hypertarget{ref-changeux_2013}{}}%
-Changeux, Jean-Pierre. 2013. {``50 Years of Allosteric Interactions: The
-Twists and Turns of the Models.''} \emph{Nature Reviews. Molecular Cell
-Biology} 14 (12): 819--29. \url{https://doi.org/10.1038/nrm3695}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-christodoulou_reserve_2018}{}}%
-Christodoulou, Dimitris, Hannes Link, Tobias Fuhrer, Karl Kochanowski,
-Luca Gerosa, and Uwe Sauer. 2018. {``Reserve {Flux} {Capacity} in the
-{Pentose} {Phosphate} {Pathway} {Enables} {Escherichia} Coli's {Rapid}
-{Response} to {Oxidative} {Stress}.''} \emph{Cell Systems} 6 (5):
-569--578.e7. \url{https://doi.org/10.1016/j.cels.2018.04.009}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-clickdevelopersClickPythonComposable2022}{}}%
-Click Developers. 2022. {``Click: {Python} Composable Command Line
-Interface Toolkit.''} Pallets. \url{https://pypi.org/project/click/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-deberardinis_fundamentals_2016}{}}%
-DeBerardinis, Ralph J, and Navdeep S Chandel. 2016. {``Fundamentals of
-Cancer Metabolism.''} \emph{Science Advances} 2 (5): e1600200.
-\url{https://doi.org/10.1126/sciadv.1600200}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-gopalakrishnan_k-fit_2020}{}}%
-Gopalakrishnan, Saratram, Satyakam Dash, and Costas Maranas. 2020.
-{``K-{FIT}: {An} Accelerated Kinetic Parameterization Algorithm Using
-Steady-State Fluxomic Data.''} \emph{Metabolic Engineering}, March.
-\url{https://doi.org/10.1016/j.ymben.2020.03.001}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-gutenkunst_2007}{}}%
-Gutenkunst, Ryan N, Joshua J Waterfall, Fergal P Casey, Kevin S Brown,
-Christopher R Myers, and James P Sethna. 2007. {``Universally Sloppy
-Parameter Sensitivities in Systems Biology Models.''} \emph{PLoS
-Computational Biology} 3 (10): 1871--78.
-\url{https://doi.org/10.1371/journal.pcbi.0030189}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-keatingSBMLLevelExtensible2020}{}}%
-Keating, Sarah M, Dagmar Waltemath, Matthias König, Fengkai Zhang,
-Andreas Dräger, Claudine Chaouiya, Frank T Bergmann, et al. 2020.
-{``{\textsc{SBML}} {Level} 3: An Extensible Format for the Exchange and
-Reuse of Biological Models.''} \emph{Molecular Systems Biology} 16 (8):
-e9110. \url{https://doi.org/10.15252/msb.20199110}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-korendyaseva_allosteric_2008}{}}%
-Korendyaseva, Tatyana K., Denis N. Kuvatov, Vladimir A. Volkov, Michael
-V. Martinov, Victor M. Vitvitsky, Ruma Banerjee, and Fazoil I.
-Ataullakhanov. 2008. {``An {Allosteric} {Mechanism} for {Switching}
-Between {Parallel} {Tracks} in {Mammalian} {Sulfur} {Metabolism}.''}
-Edited by Daniel Segre. \emph{PLoS Computational Biology} 4 (5):
-e1000076. \url{https://doi.org/10.1371/journal.pcbi.1000076}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-kumarArviZUnifiedLibrary2019}{}}%
-Kumar, Ravin, Colin Carroll, Ari Hartikainen, and Osvaldo Martin. 2019.
-{``{ArviZ} a Unified Library for Exploratory Analysis of {Bayesian}
-Models in {Python}.''} \emph{Journal of Open Source Software} 4 (33):
-1143. \url{https://doi.org/10.21105/joss.01143}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-Liberti2017}{}}%
-Liberti, Maria V., Ziwei Dai, Suzanne E. Wardell, Joshua A. Baccile,
-Xiaojing Liu, Xia Gao, Robert Baldi, et al. 2017. {``A {Predictive}
-{Model} for {Selective} {Targeting} of the {Warburg} {Effect} Through
-{GAPDH} {Inhibition} with a {Natural} {Product}.''} \emph{Cell
-Metabolism} 26 (4): 648--659.e8.
-\url{https://doi.org/10.1016/j.cmet.2017.08.017}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-liebermeister_model_2021}{}}%
-Liebermeister, Wolfram, and Elad Noor. 2021. {``Model {Balancing}: {A}
-{Search} for {In}-{Vivo} {Kinetic} {Constants} and {Consistent}
-{Metabolic} {States}.''} \emph{Metabolites} 11 (11): 749.
-\url{https://doi.org/10.3390/metabo11110749}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-liebermeister_modular_2010}{}}%
-Liebermeister, Wolfram, Jannis Uhlendorf, and Edda Klipp. 2010.
-{``Modular Rate Laws for Enzymatic Reactions: Thermodynamics,
-Elasticities and Implementation.''} \emph{Bioinformatics} 26 (12):
-1528--34. \url{https://doi.org/10.1093/bioinformatics/btq141}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-margossianComputingSteadyStates2018}{}}%
-Margossian, Charles. 2018. {``Computing Steady States with {Stan}'s
-Nonlinear Algebraic Solver.''} In \emph{Stan {Conference} 2018}.
-\url{https://doi.org/10.5281/zenodo.1284375}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-matosGRASPComputationalPlatform2022}{}}%
-Matos, Marta R A, Pedro A Saa, Nicholas Cowie, Svetlana Volkova, Marina
-de Leeuw, and Lars K Nielsen. 2022. {``{GRASP}: A Computational Platform
-for Building Kinetic Models of Cellular Metabolism.''}
-\emph{Bioinformatics Advances} 2 (1): vbac066.
-\url{https://doi.org/10.1093/bioadv/vbac066}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-monod_nature_1965}{}}%
-Monod, J, J Wyman, and J P Changeux. 1965. {``On the Nature of
-Allosteric Transitions: A Plausible Model.''} \emph{Journal of Molecular
-Biology} 12 (May): 88--118.
-\url{https://doi.org/10.1016/S0022-2836(65)80285-6}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-noor_note_2013}{}}%
-Noor, Elad, Avi Flamholz, Wolfram Liebermeister, Arren Bar-Even, and Ron
-Milo. 2013. {``A Note on the Kinetics of Enzyme Action: {A}
-Decomposition That Highlights Thermodynamic Effects.''} \emph{FEBS
-Letters}, A century of {Michaelis} - {Menten} kinetics, 587 (17):
-2772--77. \url{https://doi.org/10.1016/j.febslet.2013.07.028}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-pearsonTomlPythonLibrary2020}{}}%
-Pearson, William. 2020. {``Toml: {Python Library} for {Tom}'s {Obvious},
-{Minimal Language}.''} \url{https://pypi.org/project/toml/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-poirier_revising_1998}{}}%
-Poirier, Dale J. 1998. {``{REVISING} {BELIEFS} {IN} {NONIDENTIFIED}
-{MODELS}.''} \emph{Econometric Theory} 14 (4): 483--509.
-\url{https://doi.org/10.1017/S0266466698144043}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-popova_generalization_1975}{}}%
-Popova, S V, and E E Sel'kov. 1975. {``Generalization of the Model by
-{Monod}, {Wyman} and {Changeux} for the Case of a Reversible
-Monosubtrate Reaction {SR},{TP}.''} \emph{FEBS Letters} 53 (3): 269--73.
-\url{https://doi.org/10.1016/0014-5793(75)80034-2}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-popova_description_1979}{}}%
----------. 1979. {``{[}{Description} of the Kinetics of the Two
-Substrate Reactions {S1}+{S2} Goes to and Comes from {S3}+{S4} by a
-Generalized {Monod}, {Wyman}, {Changeux} Model{]}.''}
-\emph{Molekuliarnaia Biologiia} 13 (1): 129--39.
-\url{https://www.ncbi.nlm.nih.gov/pubmed/156878}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-preston-wernertomandgedampradyunTOMLSpecification0rc2020}{}}%
-Preston-Werner, Tom and Gedam, Pradyun. 2020. {``{TOML Specification}
-1.0.0-Rc.1.''} \url{https://toml.io/en/v1.0.0-rc.1/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-pydanticdevelopersPydantic2022}{}}%
-Pydantic developers. 2022. {``Pydantic.''}
-\url{https://pypi.org/project/pydantic/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-raue_identifiability_2010}{}}%
-Raue, A., V. Becker, U. Klingmüller, and J. Timmer. 2010.
-{``Identifiability and Observability Analysis for Experimental Design in
-Nonlinear Dynamical Models.''} \emph{Chaos: An Interdisciplinary Journal
-of Nonlinear Science} 20 (4): 045105.
-\url{https://doi.org/10.1063/1.3528102}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-raue_joining_2013}{}}%
-Raue, Andreas, Clemens Kreutz, Fabian Joachim Theis, and Jens Timmer.
-2013. {``Joining Forces of {Bayesian} and Frequentist Methodology: A
-Study for Inference in the Presence of Non-Identifiability.''}
-\emph{Philosophical Transactions of the Royal Society A: Mathematical,
-Physical and Engineering Sciences} 371 (1984): 20110544.
-\url{https://doi.org/10.1098/rsta.2011.0544}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-saa_construction_2016}{}}%
-Saa, Pedro A, and Lars K Nielsen. 2016. {``Construction of Feasible and
-Accurate Kinetic Models of Metabolism: {A} {Bayesian} Approach.''}
-\emph{Scientific Reports} 6 (July): 29635.
-\url{https://doi.org/10.1038/srep29635}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-saa_general_2015}{}}%
-Saa, Pedro, and Lars K Nielsen. 2015. {``A General Framework for
-Thermodynamically Consistent Parameterization and Efficient Sampling of
-Enzymatic Reactions.''} \emph{PLoS Computational Biology} 11 (4):
-e1004195. \url{https://doi.org/10.1371/journal.pcbi.1004195}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-SchmiesterSch2021}{}}%
-Schmiester, Leonard, Yannik Schälte, Frank T. Bergmann, Tacio Camba,
-Erika Dudkin, Janine Egert, Fabian Fröhlich, et al. 2021.
-{``{PEtab}\textemdash{{Interoperable}} Specification of Parameter
-Estimation Problems in Systems Biology.''} \emph{PLOS Computational
-Biology} 17 (1): 1--10.
-\url{https://doi.org/10.1371/journal.pcbi.1008646}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-serbanCVODESSensitivityEnabledODE2005}{}}%
-Serban, Radu, and Alan C. Hindmarsh. 2005. {``{CVODES}: {The
-Sensitivity-Enabled ODE Solver} in {SUNDIALS}.''} In \emph{Volume 6: 5th
-{International Conference} on {Multibody Systems}, {Nonlinear Dynamics},
-and {Control}, {Parts A}, {B}, and {C}}, 257--69. {Long Beach,
-California, USA}: {ASMEDC}.
-\url{https://doi.org/10.1115/DETC2005-85597}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-st.johnBayesianInferenceMetabolic2018}{}}%
-St. John, Peter, Jonathan Strutz, Linda J Broadbelt, Keith E J Tyo, and
-Yannick J Bomble. 2018. {``Bayesian Inference of Metabolic Kinetics from
-Genome-Scale Multiomics Data.''} \emph{bioRxiv}, October.
-\url{https://doi.org/10.1101/450163}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-standevelopmentteamCmdStanPy2022}{}}%
-Stan Development Team. 2022. {``{CmdStanPy}.''}
-\url{https://github.com/stan-dev/cmdstanpy}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-stapor_pesto_2018}{}}%
-Stapor, Paul, Daniel Weindl, Benjamin Ballnus, Sabine Hug, Carolin Loos,
-Anna Fiedler, Sabrina Krause, et al. 2018. {``{PESTO}: Parameter
-Estimation Toolbox.''} \emph{Bioinformatics} 34 (4): 705--7.
-\url{https://doi.org/10.1093/bioinformatics/btx676}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-taltsValidatingBayesianInference2018}{}}%
-Talts, Sean, Michael Betancourt, Daniel Simpson, Aki Vehtari, and Andrew
-Gelman. 2018. {``Validating {Bayesian Inference Algorithms} with
-{Simulation-Based Calibration}.''} \emph{arXiv:1804.06788 {[}Stat{]}},
-April. \url{http://arxiv.org/abs/1804.06788}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-vanrossumPythonReferenceManual2009}{}}%
-Van Rossum, Guido, and Fred L. Drake. 2009. \emph{Python 3 {Reference
-Manual}}. {Scotts Valley, CA}: {CreateSpace}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-vehtariRankNormalizationFoldingLocalization2021}{}}%
-Vehtari, Aki, Andrew Gelman, Daniel Simpson, Bob Carpenter, and
-Paul-Christian Bürkner. 2021. {``Rank-{Normalization}, {Folding}, and
-{Localization}: {An Improved R\^{}} for {Assessing Convergence} of
-{MCMC} (with {Discussion}).''} \emph{Bayesian Analysis} 16 (2):
-667--718. \url{https://doi.org/10.1214/20-BA1221}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-visser_dynamic_2003}{}}%
-Visser, Diana, and Joseph J Heijnen. 2003. {``Dynamic Simulation and
-Metabolic Re-Design of a Branched Pathway Using Linlog Kinetics.''}
-\emph{Metabolic Engineering} 5 (3): 164--76.
-\url{https://doi.org/10.1016/s1096-7176(03)00025-9}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-white_2016}{}}%
-White, Andrew, Malachi Tolman, Howard D Thames, Hubert Rodney Withers,
-Kathy A Mason, and Mark K Transtrum. 2016. {``The Limitations of
-Model-Based Experimental Design and Parameter Estimation in Sloppy
-Systems.''} \emph{PLoS Computational Biology} 12 (12): e1005227.
-\url{https://doi.org/10.1371/journal.pcbi.1005227}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-xingModelingKineticsLargescale2010}{}}%
-Xing, Zizhuo, Nikki Bishop, Kirk Leister, and Zheng Jian Li. 2010
-Jan-Feb. {``Modeling Kinetics of a Large-Scale Fed-Batch {CHO} Cell
-Culture by {Markov} Chain {Monte Carlo} Method.''} \emph{Biotechnology
-Progress} 26 (1): 208--19. \url{https://doi.org/10.1002/btpr.284}.
-
-\end{CSLReferences}
 
 
 
