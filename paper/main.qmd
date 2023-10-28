@@ -353,24 +353,33 @@ state solving methods or alternative inference algorithms will be required.
 We found that the Laplace method was not able to produce an accurate posterior
 approximation for our model and dataset.
 
-The Laplace approximation yielded XXX samples in XXX time. The diagnostics
-indicated that our algorithm was able to find the maximum a posteriori parameter
-configuration, approximate the Hessian and use these quantities to generate
-approximate posterior samples. The results can be found at <https://github.com/biosustain/Methionine_model/tree/main/results>.
+Our overall strategy was to compare samples generated using MCMC, which we
+were confident could be treated as draws from the true posterior distribution,
+with approximate posterior samples generated using the Laplace method. We were
+unable to generate approximate posterior samples for our main methionine cycle
+case study using Laplace approximation, as the algorithm could not recover from
+solver failures caused by unrealistic parameter configurations. We therefore
+made a comparison for a simpler model. This input can be found at <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode>.
 
-@fig-laplace summarises the results of comparing the Laplace approximation of our
-case study’s posterior distribution with the true posterior. As can be seen
-from the top left plot, the Laplace method does not provide a good approximation
-to the true posterior distribution, as the marginal distribution of the
-total log probability density is clearly different. This was confirmed using
-the Kolmogorov-Smirnov test, which is a test to differentiate two empirical
-univariate distributions. The two distributions were significantly different
-with a p-value indistinguishable from zero.
+MCMC sampling for our comparison input yielded XXX samples in XXX time; Laplace
+sampling yielded XXX samples in XXX time. The diagnostics indicated that our
+algorithm was able to find the maximum a posteriori parameter configuration,
+approximate the Hessian and use these quantities to generate approximate
+posterior samples. The results can be found at <https://github.com/biosustain/Methionine_model/tree/main/results>.
+
+@fig-laplace summarises the results of comparing the samples generated using
+each method. As can be seen from the top left plot, the Laplace method does not
+provide a good approximation to the true posterior distribution in this case,
+as the marginal distribution of the total log probability density is clearly
+different. This impression was confirmed using the Kolmogorov-Smirnov test,
+which is a test to differentiate two empirical univariate distributions. The
+two distributions were significantly different with a p-value indistinguishable
+from zero.
 
 The difference between the Laplace approximation output and the true posterior
-distribution manifests itself not only in the parameter space, but also in
-the measurement space. Figure 5 frame B compares the 5%-95% interval for
-flux measurement log likelihoods in the true posterior with the Laplace
+distribution manifests not only in the parameter space, but also in the
+measurement space. Figure @fig-laplace frame B compares the 5%-95% interval
+for flux measurement log likelihoods in the true posterior with the Laplace
 approximation; lower log likelihood values indicate that the modelled and
 measured values are further away. The graph shows that the Laplace approximation
 yielded significantly worse predictions than the true posterior, even for the
@@ -378,15 +387,16 @@ training data.
 
 To further explore why this is the case we compared samples from the true
 posterior and the Laplace approximation for the pairwise marginal distributions
-of two Michaelis-Menten constants [LATEX CONSTANT]- and [LATEX CONSTANT]: see
-the bottom right cell of figure 5. This comparison demonstrates that the Laplace
-method is not able to capture the correct relationships between parameters’
-distributions.
+of two Michaelis-Menten constants [XXX]- and [XXX]: see the bottom right cell of
+figure @fig-laplace. This comparison demonstrates that the Laplace method is not
+able to capture the correct relationships between parameters’ distributions.
 
 This result shows that MCMC, while slower than Laplace approximation, is
 unfortunately preferable for posterior inference in this case. We expect that
-this is typical of kinetic models of realistic metabolic networks in general, so
-we recommend that Maud users use MCMC sampling if possible.
+the Laplace method will produce worse approximations the more complex the target
+model. Since the approximation is already unacceptable for our simple test
+model, we recommend that Maud users use MCMC sampling in preference to Laplace
+approximation if possible when fitting realistic Bayesian kinetic models.
 
 Our results here also provide circumstantial evidence that the parameter
 correlations in Bayesian kinetic model posteriors tend to be non-linear, as
