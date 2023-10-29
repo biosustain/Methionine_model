@@ -286,10 +286,15 @@ likely to occur in practice due to in vivo to in vitro measurement differences.
 ### Computation
 
 We conducted adaptive Hamiltonian Monte Carlo sampling for the full and missing-
--data datasets, obtaining XXX post-warmup samples after XXX of total computation
-time. For the Laplace approximation comparison, we used Maud’s Laplace mode.
-Full details as well as instructions for reproducing our analysis can be found
-at XXX.
+-data datasets. For the full dataset we obtained 1000 post-warmup samples each
+from 4 independent Markov chains after 1000 warm-up samples and "hot-starting"
+with a mass metric output by a previous model run.
+
+For the missing-data dataset XXX.
+
+For the Laplace approximation comparison, we used Maud’s Laplace mode. Full
+details as well as instructions for reproducing our analysis can be found at
+XXX.
 
 ## Findings
 
@@ -340,13 +345,13 @@ correlated posterior space would also be easier to summarise. We address this
 question below in @sec-laplace.
 
 This case study illustrates the type of kinetic model and dataset that Maud
-can fit. The model we analysed has XXX reactions, XXX state variables and XXX
-parameters. Posterior sampling with adaptive Hamiltonian Monte Carlo generated
-XXX ESS/hour. Generalising from this result, we conclude that it is feasible
-to use this method to fit models in the same order of magnitude, but not,
-for example, genome-scale kinetic models. To fit larger models, faster steady
-state solving methods or alternative inference algorithms will be required.
-@sec-laplace addresses whether Laplace approximation is a suitable candidate.
+can fit. The model we analysed has 10 reactions, 5 state variables and 212
+parameters. Generalising from our ability to fit this model in a reasonable time
+using Maud, we expect that Maud can be used to fit realistic Bayesian models
+of approximately the same size, but not, for example, genome-scale kinetic
+models. To fit larger models, faster steady state solving methods or alternative
+inference algorithms will be required. @sec-laplace addresses whether Laplace
+approximation is a suitable candidate.
 
 ### Comparison with Laplace approximation {#sec-laplace}
 
