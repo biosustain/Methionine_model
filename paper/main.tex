@@ -150,16 +150,17 @@
   pdfcreator={LaTeX via pandoc}}
 
 \author{Teddy Groves}
-\affiliation{ DTU Biosustain,  }
+\affiliation{DTU Biosustain, DTU, Kongens Lyngby, Denmark}
 
 
 \email{tedgro@biosustain.dtu.dk}
 \author{Nicholas Luke Cowie}
-\affiliation{ DTU Biosustain,  }
+\affiliation{DTU Biosustain, DTU, Kongens Lyngby, Denmark}
 
 
 \author{Lars Keld Nielsen}
-\affiliation{ DTU Biosustain,  }
+\affiliation{DTU Biosustain, DTU, Kongens Lyngby, Denmark}
+\affiliation{   }
 
 
 
@@ -182,7 +183,7 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -404,13 +405,13 @@ Equation\,\eqref{eq-meth-ode}.
 After specifying the qualitative aspects of the kinetic model, we
 selected parameter values to use as ground truth by Monte Carlo sampling
 using a previous model of the methionine cycle as a starting point (see
-\citet{saa_general_2015} for this model).
+\citet{saa_construction_2016} for this model).
 
 We used these parameters to simulate steady states in a range of
-plausible experimental conditions, again using \citet{saa_general_2015}
-as a starting point. These steady states were then used to generate
-simulated measurements using the measurement model described below in
-Section~\ref{sec-methionine-measurement-model}.
+plausible experimental conditions, again using
+\citet{saa_construction_2016} as a starting point. These steady states
+were then used to generate simulated measurements using the measurement
+model described below in Section~\ref{sec-methionine-measurement-model}.
 
 \hypertarget{sec-methionine-measurement-model}{%
 \subsubsection{Measurement
@@ -501,7 +502,7 @@ Running standard diagnostic checks indicated that the samples we
 generated were from the target posterior distribution. The improved
 \(\hat{R}\) statistic
 \citep{vehtariRankNormalizationFoldingLocalization2021} for every
-sampled variable was within 1\% of 1, indicating appropriate mixing
+variable of interest was within 2\% of 1, indicating appropriate mixing
 within and between Markov chains. Additionally, the number of effective
 samples was high, indicating that we generated enough posterior samples
 to support inferences about the bulks of the distributions of the
@@ -1050,8 +1051,29 @@ and involves numerically evolving the ODE system for a short period of
 time, then using the difference between the evolved and starting
 concentrations as the target for a numerical algebra solver.
 
+\hypertarget{supporting-information}{%
+\section{Supporting information}\label{supporting-information}}
+
+The document \texttt{supplementary.pdf} contains the following
+information:
+
+\begin{itemize}
+\tightlist
+\item
+  Description of Maud's kinetic model including parameter dimensions and
+  rate equations.
+\item
+  Description of the procedure used to generate the artificial case
+  study datasets.
+\item
+  Specification of the prior distribution used for the case studies
+\end{itemize}
+
 \hypertarget{acknowledgements}{%
 \section{Acknowledgements}\label{acknowledgements}}
+
+This research was funded by the Novo Nordisk foundation using grant
+number NNF14OC0009473.
 
 \hypertarget{references}{%
 \section{References}\label{references}}

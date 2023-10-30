@@ -167,7 +167,16 @@ Phosphorylation_r &= (\frac{\alpha}{\alpha + \beta})^{subunits} \label{eq-phosph
 
 ## Dataset generation
 
-## Prior distributions compared with true parameter values
+Starting with the model in @saa_construction_2016, we extracted values for
+enzyme concentrations, boundary conditions and fluxes. We used these values
+to generate MCMC samples using Maud using the priors specified in section
+@sec-methionine-priors. When this was finished, we selected one sample with
+relatively high log probability to use as a ground truth in our case study.
+These parameter values are shown below in table @tbl-case-study-params. We
+manually inspected the parameter values to screen for any obviously implausible
+values; we did not find any of these.
+
+## Prior distributions compared with true parameter values {#sec-methionine-priors}
 
 @tbl-case-study-params shows the prior distributions we used for independent
 parameters.

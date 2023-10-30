@@ -16,13 +16,21 @@ author:
     email: tedgro@biosustain.dtu.dk
     affiliations: 
     - id: biosustain
-      name: DTU Biosustain
+      name: DTU
+      department: DTU Biosustain
+      city: Kongens Lyngby
+      country: Denmark
   - name: "Nicholas Luke Cowie"
     affiliations: 
     - ref: biosustain
   - name: "Lars Keld Nielsen"
     affiliations: 
     - ref: biosustain
+    - id: UQ
+    - name: The University of Queensland
+    - department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
+    - city: St Lucia
+    - country: Australia
 bibliography: bibliography.bib
 format:
   acs-pdf:
@@ -223,11 +231,11 @@ equation system describing this model is shown in Equation \eqref{eq-meth-ode}
 
 After specifying the qualitative aspects of the kinetic model, we selected
 parameter values to use as ground truth by Monte Carlo sampling using a previous
-model of the methionine cycle as a starting point (see @saa_general_2015 for
+model of the methionine cycle as a starting point (see @saa_construction_2016 for
 this model).
 
 We used these parameters to simulate steady states in a range of plausible
-experimental conditions, again using @saa_general_2015 as a starting point.
+experimental conditions, again using @saa_construction_2016 as a starting point.
 These steady states were then used to generate simulated measurements using the
 measurement model described below in @sec-methionine-measurement-model.
 
@@ -302,14 +310,14 @@ XXX.
 
 Running standard diagnostic checks indicated that the samples we generated
 were from the target posterior distribution. The improved $\hat{R}$ statistic
-[@vehtariRankNormalizationFoldingLocalization2021] for every sampled variable
-was within 1% of 1, indicating appropriate mixing within and between Markov
-chains. Additionally, the number of effective samples was high, indicating
-that we generated enough posterior samples to support inferences about the
-bulks of the distributions of the sampled parameters. Furthermore, we observed
-no post warm-up divergent transitions, indicating that the sampler was able to
-transform the log-posterior distribution, avoiding any regions with excessive
-curvature that might inhibit exploration via HMC.
+[@vehtariRankNormalizationFoldingLocalization2021] for every variable of
+interest was within 2% of 1, indicating appropriate mixing within and between
+Markov chains. Additionally, the number of effective samples was high,
+indicating that we generated enough posterior samples to support inferences
+about the bulks of the distributions of the sampled parameters. Furthermore,
+we observed no post warm-up divergent transitions, indicating that the sampler
+was able to transform the log-posterior distribution, avoiding any regions with
+excessive curvature that might inhibit exploration via HMC.
 
 Posterior predictive checking indicated that our model achieved a good fit
 to the simulated reaction and metabolite concentration measurements, as shown
@@ -756,7 +764,21 @@ the ODE system for a short period of time, then using the difference between
 the evolved and starting concentrations as the target for a numerical algebra
 solver.
 
+# Supporting information
+
+The document `supplementary.pdf` contains the following information:
+
+- Description of Maud's kinetic model including parameter dimensions and rate
+equations.
+- Description of the procedure used to generate the artificial case study
+datasets.
+- Specification of the prior distribution used for the case studies
+
+
 # Acknowledgements
+
+This research was funded by the Novo Nordisk foundation using grant number
+NNF14OC0009473.
 
 # References
 
