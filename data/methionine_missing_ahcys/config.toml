@@ -6,14 +6,23 @@ user_inits_file = "inits.toml"
 likelihood = true
 
 [cmdstanpy_config]
-iter_warmup = 1000
+iter_warmup = 50
 iter_sampling = 500
 max_treedepth = 10
 chains = 4
 save_warmup = true
 refresh = 1
-metric = "dense_e"
+metric = [
+"data/methionine_missing_ahcys/metrics/metric-1.json",
+"data/methionine_missing_ahcys/metrics/metric-2.json",
+"data/methionine_missing_ahcys/metrics/metric-3.json",
+"data/methionine_missing_ahcys/metrics/metric-4.json"
+]
+step_size = 0.07
 adapt_delta = 0.95
+adapt_init_phase = 20
+adapt_metric_window = 0
+adapt_step_size = 30
 
 [ode_solver_config]
 rel_tol = 1e-4
