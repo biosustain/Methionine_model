@@ -32,10 +32,12 @@ $(VALIDATE_6_missing_ahcys): $(MAIN_IDATA_6_missing_ahcys)
 $(FIGURE_2): $(MAIN_IDATA)
 
 $(FIGURE_3): $(VALIDATE_ODE)
-	.venv/bin/python plot_figure_4.py
+
+$(FIGURE_4): $(MAIN_IDATA_missing_ahcys)
 	
 figure_2: $(FIGURE_2)
 	. .venv/bin/activate && ( python plot_figure_2.py)
+
 figure_3: $(FIGURE_3)
 	. .venv/bin/activate && ( python plot_figure_3.py)
 
