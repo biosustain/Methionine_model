@@ -1,0 +1,9 @@
+.DS_Store
+paper/_extensions
+paper/achemso.bst
+paper/acs-main.bib
+paper/*_files/
+maud_output*
+node_modules
+package.json
+package-lock.json

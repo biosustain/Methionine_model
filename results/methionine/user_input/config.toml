@@ -1,0 +1,28 @@
+name = "methionine_cycle_6"
+kinetic_model_file = "methionine_cycle.toml"
+priors_file = "priors.toml"
+experiments_file = "experiments.toml"
+user_inits_file = "inits.toml"
+likelihood = true
+reject_non_steady = true
+
+[cmdstanpy_config]
+iter_warmup = 1000
+iter_sampling = 1000
+max_treedepth = 10
+chains = 4
+save_warmup = true
+refresh = 1
+metric = "dense_e"
+adapt_delta = 0.95
+adapt_init_phase = 30
+
+[ode_solver_config]
+rel_tol = 1e-3
+abs_tol = 1e-6
+max_num_steps = 1000000.0
+
+[algebra_solver_config]
+rel_tol = 1e-3
+abs_tol = 1e-8
+max_num_steps = 1000000
