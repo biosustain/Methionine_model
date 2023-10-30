@@ -1,0 +1,24 @@
+method = laplace
+  laplace
+    mode = /Users/nicow/methionine_model/maud_output_laplace-test-ode-20231026204456/samples/model-opt-20231026204457.csv
+    jacobian = 1 (Default)
+    draws = 200
+id = 1 (Default)
+data
+  file = ./maud_output_laplace-test-ode-20231026204456/samples/input_data_train.json
+init = 2 (Default)
+random
+  seed = 67491
+output
+  file = /Users/nicow/methionine_model/maud_output_laplace-test-ode-20231026204456/samples/model-20231026204506.csv
+  diagnostic_file =  (Default)
+  refresh = 100 (Default)
+  sig_figs = -1 (Default)
+  profile_file = profile.csv (Default)
+num_threads = 1 (Default)
+
+Calculating Hessian
+Calculating inverse of Cholesky factor
+Generating draws
+iteration: 0
+iteration: 100

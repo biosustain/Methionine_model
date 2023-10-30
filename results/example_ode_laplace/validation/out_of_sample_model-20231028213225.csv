@@ -1,0 +1,44 @@
+# stan_version_major = 2
+# stan_version_minor = 33
+# stan_version_patch = 0
+# model = out_of_sample_model_model
+# start_datetime = 2023-10-28 19:32:25 UTC
+# method = sample (Default)
+#   sample
+#     num_samples = 1
+#     num_warmup = 0
+#     save_warmup = 0 (Default)
+#     thin = 1 (Default)
+#     adapt
+#       engaged = 1 (Default)
+#       gamma = 0.050000000000000003 (Default)
+#       delta = 0.80000000000000004 (Default)
+#       kappa = 0.75 (Default)
+#       t0 = 10 (Default)
+#       init_buffer = 75 (Default)
+#       term_buffer = 50 (Default)
+#       window = 25 (Default)
+#     algorithm = fixed_param
+#     num_chains = 1 (Default)
+# id = 1 (Default)
+# data
+#   file = example_ode_laplace/maud-predict_output-test-ode-20231028213217/input_data_test.json
+# init = /var/folders/dg/rm_5w1r54719cfv7q8cj0nkjnz2j8q/T/tmp3upy_tk8/6esa4ii_.json
+# random
+#   seed = 47302
+# output
+#   file = /Users/nicow/Maud/example_ode_laplace/maud-predict_output-test-ode-20231028213217/out_of_sample_model-20231028213225.csv
+#   diagnostic_file =  (Default)
+#   refresh = 100 (Default)
+#   sig_figs = -1 (Default)
+#   profile_file = profile.csv (Default)
+# num_threads = 1 (Default)
+# stanc_version = stanc3 v2.33.1
+# stancflags = --filename-in-msg=out_of_sample_model.stan --include-paths=/Users/nicow/Maud/maud/stan
+lp__,accept_stat__,km.1,km.2,km.3,km.4,km.5,km.6,km.7,km.8,km.9,km.10,ki.1,kcat.1,kcat.2,kcat.3,kcat.4,kcat.5,dissociation_constant.1,dissociation_constant.2,transfer_constant.1,transfer_constant.2,dgr_test.1.1,dgr_test.2.1,dgr_test.3.1,dgr_test.4.1,dgr_test.5.1,dgr_test.1.2,dgr_test.2.2,dgr_test.3.2,dgr_test.4.2,dgr_test.5.2,dgr_test.1.3,dgr_test.2.3,dgr_test.3.3,dgr_test.4.3,dgr_test.5.3,dgr_test.1.4,dgr_test.2.4,dgr_test.3.4,dgr_test.4.4,dgr_test.5.4,dgr_test.1.5,dgr_test.2.5,dgr_test.3.5,dgr_test.4.5,dgr_test.5.5,conc_test.1.1,conc_test.2.1,conc_test.3.1,conc_test.4.1,conc_test.5.1,conc_test.1.2,conc_test.2.2,conc_test.3.2,conc_test.4.2,conc_test.5.2,conc_test.1.3,conc_test.2.3,conc_test.3.3,conc_test.4.3,conc_test.5.3,conc_test.1.4,conc_test.2.4,conc_test.3.4,conc_test.4.4,conc_test.5.4,flux_test.1.1,flux_test.2.1,flux_test.3.1,flux_test.4.1,flux_test.5.1,flux_test.1.2,flux_test.2.2,flux_test.3.2,flux_test.4.2,flux_test.5.2,flux_test.1.3,flux_test.2.3,flux_test.3.3,flux_test.4.3,flux_test.5.3,flux_test.1.4,flux_test.2.4,flux_test.3.4,flux_test.4.4,flux_test.5.4,conc_unbalanced_test.1.1,conc_unbalanced_test.2.1,conc_unbalanced_test.3.1,conc_unbalanced_test.4.1,conc_unbalanced_test.5.1,conc_unbalanced_test.1.2,conc_unbalanced_test.2.2,conc_unbalanced_test.3.2,conc_unbalanced_test.4.2,conc_unbalanced_test.5.2,conc_enzyme_test.1.1,conc_enzyme_test.2.1,conc_enzyme_test.3.1,conc_enzyme_test.4.1,conc_enzyme_test.5.1,conc_enzyme_test.1.2,conc_enzyme_test.2.2,conc_enzyme_test.3.2,conc_enzyme_test.4.2,conc_enzyme_test.5.2,conc_enzyme_test.1.3,conc_enzyme_test.2.3,conc_enzyme_test.3.3,conc_enzyme_test.4.3,conc_enzyme_test.5.3,conc_enzyme_test.1.4,conc_enzyme_test.2.4,conc_enzyme_test.3.4,conc_enzyme_test.4.4,conc_enzyme_test.5.4,conc_enzyme_test.1.5,conc_enzyme_test.2.5,conc_enzyme_test.3.5,conc_enzyme_test.4.5,conc_enzyme_test.5.5,free_enzyme_ratio_test.1.1,free_enzyme_ratio_test.2.1,free_enzyme_ratio_test.3.1,free_enzyme_ratio_test.4.1,free_enzyme_ratio_test.5.1,free_enzyme_ratio_test.1.2,free_enzyme_ratio_test.2.2,free_enzyme_ratio_test.3.2,free_enzyme_ratio_test.4.2,free_enzyme_ratio_test.5.2,free_enzyme_ratio_test.1.3,free_enzyme_ratio_test.2.3,free_enzyme_ratio_test.3.3,free_enzyme_ratio_test.4.3,free_enzyme_ratio_test.5.3,free_enzyme_ratio_test.1.4,free_enzyme_ratio_test.2.4,free_enzyme_ratio_test.3.4,free_enzyme_ratio_test.4.4,free_enzyme_ratio_test.5.4,free_enzyme_ratio_test.1.5,free_enzyme_ratio_test.2.5,free_enzyme_ratio_test.3.5,free_enzyme_ratio_test.4.5,free_enzyme_ratio_test.5.5,saturation_test.1.1,saturation_test.2.1,saturation_test.3.1,saturation_test.4.1,saturation_test.5.1,saturation_test.1.2,saturation_test.2.2,saturation_test.3.2,saturation_test.4.2,saturation_test.5.2,saturation_test.1.3,saturation_test.2.3,saturation_test.3.3,saturation_test.4.3,saturation_test.5.3,saturation_test.1.4,saturation_test.2.4,saturation_test.3.4,saturation_test.4.4,saturation_test.5.4,saturation_test.1.5,saturation_test.2.5,saturation_test.3.5,saturation_test.4.5,saturation_test.5.5,allostery_test.1.1,allostery_test.2.1,allostery_test.3.1,allostery_test.4.1,allostery_test.5.1,allostery_test.1.2,allostery_test.2.2,allostery_test.3.2,allostery_test.4.2,allostery_test.5.2,allostery_test.1.3,allostery_test.2.3,allostery_test.3.3,allostery_test.4.3,allostery_test.5.3,allostery_test.1.4,allostery_test.2.4,allostery_test.3.4,allostery_test.4.4,allostery_test.5.4,allostery_test.1.5,allostery_test.2.5,allostery_test.3.5,allostery_test.4.5,allostery_test.5.5,phosphorylation_test.1.1,phosphorylation_test.2.1,phosphorylation_test.3.1,phosphorylation_test.4.1,phosphorylation_test.5.1,phosphorylation_test.1.2,phosphorylation_test.2.2,phosphorylation_test.3.2,phosphorylation_test.4.2,phosphorylation_test.5.2,phosphorylation_test.1.3,phosphorylation_test.2.3,phosphorylation_test.3.3,phosphorylation_test.4.3,phosphorylation_test.5.3,phosphorylation_test.1.4,phosphorylation_test.2.4,phosphorylation_test.3.4,phosphorylation_test.4.4,phosphorylation_test.5.4,phosphorylation_test.1.5,phosphorylation_test.2.5,phosphorylation_test.3.5,phosphorylation_test.4.5,phosphorylation_test.5.5,reversibility_test.1.1,reversibility_test.2.1,reversibility_test.3.1,reversibility_test.4.1,reversibility_test.5.1,reversibility_test.1.2,reversibility_test.2.2,reversibility_test.3.2,reversibility_test.4.2,reversibility_test.5.2,reversibility_test.1.3,reversibility_test.2.3,reversibility_test.3.3,reversibility_test.4.3,reversibility_test.5.3,reversibility_test.1.4,reversibility_test.2.4,reversibility_test.3.4,reversibility_test.4.4,reversibility_test.5.4,reversibility_test.1.5,reversibility_test.2.5,reversibility_test.3.5,reversibility_test.4.5,reversibility_test.5.5
+0,0,0.477189,3.19618,2.12909,0.321291,1.35653,2.78817,0.0504413,0.991829,1.89264,4.27467,0.383925,0.474601,2.46859,1.0595,0.803987,1.06579,0.170792,5.2378,1.21246,2.4346,1.12844,-0.326345,-1.57065,0.403639,-0.222077,-0.765232,-0.341878,-0.492955,-1.17995,-0.318801,0.344733,1.28014,0.686459,1.51149,-0.780337,1.80511,-0.533687,-1.39157,-1.81705,1.23939,1.05508,-0.0607434,1.608,1.66471,-0.820048,5.70053,5.66615,4.72689,5.00761,5.22156,1.17926,0.504506,6.33948,0.446984,1.37134,4.06641,2.08064,1.84733,2.42558,2.78416,0.4354,0.486809,0.467104,0.562971,0.506422,0.186406,0.348932,0.314074,0.362358,0.158926,0.505254,1.36276,0.983462,0.288394,0.277604,0.186406,0.348932,0.314074,0.362358,0.158926,0.505254,1.36276,0.983462,0.288394,0.277604,5.70053,5.66615,4.72689,5.00761,5.22156,0.4354,0.486809,0.467104,0.562971,0.506422,0.704976,0.960376,3.26867,1.06499,0.551355,1.18461,1.89897,1.94332,0.385095,0.525489,3.80178,2.92216,0.875659,3.133,0.534236,1.04636,2.24653,0.412557,1.34327,0.533443,0.857755,3.3358,3.81856,0.933707,0.527421,0.0692084,0.0699309,0.0708928,0.0763348,0.0730436,0.0612223,0.0986469,0.111485,0.0917307,0.0825217,0.150133,0.168828,0.194284,0.179809,0.171005,0.0402935,0.087012,0.00786464,0.0958857,0.0348463,0.307655,0.451832,0.47954,0.414373,0.386173,0.826769,0.83036,0.702242,0.801056,0.799267,0.16392,0.262529,0.247512,0.21575,0.202383,0.630904,0.705186,0.676991,0.663764,0.658235,0.942018,0.870281,0.988431,0.849689,0.947361,0.661008,0.496713,0.46806,0.531055,0.568077,1,1,1,1,1,0.997017,0.991008,0.98869,0.992737,0.99425,0.606323,0.635201,0.60982,0.609574,0.610638,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0.673864,0.921945,0.2883,0.894954,0.759876,0.476128,0.680102,0.679666,0.699077,0.531145,0.180228,0.384551,0.484489,0.108745,0.610797,0.235218,0.221983,0.957971,0.394879,0.391149,0.836118,0.771693,0.51628,0.545713,0.869339
+# 
+#  Elapsed Time: 0 seconds (Warm-up)
+#                0.142 seconds (Sampling)
+#                0.142 seconds (Total)
+# 

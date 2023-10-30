@@ -1,0 +1,40 @@
+method = sample (Default)
+  sample
+    num_samples = 1
+    num_warmup = 0
+    save_warmup = 0 (Default)
+    thin = 1 (Default)
+    adapt
+      engaged = 1 (Default)
+      gamma = 0.050000000000000003 (Default)
+      delta = 0.80000000000000004 (Default)
+      kappa = 0.75 (Default)
+      t0 = 10 (Default)
+      init_buffer = 75 (Default)
+      term_buffer = 50 (Default)
+      window = 25 (Default)
+    algorithm = fixed_param
+    num_chains = 1 (Default)
+id = 1 (Default)
+data
+  file = example_ode_laplace/maud-predict_output-test-ode-20231028213217/input_data_test.json
+init = /var/folders/dg/rm_5w1r54719cfv7q8cj0nkjnz2j8q/T/tmp3upy_tk8/gxkl9kca.json
+random
+  seed = 54510
+output
+  file = /Users/nicow/Maud/example_ode_laplace/maud-predict_output-test-ode-20231028213217/out_of_sample_model-20231028213241.csv
+  diagnostic_file =  (Default)
+  refresh = 100 (Default)
+  sig_figs = -1 (Default)
+  profile_file = profile.csv (Default)
+num_threads = 1 (Default)
+
+Iteration: 1 / 1 [100%]  (Sampling)
+Exception: Exception: CVode(cvodes_mem, t_final, nv_state_, &t_init, CV_NORMAL) failed with error flag -4: 
+Convergence test failures occurred too many times during one internal time step or minimum step size was reached. (in '/Users/nicow/Maud/maud/stan/functions.stan', line 832, column 2, included from
+'out_of_sample_model.stan', line 1, column 0) (in 'out_of_sample_model.stan', line 137, column 4 to line 171, column 68)
+
+ Elapsed Time: 0 seconds (Warm-up)
+               0.054 seconds (Sampling)
+               0.054 seconds (Total)
+
