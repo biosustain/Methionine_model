@@ -36,6 +36,7 @@ $(FIGURE_4): $(VALIDATE_ODE)
 	.venv/bin/python plot_figure_4.py
 	
 figure_3: $(FIGURE_3)
+	. .venv/bin/activate && ( python plot_figure_3.py)
 
 figure_4: $(FIGURE_4)
 	. .venv/bin/activate && ( python plot_figure_4.py)
