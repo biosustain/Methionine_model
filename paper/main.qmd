@@ -42,10 +42,10 @@ format:
       layout: traditional #traditional or twocolumn, twocolumn currently broken for longtables
       hide-email: false # if enabled, hides email addresses (and fax/phone)
       abbreviations: IR,NMR,UV
-#  acs-html:
-#   include-in-header: mathjax.html
-#   embed-resources: true
-#  docx: default
+  acs-html:
+   include-in-header: mathjax.html
+   embed-resources: true
+  docx: default
 ---
 
 # Introduction

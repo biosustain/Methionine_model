@@ -3133,50 +3133,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
-  <ul class="collapse">
-  <li><a href="#dataset-and-model-specification" id="toc-dataset-and-model-specification" class="nav-link" data-scroll-target="#dataset-and-model-specification">Dataset and model specification</a>
-  <ul class="collapse">
-  <li><a href="#sec-methionine-measurement-model" id="toc-sec-methionine-measurement-model" class="nav-link" data-scroll-target="#sec-methionine-measurement-model">Measurement model</a></li>
-  <li><a href="#trainingvalidation-split" id="toc-trainingvalidation-split" class="nav-link" data-scroll-target="#trainingvalidation-split">Training/validation split</a></li>
-  <li><a href="#additional-dataset-with-missing-measurements" id="toc-additional-dataset-with-missing-measurements" class="nav-link" data-scroll-target="#additional-dataset-with-missing-measurements">Additional dataset with missing measurements</a></li>
-  <li><a href="#maud-input-specification" id="toc-maud-input-specification" class="nav-link" data-scroll-target="#maud-input-specification">Maud input specification</a></li>
-  <li><a href="#computation" id="toc-computation" class="nav-link" data-scroll-target="#computation">Computation</a></li>
-  </ul></li>
-  <li><a href="#findings" id="toc-findings" class="nav-link" data-scroll-target="#findings">Findings</a>
-  <ul class="collapse">
-  <li><a href="#posterior-inference" id="toc-posterior-inference" class="nav-link" data-scroll-target="#posterior-inference">Posterior inference</a></li>
-  <li><a href="#sec-laplace" id="toc-sec-laplace" class="nav-link" data-scroll-target="#sec-laplace">Comparison with Laplace approximation</a></li>
-  <li><a href="#effect-of-missing-metabolite-concentration-measurements" id="toc-effect-of-missing-metabolite-concentration-measurements" class="nav-link" data-scroll-target="#effect-of-missing-metabolite-concentration-measurements">Effect of missing metabolite concentration measurements</a></li>
-  <li><a href="#application-to-regulatory-understanding" id="toc-application-to-regulatory-understanding" class="nav-link" data-scroll-target="#application-to-regulatory-understanding">Application to regulatory understanding</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
-  <ul class="collapse">
-  <li><a href="#input-format" id="toc-input-format" class="nav-link" data-scroll-target="#input-format">Input format</a></li>
-  <li><a href="#kinetic-model" id="toc-kinetic-model" class="nav-link" data-scroll-target="#kinetic-model">Kinetic model</a></li>
-  <li><a href="#statistical-model" id="toc-statistical-model" class="nav-link" data-scroll-target="#statistical-model">Statistical model</a>
-  <ul class="collapse">
-  <li><a href="#prior-model" id="toc-prior-model" class="nav-link" data-scroll-target="#prior-model">Prior model</a></li>
-  <li><a href="#measurement-model" id="toc-measurement-model" class="nav-link" data-scroll-target="#measurement-model">Measurement model</a></li>
-  </ul></li>
-  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a>
-  <ul class="collapse">
-  <li><a href="#posterior-sampling" id="toc-posterior-sampling" class="nav-link" data-scroll-target="#posterior-sampling">Posterior sampling</a></li>
-  <li><a href="#solving-the-steady-state-problem" id="toc-solving-the-steady-state-problem" class="nav-link" data-scroll-target="#solving-the-steady-state-problem">Solving the steady state problem</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#supporting-information" id="toc-supporting-information" class="nav-link" data-scroll-target="#supporting-information">Supporting information</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF (acs)</a></li><li><a href="main.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
-</div>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF (acs)</a></li><li><a href="main.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -3246,8 +3203,8 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 
 </header>
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>A kinetic model of cellular metabolism aims to express what is known about a cellular process in the form of an <em>in silico</em> representation of the underlying network of chemical reactions. Kinetic models can be used to improve production of target molecules, determine regulatory networks <span class="citation" data-cites="christodoulou_reserve_2018">(<a href="#ref-christodoulou_reserve_2018" role="doc-biblioref">Christodoulou et al. 2018</a>)</span> and identify potential drug targets <span class="citation" data-cites="deberardinis_fundamentals_2016 Liberti2017">(<a href="#ref-deberardinis_fundamentals_2016" role="doc-biblioref">DeBerardinis and Chandel 2016</a>; <a href="#ref-Liberti2017" role="doc-biblioref">Liberti et al. 2017</a>)</span>. However, the use of kinetic models in practice is hindered by their dependence on noisy and uncertain information sources. Quantitative in vivo measurements of chemical abundances, and in vitro measurements relating to kinetic parameters, both contain vital information but are notoriously inaccurate (REFERENCES). Practically useful kinetic modelling therefore requires a principled statistical approach that encompasses multiple possible model parameterisations.</p>
 <p>Bayesian statistical inference can combine the structural information implicit in kinetic models with knowledge about metabolic parameters and information from omics measurements <span class="citation" data-cites="saa_construction_2016 gopalakrishnan_k-fit_2020">(<a href="#ref-saa_construction_2016" role="doc-biblioref">Saa and Nielsen 2016</a>; <a href="#ref-gopalakrishnan_k-fit_2020" role="doc-biblioref">Gopalakrishnan, Dash, and Maranas 2020</a>)</span>. However, kinetic models pose serious computational challenges for Bayesian inference <span class="citation" data-cites="gutenkunst_2007 raue_identifiability_2010">(<a href="#ref-gutenkunst_2007" role="doc-biblioref">Gutenkunst et al. 2007</a>; <a href="#ref-raue_identifiability_2010" role="doc-biblioref">A. Raue et al. 2010</a>)</span>.</p>
 <p>The scope of a kinetic model is defined by a stoichiometric matrix, <span class="math inline">\(S\)</span>, in which rows represent metabolites, columns represent reactions, and matrix elements <span class="math inline">\(s_{ij}\)</span> represent the stoichiometric coefficient of metabolite <span class="math inline">\(i\)</span> in reaction <span class="math inline">\(j\)</span>. The change in metabolite concentrations is:</p>
@@ -3273,8 +3230,8 @@ S\cdot f(C;\theta) = 0
 <p>There have also been efforts to implement Bayesian inference for kinetic models without the use of MCMC. Examples of alternative inference methods include variational inference as in <span class="citation" data-cites="st.johnBayesianInferenceMetabolic2018">St. John et al. (<a href="#ref-st.johnBayesianInferenceMetabolic2018" role="doc-biblioref">2018</a>)</span>, rejection sampling and approximate Bayesian computation <span class="citation" data-cites="saa_construction_2016">Saa and Nielsen (<a href="#ref-saa_construction_2016" role="doc-biblioref">2016</a>)</span> and Laplace approximation, in which the Fisher information matrix is used to calculate a normal approximation around the maximum a posteriori parameter configuration <span class="citation" data-cites="liebermeister_model_2021 gopalakrishnan_k-fit_2020 stapor_pesto_2018 raue_joining_2013">(<a href="#ref-liebermeister_model_2021" role="doc-biblioref">Liebermeister and Noor 2021</a>; <a href="#ref-gopalakrishnan_k-fit_2020" role="doc-biblioref">Gopalakrishnan, Dash, and Maranas 2020</a>; <a href="#ref-stapor_pesto_2018" role="doc-biblioref">Stapor et al. 2018</a>; <a href="#ref-raue_joining_2013" role="doc-biblioref">Andreas Raue et al. 2013</a>)</span>. Non-MCMC-based Bayesian kinetic models have limited utility because they lack reliable diagnostic tools for verifying that their results approximate the target posterior distribution. This is a problem because realistic kinetic models tend to induce highly correlated, non-Gaussian, joint probability distributions <span class="citation" data-cites="gutenkunst_2007 stapor_pesto_2018">(<a href="#ref-gutenkunst_2007" role="doc-biblioref">Gutenkunst et al. 2007</a>; <a href="#ref-stapor_pesto_2018" role="doc-biblioref">Stapor et al. 2018</a>)</span>.</p>
 <p>Our application Maud is the first Bayesian kinetic model to combine biologically realistic mechanistic accuracy—including accurate rate laws, post- translational modification and thermodynamics—with fast, robust MCMC sampling using adaptive Hamiltonian Monte Carlo. Further, Maud is a general-purpose application that can be used to fit a wide range of Bayesian kinetic models.</p>
 </section>
-<section id="results-and-discussion" class="level1">
-<h1>Results and Discussion</h1>
+<section id="results-and-discussion" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Results and Discussion</h1>
 <p>To demonstrate our application’s capabilities, we used Maud to analyse an artificial dataset based on the human methionine cycle. We first used Maud to generate simulated training and validation measurements based on plausible parameter values, then performed posterior sampling. Next, we used Maud to predict the validation data.</p>
 <p>To show that Maud is robust to missing measurements we compared the results of fitting the full dataset with an intentionally incomplete dataset. To demonstrate why a full Bayesian approach is preferable to an approach based on a Laplace approximation of the posterior distribution, we also fit our methionine cycle model using the latter method and compared the results with MCMC sampling.</p>
 <p>Finally, we investigated our results to find out what our model learned about the contributions of different regulatory factors to the flux through GNMT, an important reaction. This analysis illustrates how Maud can be used to generate actionable insights about metabolism without the need for further statistical analysis.</p>
@@ -3289,8 +3246,8 @@ S\cdot f(C;\theta) = 0
 <p></p><figcaption class="figure-caption">Figure 1: The methionine cycle as modelled, with the solid black lines representing the reactions, the green lines representing allosteric interaction, and the red lines representing allosteric inhibition. The bold fonts are the reaction names and the regular font represents the metabolites.</figcaption><p></p>
 </figure>
 </div>
-<section id="dataset-and-model-specification" class="level2">
-<h2 class="anchored" data-anchor-id="dataset-and-model-specification">Dataset and model specification</h2>
+<section id="dataset-and-model-specification" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="dataset-and-model-specification"><span class="header-section-number">2.1</span> Dataset and model specification</h2>
 <p>The simulated dataset and underlying kinetic model that we used for our analysis can be found at <a href="https://github.com/biosustain/Methionine_model/tree/main/data/methionine" class="uri">https://github.com/biosustain/Methionine_model/tree/main/data/methionine</a> and is described in supplementary information section [REFERENCE].</p>
 <p>We constructed a kinetic model of the methionine cycle in Maud’s format using the description in <span class="citation" data-cites="korendyaseva_allosteric_2008">Korendyaseva et al. (<a href="#ref-korendyaseva_allosteric_2008" role="doc-biblioref">2008</a>)</span>. The ordinary differential equation system describing this model is shown in Equation <span class="math inline">\(\eqref{eq-meth-ode}\)</span>.</p>
 <p><span class="math display">\[\begin{align}
@@ -3302,36 +3259,30 @@ S\cdot f(C;\theta) = 0
 \end{align}\]</span></p>
 <p>After specifying the qualitative aspects of the kinetic model, we selected parameter values to use as ground truth by Monte Carlo sampling using a previous model of the methionine cycle as a starting point (see <span class="citation" data-cites="saa_construction_2016">Saa and Nielsen (<a href="#ref-saa_construction_2016" role="doc-biblioref">2016</a>)</span> for this model).</p>
 <p>We used these parameters to simulate steady states in a range of plausible experimental conditions, again using <span class="citation" data-cites="saa_construction_2016">Saa and Nielsen (<a href="#ref-saa_construction_2016" role="doc-biblioref">2016</a>)</span> as a starting point. These steady states were then used to generate simulated measurements using the measurement model described below in <a href="#sec-methionine-measurement-model">Section 2.1.1</a>.</p>
-<section id="sec-methionine-measurement-model" class="level3">
-<h3 class="anchored" data-anchor-id="sec-methionine-measurement-model">Measurement model</h3>
+<section id="sec-methionine-measurement-model" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-methionine-measurement-model"><span class="header-section-number">2.1.1</span> Measurement model</h3>
 <p>Generating an artificial dataset required a specification of the true measurement error. For enzyme and metabolite concentration measurements we specified a standard deviation of 0.1 on natural logarithmic scale, corresponding to approximately 10% measurement error. For each reaction measurement a measurement standard deviation of approximately 10% of the simulated value.</p>
 <p>These measurement error specifications are somewhat optimistic considering the many sources of variation and uncertainty affecting quantitative proteomics, metabolomics and fluxomics analyses, but are a reasonable first approximation to a realistic set of measurements.</p>
 <p>For our main model run, we assumed that all metabolite and enzyme concentrations were measured, and that there was a reaction measurement for each of the network’s elementary flux modes.</p>
 </section>
-<section id="trainingvalidation-split" class="level3">
-<h3 class="anchored" data-anchor-id="trainingvalidation-split">Training/validation split</h3>
+<section id="trainingvalidation-split" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="trainingvalidation-split"><span class="header-section-number">2.1.2</span> Training/validation split</h3>
 <p>The training testing split was selected to achieve a large difference between the fluxes of the training and testing dataset. The split was determined as we are interested in showing how our model can fit to varied conditions, and conditions closer to the training set are likely to be predicted well without necessarily learning the system.</p>
 </section>
-<section id="additional-dataset-with-missing-measurements" class="level3">
-<h3 class="anchored" data-anchor-id="additional-dataset-with-missing-measurements">Additional dataset with missing measurements</h3>
+<section id="additional-dataset-with-missing-measurements" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="additional-dataset-with-missing-measurements"><span class="header-section-number">2.1.3</span> Additional dataset with missing measurements</h3>
 <p>To gain insight into our model’s robustness to missing measurements, we also performed a model run with the same 6 experimental datasets, but with measurements of the metabolite S-Adenosyl-L-homocysteine, or “ahcys” removed. Since ahcys regulates three enzymes in the methionine cycle, including one enzyme which is also thermodynamically regulated, we expected the removal of these measurements to yield interesting results.</p>
 </section>
-<section id="maud-input-specification" class="level3">
-<h3 class="anchored" data-anchor-id="maud-input-specification">Maud input specification</h3>
+<section id="maud-input-specification" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="maud-input-specification"><span class="header-section-number">2.1.4</span> Maud input specification</h3>
 <p>We constructed inputs in Maud’s format for each of the analysed datasets, based on the scenario that the true kinetic model was known except for parameter values, which needed to be inferred from the training data and priors. These inputs can be found at <a href="https://github.com/biosustain/Methionine_model/tree/main/data" class="uri">https://github.com/biosustain/Methionine_model/tree/main/data</a>.</p>
 <p>The prior distributions and corresponding true parameter values used in our case study are shown in supplementary materials section [REFERENCE]. The first two columns show the 1% and 99% quantiles of each marginal prior distribution. True parameter value are shown in column three, and the last column shows the z-score on log scale of the true parameter value according the marginal prior distribution. As can be seen from the table, there are 7 parameters for which the true value is outside the 1%-99% range. This is desirable, making the case study more realistic, because extreme deviance from the prior distribution is likely to occur in practice due to in vivo to in vitro measurement differences.</p>
 </section>
-<section id="computation" class="level3">
-<h3 class="anchored" data-anchor-id="computation">Computation</h3>
-<p>We conducted adaptive Hamiltonian Monte Carlo sampling for the full and missing- -data datasets. For the full dataset we obtained 1000 post-warmup samples each from 4 independent Markov chains after 1000 warm-up samples and “hot-starting” with a mass metric output by a previous model run.</p>
-<p>For the missing-data dataset XXX.</p>
-<p>For the Laplace approximation comparison, we used Maud’s Laplace mode. Full details as well as instructions for reproducing our analysis can be found at XXX.</p>
 </section>
-</section>
-<section id="findings" class="level2">
-<h2 class="anchored" data-anchor-id="findings">Findings</h2>
-<section id="posterior-inference" class="level3">
-<h3 class="anchored" data-anchor-id="posterior-inference">Posterior inference</h3>
+<section id="findings" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="findings"><span class="header-section-number">2.2</span> Findings</h2>
+<section id="posterior-inference" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="posterior-inference"><span class="header-section-number">2.2.1</span> Posterior inference</h3>
 <p>Running standard diagnostic checks indicated that the samples we generated were from the target posterior distribution. The improved <span class="math inline">\(\hat{R}\)</span> statistic <span class="citation" data-cites="vehtariRankNormalizationFoldingLocalization2021">(<a href="#ref-vehtariRankNormalizationFoldingLocalization2021" role="doc-biblioref">Vehtari et al. 2021</a>)</span> for every variable of interest was within 2% of 1, indicating appropriate mixing within and between Markov chains. Additionally, the number of effective samples was high, indicating that we generated enough posterior samples to support inferences about the bulks of the distributions of the sampled parameters. Furthermore, we observed no post warm-up divergent transitions, indicating that the sampler was able to transform the log-posterior distribution, avoiding any regions with excessive curvature that might inhibit exploration via HMC.</p>
 <p>Posterior predictive checking indicated that our model achieved a good fit to the simulated reaction and metabolite concentration measurements, as shown by the graphs in the top row of figure 3. Note that the fit was good for both training and validation measurements.</p>
 <p>Analysis of the posterior distributions for kinetic parameters indicated that these are highly correlated. The marginal posterior distributions for most kinetic parameters did not shrink significantly compared with the corresponding marginal prior distributions, even though these parameters’ joint posterior distribution contained enough information to make accurate out of sample predictions. In some cases, there were two-dimensional correlations such as the one shown in the bottom left of figure 3; in this case the marginal distribution of the two parameters is roughly banana shaped. More commonly, however, two-dimensional pair plots were insufficient to reveal the underlying correlation structure, as seen in the bottom-right plot in figure 3. This does not mean that the parameters were uncorrelated, but rather that the correlations involve more than two parameters.</p>
@@ -3339,11 +3290,11 @@ S\cdot f(C;\theta) = 0
 <p>The question naturally arises whether the crucial high-dimensional parameter correlations are linear or non-linear. This is relevant to the question of model performance, as linear correlations are easier to correct for. A linearly correlated posterior space would also be easier to summarise. We address this question below in <a href="#sec-laplace">Section 2.2.2</a>.</p>
 <p>This case study illustrates the type of kinetic model and dataset that Maud can fit. The model we analysed has 10 reactions, 5 state variables and 212 parameters. Generalising from our ability to fit this model in a reasonable time using Maud, we expect that Maud can be used to fit realistic Bayesian models of approximately the same size, but not, for example, genome-scale kinetic models. To fit larger models, faster steady state solving methods or alternative inference algorithms will be required. <a href="#sec-laplace">Section 2.2.2</a> addresses whether Laplace approximation is a suitable candidate.</p>
 </section>
-<section id="sec-laplace" class="level3">
-<h3 class="anchored" data-anchor-id="sec-laplace">Comparison with Laplace approximation</h3>
+<section id="sec-laplace" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-laplace"><span class="header-section-number">2.2.2</span> Comparison with Laplace approximation</h3>
 <p>We found that the Laplace method was not able to produce an accurate posterior approximation for our model and dataset.</p>
 <p>Our overall strategy was to compare samples generated using MCMC, which we were confident could be treated as draws from the true posterior distribution, with approximate posterior samples generated using the Laplace method. We were unable to generate approximate posterior samples for our main methionine cycle case study using Laplace approximation, as the algorithm could not recover from solver failures caused by unrealistic parameter configurations. We therefore made a comparison for a simpler model. This input can be found at <a href="https://github.com/biosustain/Methionine_model/tree/main/data/example_ode" class="uri">https://github.com/biosustain/Methionine_model/tree/main/data/example_ode</a>.</p>
-<p>MCMC sampling for our comparison input yielded 200 samples in 625 minutes; Laplace sampling yielded the same number of samples in XXX time. The diagnostics indicated that our algorithm was able to find the maximum a posteriori parameter configuration, approximate the Hessian and use these quantities to generate approximate posterior samples. The results can be found at &lt;https://github.com/biosustain/ Methionine_model/tree/main/results&gt;.</p>
+<p>MCMC sampling for our comparison input yielded 200 samples in 625 minutes; Laplace sampling yielded the same number of samples in only one minute. The diagnostics indicated that our algorithm was able to find the maximum a posteriori parameter configuration, approximate the Hessian and use these quantities to generate approximate posterior samples. The results can be found at <a href="https://github.com/biosustain/Methionine_model/tree/main/results" class="uri">https://github.com/biosustain/Methionine_model/tree/main/results</a>.</p>
 <p><a href="#fig-laplace">Figure 2</a> summarises the results of comparing the samples generated using each method. As can be seen from the top left plot, the Laplace method does not provide a good approximation to the true posterior distribution in this case, as the marginal distribution of the total log probability density is clearly different. This impression was confirmed using the Kolmogorov-Smirnov test, which is a test to differentiate two empirical univariate distributions. The two distributions were significantly different with a p-value indistinguishable from zero.</p>
 <p>The difference between the Laplace approximation output and the true posterior distribution manifests not only in the parameter space, but also in the measurement space. Figure <a href="#fig-laplace">Figure 2</a> frame B compares the 5%-95% interval for flux measurement log likelihoods in the true posterior with the Laplace approximation; lower log likelihood values indicate that the modelled and measured values are further away. The graph shows that the Laplace approximation yielded significantly worse predictions than the true posterior, even for the training data.</p>
 <p>To further explore why this is the case we compared samples from the true posterior and the Laplace approximation for the pairwise marginal distributions of two Michaelis-Menten constants <span class="math inline">\(K_{m}^{A,r1}\)</span> and <span class="math inline">\(K_{cat}^{r1}\)</span>: see the bottom right cell of figure <a href="#fig-laplace">Figure 2</a>. This comparison demonstrates that the Laplace method is not able to capture the correct relationships between parameters’ distributions.</p>
@@ -3360,8 +3311,8 @@ S\cdot f(C;\theta) = 0
 </figure>
 </div>
 </section>
-<section id="effect-of-missing-metabolite-concentration-measurements" class="level3">
-<h3 class="anchored" data-anchor-id="effect-of-missing-metabolite-concentration-measurements">Effect of missing metabolite concentration measurements</h3>
+<section id="effect-of-missing-metabolite-concentration-measurements" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="effect-of-missing-metabolite-concentration-measurements"><span class="header-section-number">2.2.3</span> Effect of missing metabolite concentration measurements</h3>
 <p>Comparing model runs with and without the ahcys measurements showed that Maud can produce sensible results even from incomplete metabolomics data.</p>
 <p><a href="#fig-missing">Figure 3</a> shows that, as might be expected, the model with missing measurements did not correctly infer the missing ahcys concentrations. Nonetheless, the remaining measured metabolites were still well predicted, suggesting that information about the network is still preserved despite the missing measurements. Comparison of flux measurements in both models also indicated that removing the ahcys measurement did not result in catastrophic model failure.</p>
 <p>The missing measurements did affect Maud’s ability to infer parameter values correctly. The lower left plot of <a href="#fig-missing">Figure 3</a> shows that the model with full metabolomics learned the true value for the displayed dissociation constant, despite this value being far from the mean of the corresponding marginal prior distribution. In contrast, the model with missing measurements stayed in the neighbourhood of the prior.</p>
@@ -3377,8 +3328,8 @@ S\cdot f(C;\theta) = 0
 </figure>
 </div>
 </section>
-<section id="application-to-regulatory-understanding" class="level3">
-<h3 class="anchored" data-anchor-id="application-to-regulatory-understanding">Application to regulatory understanding</h3>
+<section id="application-to-regulatory-understanding" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="application-to-regulatory-understanding"><span class="header-section-number">2.2.4</span> Application to regulatory understanding</h3>
 <p>To demonstrate how Maud’s output can be used to yield useful metabolic insights we used the results of our case study to explain why the flux of the enzyme <span class="math inline">\(GNMT\)</span> is higher in condition 1 than in condition 2. GNMT is an irreversible enzyme that is homotropically activated by its substrate, competitively inhibited by its product and heterotropically inhibited. The diverse regulation makes it the ideal test case to elucidate regulatory changes.</p>
 <p><a href="#fig-decomposition">Figure 4</a> shows the regulatory description of GNMT, according to the results our main case study analysis. Each curve shows the marginal posterior distribution of the ratio of the corresponding regulatory component in condition 1 compared with condition 2. A positive value indicates that the component was increased in condition 1 relative to condition 2, with 0 indicating no difference. The probability, according to our model, of the component acting in each direction is given by the relative area under the curve on each side of the 0 point.</p>
 <p>Our model correctly inferred that saturation and allosteric effects were the main drivers of regulation between the two conditions in this case, with the curves for each component aligning with the ground truth shown in red.</p>
@@ -3396,17 +3347,17 @@ S\cdot f(C;\theta) = 0
 </section>
 </section>
 </section>
-<section id="methods" class="level1">
-<h1>Methods</h1>
+<section id="methods" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Methods</h1>
 <p>Maud is a command line application implementing Bayesian inference for a wide range of realistic kinetic models. Maud is written in Python <span class="citation" data-cites="vanrossumPythonReferenceManual2009">(<a href="#ref-vanrossumPythonReferenceManual2009" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span>, designed for use on Windows, macOS and Linux, registered on the Python Package Index as <code>maud-metabolic-models</code>, documented at <a href="https://maud-metabolic-models.readthedocs.io" class="uri">https://maud-metabolic-models.readthedocs.io</a> and actively developed and maintained at <a href="https://github.com/biosustain/Maud/" class="uri">https://github.com/biosustain/Maud/</a>.</p>
 <p>To use Maud, a user must first collate appropriate input information, represent it in files with Maud’s required formats (see section (REFERENCE)below). Maud’s command line interface provides commands for inference, simulation and making out-of-sample predictions. Results are stored in files, using a structured, interoperable format.</p>
-<section id="input-format" class="level2">
-<h2 class="anchored" data-anchor-id="input-format">Input format</h2>
+<section id="input-format" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="input-format"><span class="header-section-number">3.1</span> Input format</h2>
 <p>Maud inputs are structured directories, somewhat inspired by the PEtab format <span class="citation" data-cites="SchmiesterSch2021">(<a href="#ref-SchmiesterSch2021" role="doc-biblioref">Schmiester et al. 2021</a>)</span>. A Maud input directory must contain a toml <span class="citation" data-cites="preston-wernertomandgedampradyunTOMLSpecification0rc2020">(<a href="#ref-preston-wernertomandgedampradyunTOMLSpecification0rc2020" role="doc-biblioref">Preston-Werner, Tom and Gedam, Pradyun 2020</a>)</span> file called <code>config.toml</code> which gives the input a name, configures how Maud will be run and tells Maud where to find the other files, allowing these to have custom names. It must also include a file containing a kinetic model definition, a file specifying information about parameters and a file with information experiments. The required structure of these files is documented at &lt;https:// maud-metabolic-models.readthedocs.io/en/latest/inputting.html&gt;. The input is validated against a Pydantic <span class="citation" data-cites="pydanticdevelopersPydantic2022">(<a href="#ref-pydanticdevelopersPydantic2022" role="doc-biblioref">Pydantic developers 2022</a>)</span> data model which can be inspected at <a href="https://github.com/biosustain/Maud/tree/main/maud/data_model" class="uri">https://github.com/biosustain/Maud/tree/main/maud/data_model</a>.</p>
 <p>We chose to implement a custom input format despite the existence of standard formats in similar areas, including SBML <span class="citation" data-cites="keatingSBMLLevelExtensible2020">(<a href="#ref-keatingSBMLLevelExtensible2020" role="doc-biblioref">Keating et al. 2020</a>)</span> and PEtab <span class="citation" data-cites="SchmiesterSch2021">(<a href="#ref-SchmiesterSch2021" role="doc-biblioref">Schmiester et al. 2021</a>)</span>. This choice was partly motivated by the need to ensure flexibility as Maud was developed, but there are also features of SBML and PEtab that make them structurally unsuitable in this context. Our requirements for an input format included that it be mathematics-free, so that all mathematical details are encapsulated in source code, and that it has a detailed, verifiable structure. These requirements made toml more attractive than SBML: toml is easier for humans to read and edit and can straightforwardly be validated using tools like Pydantic. Further, an SBML representation of our desired input would not contain differential equations. It would therefore not be interoperable with most SBML targeting software, which typically assumes that differential equations are available and does not know about Maud’s structure.</p>
 </section>
-<section id="kinetic-model" class="level2">
-<h2 class="anchored" data-anchor-id="kinetic-model">Kinetic model</h2>
+<section id="kinetic-model" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="kinetic-model"><span class="header-section-number">3.2</span> Kinetic model</h2>
 <p>Maud’s kinetic model decomposes into factors as shown in equation <span class="math inline">\(\eqref{eq-decomposition}\)</span>.</p>
 <p><span class="math display">\[\begin{equation}
 F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allostery \label{eq-decomposition}
@@ -3414,17 +3365,17 @@ F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allo
 <p>Each of the terms on the right-hand side of <span class="math inline">\(\eqref{eq-decomposition}\)</span> is a function of <span class="math inline">\(C\)</span> and <span class="math inline">\(\theta\)</span>. This idea is taken from <span class="citation" data-cites="noor_note_2013">Noor et al. (<a href="#ref-noor_note_2013" role="doc-biblioref">2013</a>)</span>. The terms usefully gather physically meaningful and conceptually distinct factors contributing to reaction fluxes. <span class="math inline">\(Enzyme\)</span> captures the effect of enzyme concentration, <span class="math inline">\(k_{cat}\)</span> that of enzyme efficiency, <span class="math inline">\(Reversibility\)</span> quantifies thermodynamic effects, <span class="math inline">\(Saturation\)</span> the effect of enzyme availability and <span class="math inline">\(Allostery\)</span> the effect of post translational modifications.</p>
 <p>We used the model of enzyme saturation from <span class="citation" data-cites="liebermeister_modular_2010">Liebermeister, Uhlendorf, and Klipp (<a href="#ref-liebermeister_modular_2010" role="doc-biblioref">2010</a>)</span> and the generalised Monod-Wyman-Changeux model of Allosteric regulation introduced in <span class="citation" data-cites="monod_nature_1965 changeux_2013 popova_generalization_1975 popova_description_1979">(<a href="#ref-monod_nature_1965" role="doc-biblioref">Monod, Wyman, and Changeux 1965</a>; <a href="#ref-changeux_2013" role="doc-biblioref">Changeux 2013</a>; <a href="#ref-popova_generalization_1975" role="doc-biblioref">Popova and Sel’kov 1975</a>, <a href="#ref-popova_description_1979" role="doc-biblioref">1979</a>)</span> and used more recently in <span class="citation" data-cites="matosGRASPComputationalPlatform2022">Matos et al. (<a href="#ref-matosGRASPComputationalPlatform2022" role="doc-biblioref">2022</a>)</span>. To capture the effect on enzyme activity of coupled phosphorylation and dephosphorylation processes we developed a new mathematical model inspired by the generalised MWC model of allosteric regulation. Full details of all mathematical aspects of Maud’s kinetic model can be found in supplementary material section (REFERENCE).</p>
 </section>
-<section id="statistical-model" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-model">Statistical model</h2>
+<section id="statistical-model" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="statistical-model"><span class="header-section-number">3.3</span> Statistical model</h2>
 <p>Maud represents information from measurements using generalised linear regression models that probabilistically connect realised measurements with true values of the measurable quantities. Information from other sources is represented using a prior distribution over a set of latent parameters. The parameters and the measurable quantities are connected by a generative model encompassing Maud’s kinetic model as well as the steady state equation <span class="math inline">\(\eqref{eq-3}\)</span>. Together, the measurement model, prior model and generative model determine a joint probability function that assigns a probability density to any possible combination of measurements and parameters.</p>
 <p>Below we describe the prior and measurement models, as the generative model has already been discussed above.</p>
-<section id="prior-model" class="level3">
-<h3 class="anchored" data-anchor-id="prior-model">Prior model</h3>
+<section id="prior-model" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="prior-model"><span class="header-section-number">3.3.1</span> Prior model</h3>
 <p>Maud’s prior model includes unknown parameters corresponding to quantities in the kinetic model that are assumed to be unknown, other than steady state metabolite concentrations and fluxes, which are derived from the values of other parameters by solving the steady state problem. See table (REFERENCE) in this paper’s supplementary materials for a description of all these parameters and their dimensions. Note that some quantities in Maud’s kinetic model are not treated as parameters: for example, temperatures, compartment volumes and the formation energy of water. Maud treats these quantities as if they were known precisely: they can be configured by the user or default values can be used. Although in practice there can be considerable uncertainty regarding these quantities, we chose to disregard this uncertainty in the interest of simplicity.</p>
 <p>Except for metabolites’ standard condition Gibbs energy changes of formation, Maud uses independent normal prior distributions for parameters that can in principle be both negative and positive. For parameters that are constrained to be positive, Maud uses independent log-normal distributions. Formation energy parameters have a multivariate normal prior distribution. Location, scale and covariance parameters for all these prior distributions can be selected freely by the user.</p>
 </section>
-<section id="measurement-model" class="level3">
-<h3 class="anchored" data-anchor-id="measurement-model">Measurement model</h3>
+<section id="measurement-model" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="measurement-model"><span class="header-section-number">3.3.2</span> Measurement model</h3>
 <p>Maud’s measurement model considers three types of measurement: metabolite concentration measurements, enzyme concentration measurements and flux measurements, represented by vectors <span class="math inline">\(𝑦^{𝑐𝑜𝑛𝑐}\)</span> <span class="math inline">\(𝑦^{𝑒𝑛𝑧}\)</span> and <span class="math inline">\(𝑦^{𝑓𝑙𝑢𝑥}\)</span> respectively.</p>
 <p>All measurements are specific to an experimental condition; that is, a case where the true state of the network, including knockouts, boundary conditions and state variables as well as kinetic and thermodynamic parameters, can safely be assumed to be the same. Maud’s statistical model allows for arbitrarily many experimental conditions, and for any measurable quantity to be measured any number of times in any condition.</p>
 <p>Metabolite and enzyme measurements are intended to represent the results of quantitative metabolomics and proteomics experiments. The likelihood functions for such measurements are shown in equations Equation <span class="math inline">\(\eqref{eq-yconc}\)</span> and Equation <span class="math inline">\(\eqref{eq-yenz}\)</span>.</p>
@@ -3442,35 +3393,35 @@ y_i^{flux} \sim LN(\ln{\hat{y}_i^{flux}}, \sigma_i^{flux})\label{eq-yflux}
 <p>Finally, the reader may wonder why Maud uses a linear regression model for reaction flux measurements even though this creates the potential for erroneous double counting and requires non-trivial upstream modelling, as intracellular fluxes typically cannot be measured directly. Instead, fluxes are typically inferred from isotope labelling experiments using metabolic flux analysis: see <span class="citation" data-cites="daiUnderstandingMetabolismFlux2017">Dai and Locasale (<a href="#ref-daiUnderstandingMetabolismFlux2017" role="doc-biblioref">2017</a>)</span> for more about this method. Ideally Maud’s measurement model for fluxes would extend from fluxes to the results of potential labelling experiments, thereby removing the need for upstream analysis and avoiding any double counting. This option has not yet been pursued, again for the sake of simplicity.</p>
 </section>
 </section>
-<section id="implementation" class="level2">
-<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<section id="implementation" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="implementation"><span class="header-section-number">3.4</span> Implementation</h2>
 <p>Maud uses the Python library click <span class="citation" data-cites="clickdevelopersClickPythonComposable2022">(<a href="#ref-clickdevelopersClickPythonComposable2022" role="doc-biblioref">Click Developers 2022</a>)</span> to implement a command line interface. The command line interface loads input files as Python dictionaries, which are parsed using the Python library <code>toml</code> <span class="citation" data-cites="pearsonTomlPythonLibrary2020">(<a href="#ref-pearsonTomlPythonLibrary2020" role="doc-biblioref">Pearson 2020</a>)</span> and then validated and converted into structured <code>MaudInput</code> objects using Pydantic <span class="citation" data-cites="pydanticdevelopersPydantic2022">(<a href="#ref-pydanticdevelopersPydantic2022" role="doc-biblioref">Pydantic developers 2022</a>)</span>. Maud’s statistical model is implemented in the probabilistic programming language Stan <span class="citation" data-cites="carpenterStanProbabilisticProgramming2017">(<a href="#ref-carpenterStanProbabilisticProgramming2017" role="doc-biblioref">Carpenter et al. 2017</a>)</span> and accessed using the interface cmdstanpy <span class="citation" data-cites="standevelopmentteamCmdStanPy2022">(<a href="#ref-standevelopmentteamCmdStanPy2022" role="doc-biblioref">Stan Development Team 2022</a>)</span>. For posterior sampling, Maud uses the <code>MaudInput</code> to create a Stan input json file and obtain configuration information for cmdstanpy, which it uses to (if necessary) generate a model executable file and then trigger posterior sampling using adaptive Hamiltonian Monte Carlo. When sampling is complete, Maud converts to the output into the standard format <code>InferenceData</code> using the Python library arviz <span class="citation" data-cites="kumarArviZUnifiedLibrary2019">(<a href="#ref-kumarArviZUnifiedLibrary2019" role="doc-biblioref">Kumar et al. 2019</a>)</span> and saves it as a json file, along with some information for debugging.</p>
 <p>Two details of Maud’s implementation are important to highlight: the method of posterior sampling and how Maud solves the steady state problem <span class="math inline">\(\eqref{eq-3}\)</span>.</p>
-<section id="posterior-sampling" class="level3">
-<h3 class="anchored" data-anchor-id="posterior-sampling">Posterior sampling</h3>
+<section id="posterior-sampling" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="posterior-sampling"><span class="header-section-number">3.4.1</span> Posterior sampling</h3>
 <p>Although integrals of the joint probability model for kinetic models are typically analytically intractable, they can be approximated numerically using Markov Chain Monte Carlo (MCMC) and other methods. Maud uses MCMC primarily because there exist many methods for verifying that MCMC samples really do approximate the target probability distribution: see <span class="citation" data-cites="vehtariRankNormalizationFoldingLocalization2021">Vehtari et al. (<a href="#ref-vehtariRankNormalizationFoldingLocalization2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="taltsValidatingBayesianInference2018">Talts et al. (<a href="#ref-taltsValidatingBayesianInference2018" role="doc-biblioref">2018</a>)</span> for discussion of this point. In addition, there are several examples of successful Bayesian kinetic modelling projects using MCMC including <span class="citation" data-cites="st.johnBayesianInferenceMetabolic2018">St. John et al. (<a href="#ref-st.johnBayesianInferenceMetabolic2018" role="doc-biblioref">2018</a>)</span> and <span class="citation" data-cites="xingModelingKineticsLargescale2010">Xing et al. (<a href="#ref-xingModelingKineticsLargescale2010" role="doc-biblioref">2010 Jan-Feb</a>)</span>.</p>
 </section>
-<section id="solving-the-steady-state-problem" class="level3">
-<h3 class="anchored" data-anchor-id="solving-the-steady-state-problem">Solving the steady state problem</h3>
+<section id="solving-the-steady-state-problem" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="solving-the-steady-state-problem"><span class="header-section-number">3.4.2</span> Solving the steady state problem</h3>
 <p>In order to implement adaptive Hamiltonian Monte Carlo, Maud must repeatedly solve the steady state problem <span class="math inline">\(\eqref{eq-3}\)</span> and find its gradients with respect to all parameters. To achieve this, Maud uses a hybrid method involving two numerical solvers from the SUNDIALS suite <span class="citation" data-cites="serbanCVODESSensitivityEnabledODE2005">(<a href="#ref-serbanCVODESSensitivityEnabledODE2005" role="doc-biblioref">Serban and Hindmarsh 2005</a>)</span>: CVODES and IDAS. These solvers are accessed via their interface from Stan. The hybrid method follows that proposed by <span class="citation" data-cites="margossianComputingSteadyStates2018">Margossian (<a href="#ref-margossianComputingSteadyStates2018" role="doc-biblioref">2018</a>)</span>, and involves numerically evolving the ODE system for a short period of time, then using the difference between the evolved and starting concentrations as the target for a numerical algebra solver.</p>
 </section>
 </section>
 </section>
-<section id="supporting-information" class="level1">
-<h1>Supporting information</h1>
+<section id="supporting-information" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Supporting information</h1>
 <p>The document <code>supplementary.pdf</code> contains the following information:</p>
 <ul>
 <li>Description of Maud’s kinetic model including parameter dimensions and rate equations.</li>
-<li>Description of the procedure used to generate the artificial case study datasets.</li>
+<li>Details of the procedure used to generate our case study results, including generating the artificial case study datasets, specifying priors and carrying out computation.</li>
 <li>Specification of the prior distribution used for the case studies</li>
 </ul>
 </section>
-<section id="acknowledgements" class="level1">
-<h1>Acknowledgements</h1>
+<section id="acknowledgements" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Acknowledgements</h1>
 <p>This research was funded by the Novo Nordisk foundation using grant number NNF14OC0009473.</p>
 </section>
-<section id="references" class="level1">
-<h1>References</h1>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-carpenterStanProbabilisticProgramming2017" class="csl-entry" role="listitem">
 Carpenter, Bob, Andrew Gelman, Matthew D. Hoffman, Daniel Lee, Ben Goodrich, Michael Betancourt, Marcus Brubaker, Jiqiang Guo, Peter Li, and Allen Riddell. 2017. <span>“Stan: <span>A Probabilistic Programming Language</span>.”</span> <em>Journal of Statistical Software</em> 76 (1): 1–32. <a href="https://doi.org/10.18637/jss.v076.i01">https://doi.org/10.18637/jss.v076.i01</a>.
