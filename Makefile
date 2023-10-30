@@ -38,6 +38,7 @@ $(FIGURE_4): $(VALIDATE_ODE)
 figure_3: $(FIGURE_3)
 
 figure_4: $(FIGURE_4)
+	. .venv/bin/activate && ( python plot_figure_4.py)
 
 sample_methionine: $(MAIN_IDATA_6) $(MAIN_IDATA_6_missing_ahcys)
 
