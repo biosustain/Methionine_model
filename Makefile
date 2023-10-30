@@ -29,12 +29,13 @@ $(VALIDATE_6): $(MAIN_IDATA_6)
 $(VALIDATE_6_missing_ahcys): $(MAIN_IDATA_6_missing_ahcys)
 	.venv/bin/maud predict results/methionine_missing_ahcys | tail -n 1 | xargs -I '{}' mv {}  results/methionine_missing_ahcys_validation
 
-$(FIGURE_3): $(MAIN_IDATA)
-	.venv/bin/python plot_figure_3.py
+$(FIGURE_2): $(MAIN_IDATA)
 
-$(FIGURE_4): $(VALIDATE_ODE)
+$(FIGURE_3): $(VALIDATE_ODE)
 	.venv/bin/python plot_figure_4.py
 	
+figure_2: $(FIGURE_2)
+	. .venv/bin/activate && ( python plot_figure_2.py)
 figure_3: $(FIGURE_3)
 	. .venv/bin/activate && ( python plot_figure_3.py)
 

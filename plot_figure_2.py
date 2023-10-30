@@ -15,10 +15,9 @@ import arviz as az
 from maud.loading_maud_inputs import load_maud_input
 from maud.getting_idatas import get_idata
 
-from plotting_functions import get_measurements_of_type, get_csvs
 
-MAUD_OUTPUT = Path.cwd() / "methionine_model"/ "results" / "methionine"
-PLOT_OUTPUT = Path.cwd() / "methionine_model"/ "plots" / "figure_2"
+MAUD_OUTPUT = Path.cwd() / "results" / "methionine"
+PLOT_OUTPUT = Path.cwd() / "figures" / "figure_2"
 
 plt.style.use('ipynb')
 
@@ -27,17 +26,15 @@ colour_scheme = {
     "sample": "#8F2727"
 }
 
-def plot_flux_forest(mi, infd, axes):
+def plot_flux_forest(mi, idata_methionine, axes, flux_meas_df):
     """Return forest plot axes of fluxes."""
-    flux_measurements = get_measurements_of_type("flux", "yflux", mi.measurements)
-    flux_measurements["id"] = flux_measurements["experiments"] + '-' + flux_measurements["flux"]
-    flux_samples = infd.posterior["flux"].to_dataframe().reset_index()
-    flux_samples["id"] = flux_samples["experiments"] + '-' + flux_samples["reactions"]
-    flux_samples = flux_samples.groupby("id") \
+    flux_samples = idata_methionine.posterior["flux_train"].to_dataframe().reset_index()
+    flux_samples["id"] = flux_samples["experiments"] + flux_samples["reactions"]
+    flux_samples = flux_samples[["id", "flux_train"]].groupby("id") \
                                .quantile([0.05, 0.95]) \
                                .reset_index() \
-                               .pivot(index="id", columns="level_1", values="flux")
-    sorted_fluxes = list(flux_measurements.sort_values("measurement")["id"])
+                               .pivot(index="id", columns="level_1", values="flux_train")
+    sorted_fluxes = list(flux_meas_df.sort_values("flux").index)
     for id, sample in flux_samples.reindex(sorted_fluxes).iterrows():
         axes[0,0].vlines(
             x=id,
@@ -46,32 +43,30 @@ def plot_flux_forest(mi, infd, axes):
             linewidth=2.5,
             color=colour_scheme["sample"],
         )
-    for _, meas in flux_measurements.sort_values("measurement").iterrows():
+    for id, meas in flux_meas_df.reindex(sorted_fluxes).iterrows():
         axes[0,0].vlines(
-            x=meas["id"],
-            ymin=meas["measurement"]-1.65*meas["error_scale"],
-            ymax=meas["measurement"]+1.65*meas["error_scale"],
+            x=id,
+            ymin=meas["flux"]-1.65*meas["uncertainty"],
+            ymax=meas["flux"]+1.65*meas["uncertainty"],
             linewidth=2,
             color=colour_scheme["measurement"],
             alpha=0.7,
         )
-    axes[0,0].set_xticklabels(axes[0,0].get_xticklabels(),rotation = 45, ha="right")
+    axes[0,0].set_xticklabels([])
     axes[0,0].set_ylabel("Flux Measurement [mM/s]")
     # axes[0,0].set_xlabel("flux ID")
     axes[0,0].set(yscale="log")
     return axes
 
-def plot_conc_forest(mi, infd, axes):
+def plot_conc_forest(mi, idata_methionine, axes, conc_meas_df):
     """Return forest plot axes of concentrations."""
-    conc_measurements = get_measurements_of_type("conc", "yconc", mi.measurements)
-    conc_measurements["id"] = conc_measurements["experiments"] + '-' + conc_measurements["conc"]
-    conc_samples = infd.posterior["conc"].to_dataframe().reset_index()
-    conc_samples["id"] = conc_samples["experiments"] + '-' + conc_samples["mics"]
-    conc_samples = conc_samples.groupby("id") \
+    conc_samples = idata_methionine.posterior["conc_train"].to_dataframe().reset_index()
+    conc_samples["id"] = conc_samples["experiments"] + conc_samples["mics"]
+    conc_samples = conc_samples[["id", "conc_train"]].groupby("id") \
                                .quantile([0.05, 0.95]) \
                                .reset_index() \
-                               .pivot(index="id", columns="level_1", values="conc")
-    sorted_concs = list(conc_measurements.sort_values("measurement")["id"])
+                               .pivot(index="id", columns="level_1", values="conc_train")
+    sorted_concs = list(conc_meas_df.sort_values("conc").index)
     for id, sample in conc_samples.reindex(sorted_concs).iterrows():
         axes[0,1].vlines(
             x=id,
@@ -80,16 +75,16 @@ def plot_conc_forest(mi, infd, axes):
             linewidth=2.5,
             color=colour_scheme["sample"],
         )
-    for _, meas in conc_measurements.sort_values("measurement").iterrows():
+    for id, meas in conc_meas_df.reindex(sorted_concs).iterrows():
         axes[0,1].vlines(
-            x=meas["id"],
-            ymin=np.exp(np.log(meas["measurement"])-1.65*meas["error_scale"]),
-            ymax=np.exp(np.log(meas["measurement"])+1.65*meas["error_scale"]),
+            x=id,
+            ymin=np.exp(np.log(meas["conc"])-1.65*meas["uncertainty"]),
+            ymax=np.exp(np.log(meas["conc"])+1.65*meas["uncertainty"]),
             linewidth=2.5,
             color=colour_scheme["measurement"],
             alpha=0.5,
         )
-    axes[0,1].set_xticklabels(axes[0,1].get_xticklabels(),rotation = 45, ha="right")
+    axes[0,1].set_xticklabels([])
     axes[0,1].set_ylabel("Concentration Measurement [mM]")
     axes[0,1].set(yscale="log")
     return axes
@@ -98,8 +93,8 @@ def plot_conc_forest(mi, infd, axes):
 def plot_pair_corr(mi, infd):
     """Return pair plot axes of correlated parameters."""
 
-    par_1 = "AHC1-hcys-L_c"
-    par_2 = "AHC1-ahcys_c"
+    par_1 = "AHC1_hcys-L_c"
+    par_2 = "AHC1_ahcys_c"
     par_1_name = "km - "+par_1
     par_2_name = "km - "+par_2
     km_df = infd.posterior["km"].to_dataframe().reset_index()
@@ -121,7 +116,7 @@ def plot_pair_corr(mi, infd):
 def plot_pair_uncorr(mi, infd):
     """Return pair plot axes of correlated parameters."""
 
-    par_1 = "MAT3-atp_c"
+    par_1 = "MAT3_atp_c"
     par_2 = "MAT3"
     par_1_name = "km - "+par_1
     par_2_name = "kcat - "+par_2
@@ -148,7 +143,38 @@ def plot_figure():
 
     # Loading Data
     mi = load_maud_input(data_path=MAUD_OUTPUT / "user_input")
-    idata = get_idata([MAUD_OUTPUT / "samples" / "model-20231017125941_1.csv"], mi=mi, mode="sample")
+    csvs_methionine = [MAUD_OUTPUT/ "samples" / file for file in os.listdir(MAUD_OUTPUT/ "samples") if ".csv" in file]
+    idata_methionine = get_idata(csvs_methionine, mi=mi, mode="train")
+    
+    flux_measurements = [{
+        "flux": meas.value, 
+        "uncertainty": meas.error_scale,
+        "reaction": meas.reaction, 
+        "experiment": meas.experiment
+    } 
+        for exp in mi.experiments 
+        for meas in exp.measurements 
+        if (meas.target_type=="flux") & (exp.is_train==True)   
+    ]
+    flux_meas_df = pd.DataFrame.from_records(flux_measurements)
+    flux_meas_df["id"] = flux_meas_df["experiment"]+flux_meas_df["reaction"]
+    flux_meas_df = flux_meas_df.set_index("id")
+
+    conc_measurements = [{
+        "conc": meas.value, 
+        "uncertainty": meas.error_scale,
+        "metabolite": meas.metabolite, 
+        "compartment": meas.compartment,
+        "experiment": meas.experiment
+    } 
+        for exp in mi.experiments 
+        for meas in exp.measurements 
+        if (meas.target_type=="mic") & (exp.is_train==True)
+    ]
+    conc_meas_df = pd.DataFrame.from_records(conc_measurements)
+    conc_meas_df["id"] = conc_meas_df["experiment"]+conc_meas_df["metabolite"]+"_"+conc_meas_df["compartment"]
+    conc_meas_df = conc_meas_df.set_index("id")
+
 
     # calling plotting scripts
     cm = 1/2.54  # centimeters in inches
@@ -157,12 +183,12 @@ def plot_figure():
     # Running scripts that generate their own figures
     tempdir = tempfile.mkdtemp(prefix="temp_figures-")
 
-    g0 = plot_pair_corr(mi, infd)
+    g0 = plot_pair_corr(mi, idata_methionine)
     g0_file = os.path.join(tempdir, "g0.png")
     g0.savefig(g0_file)
     plt.close(g0.fig)
 
-    g1 = plot_pair_uncorr(mi, infd)
+    g1 = plot_pair_uncorr(mi, idata_methionine)
     g1_file = os.path.join(tempdir, "g1.png")
     g1.savefig(g1_file)
     plt.close(g1.fig)
@@ -172,8 +198,8 @@ def plot_figure():
     measurements_legend = mpatches.Patch(color=colour_scheme["measurement"], label="true value $\pm$ $45\%$ error")
 
     fig, axes = plt.subplots(2, 2, figsize = (21.0*cm, 21.0*cm))
-    axes = plot_flux_forest(mi, infd, axes)
-    axes = plot_conc_forest(mi, infd, axes)
+    axes = plot_flux_forest(mi, idata_methionine, axes, flux_meas_df)
+    axes = plot_conc_forest(mi, idata_methionine, axes, conc_meas_df)
     handles, labels = axes[0,0].get_legend_handles_labels()
     fig.legend(handles=[samples_legend, measurements_legend], loc='upper center',
                       ncol=2, borderaxespad=0.)
@@ -185,7 +211,7 @@ def plot_figure():
     plt.figure(dpi = 300)
     fig.tight_layout()
     fig.subplots_adjust(top=0.97)
-    fig.savefig("plots/figure_3.png")
+    fig.savefig(PLOT_OUTPUT)
     shutil.rmtree(tempdir)
 
     
