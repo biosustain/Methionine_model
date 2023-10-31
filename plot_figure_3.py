@@ -75,7 +75,7 @@ def plot_residual_state_variables(residual_df, ax):
             transform=ax.transData+offset(-1),
             alpha=0.7
         )
-    ax.axhline(y=0, color="red")
+    ax.axhline(y=0, xmin=0, xmax=len(residual_df)/2, color="red")
     ax.set_ylabel("log residual plot of balanced metabolites")
     ax.get_xaxis().set_visible(False)
     return ax
@@ -113,10 +113,11 @@ def plot_parameter_hist(parameter_df, ax):
 
 def plot_figure():
     mi = load_maud_input(data_path=MAUD_OUTPUT / "user_input")
-    csvs_methionine = [MAUD_OUTPUT/ "validation" / file for file in os.listdir(MAUD_OUTPUT/ "validation") if ".csv" in file]
-    infd_methionine = get_idata(csvs_methionine, mi=mi, mode="test")
-    csvs_methionine_missing = [MAUD_OUTPUT_MISSING_AHCYS/ "validation" / file for file in os.listdir(MAUD_OUTPUT_MISSING_AHCYS/ "validation") if ".csv" in file]
-    infd_methionine_missing = get_idata(csvs_methionine_missing, mi=mi, mode="test")
+    mi_missing = load_maud_input(data_path=MAUD_OUTPUT_MISSING_AHCYS / "user_input")
+    csvs_methionine = [MAUD_OUTPUT/ "samples" / file for file in os.listdir(MAUD_OUTPUT/ "samples") if ".csv" in file]
+    infd_methionine = get_idata(csvs_methionine, mi=mi, mode="train")
+    csvs_methionine_missing = [MAUD_OUTPUT_MISSING_AHCYS/ "samples" / file for file in os.listdir(MAUD_OUTPUT_MISSING_AHCYS/ "samples") if ".csv" in file]
+    infd_methionine_missing = get_idata(csvs_methionine_missing, mi=mi_missing, mode="train")
 
     flux_measurements = [{
         "flux": meas.value, 
@@ -126,7 +127,7 @@ def plot_figure():
     } 
         for exp in mi.experiments 
         for meas in exp.measurements 
-        if (meas.target_type=="flux") & (exp!="validation")
+        if (meas.target_type=="flux")
     ]
     flux_meas_df = pd.DataFrame.from_records(flux_measurements)
     flux_meas_df["id"] = flux_meas_df["experiment"]+flux_meas_df["reaction"]
@@ -141,21 +142,21 @@ def plot_figure():
     } 
         for exp in mi.experiments 
         for meas in exp.measurements 
-        if (meas.target_type=="mic") & (exp!="validation")
+        if (meas.target_type=="mic")
     ]
     conc_meas_df = pd.DataFrame.from_records(conc_measurements)
     conc_meas_df["id"] = conc_meas_df["experiment"]+conc_meas_df["metabolite"]+"_"+conc_meas_df["compartment"]
     conc_meas_df = conc_meas_df.set_index("id")
         
     flux_lp_df = pd.DataFrame(columns=["lower_5_lp", "upper_95_lp", "model"])
-    flux_methionine = infd_methionine.posterior.flux_test.to_dataframe().dropna().droplevel(1).reset_index()
-    flux_methionine_missing = infd_methionine_missing.posterior.flux_test.to_dataframe().dropna().droplevel(1).reset_index()
+    flux_methionine = infd_methionine.posterior.flux_train.to_dataframe().dropna().droplevel(1).reset_index()
+    flux_methionine_missing = infd_methionine_missing.posterior.flux_train.to_dataframe().dropna().droplevel(1).reset_index()
 
     lp_flux_methionine = []
     for _, row in flux_methionine.iterrows():
         id = row["experiments"]+row["reactions"]
         if id in flux_meas_df.index:
-            lp_flux_methionine.append(ll_normal(row["flux_test"],flux_meas_df.loc[id]["flux"],flux_meas_df.loc[id]["uncertainty"]))
+            lp_flux_methionine.append(ll_normal(row["flux_train"],flux_meas_df.loc[id]["flux"],flux_meas_df.loc[id]["uncertainty"]))
     flux_lp_df.loc[0,"lower_5_lp"] = np.quantile(lp_flux_methionine, 0.05)
     flux_lp_df.loc[0,"upper_95_lp"] = np.quantile(lp_flux_methionine, 0.95)
     flux_lp_df.loc[0, "model"] = "complete measurement set"
@@ -163,16 +164,16 @@ def plot_figure():
     for _, row in flux_methionine_missing.iterrows():
         id = row["experiments"]+row["reactions"]
         if id in flux_meas_df.index:
-            lp_flux_methionine_missing.append(ll_normal(row["flux_test"],flux_meas_df.loc[id]["flux"],flux_meas_df.loc[id]["uncertainty"]))
+            lp_flux_methionine_missing.append(ll_normal(row["flux_train"],flux_meas_df.loc[id]["flux"],flux_meas_df.loc[id]["uncertainty"]))
 
     flux_lp_df.loc[1,"lower_5_lp"] = np.quantile(lp_flux_methionine_missing, 0.05)
     flux_lp_df.loc[1,"upper_95_lp"] = np.quantile(lp_flux_methionine_missing, 0.95)
     flux_lp_df.loc[1, "model"] = "missing ahcys measurement"
 
     balanced_mics = [mic.id for mic in mi.kinetic_model.mics if mic.balanced == True]
-    conc_methionine = infd_methionine.posterior.conc_test.sel(mics=balanced_mics).to_dataframe().dropna().droplevel(1).reset_index()
+    conc_methionine = infd_methionine.posterior.conc_train.sel(mics=balanced_mics).to_dataframe().dropna().droplevel(1).reset_index()
     conc_methionine["model"] = "complete measurement set"
-    conc_methionine_missing = infd_methionine_missing.posterior.conc_test.sel(mics=balanced_mics).to_dataframe().dropna().droplevel(1).reset_index()
+    conc_methionine_missing = infd_methionine_missing.posterior.conc_train.sel(mics=balanced_mics).to_dataframe().dropna().droplevel(1).reset_index()
     conc_methionine_missing["model"] = "missing ahcys measurement"
 
     met_AHC1_ahcys = infd_methionine.posterior.km.sel(kms=["AHC1_ahcys_c"]).to_dataframe().reset_index()
@@ -184,12 +185,12 @@ def plot_figure():
 
     for i, row in conc_methionine.iterrows():
         id = row["experiments"]+row["mics"]
-        conc_methionine.loc[i, "log_residual"] = np.log(row["conc_test"]) - np.log(conc_meas_df.loc[id]["conc"])
+        conc_methionine.loc[i, "log_residual"] = np.log(row["conc_train"]) - np.log(conc_meas_df.loc[id]["conc"])
     conc_methionine = conc_methionine.loc[conc_methionine["experiments"]!="validation"]
    
     for i, row in conc_methionine_missing.iterrows():
         id = row["experiments"]+row["mics"]
-        conc_methionine_missing.loc[i, "log_residual"] = np.log(row["conc_test"]) - np.log(conc_meas_df.loc[id]["conc"])
+        conc_methionine_missing.loc[i, "log_residual"] = np.log(row["conc_train"]) - np.log(conc_meas_df.loc[id]["conc"])
     conc_methionine_missing = conc_methionine_missing.loc[conc_methionine_missing["experiments"]!="validation"]
 
     conc_validation = pd.concat([conc_methionine, conc_methionine_missing], axis=0)
