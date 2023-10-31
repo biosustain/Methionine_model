@@ -65,6 +65,11 @@ def plot_residual_state_variables(residual_df, ax):
             color=colour_scheme[model],
             alpha=0.7,
         )
+    rect = mpatches.Rectangle((5.5, 3.3), 6, 3.9, facecolor="none", edgecolor="orange")
+    ax.add_patch(rect)
+    ax.annotate(
+        "ahcys measurements", (12, 5), (15, 6), arrowprops={"facecolor": "black"}
+    )
     ax.axhline(y=0, xmin=0, xmax=len(residual_df) / 2, color="red")
     ax.set_ylabel("log residual plot of balanced metabolites")
     ax.get_xaxis().set_visible(False)
