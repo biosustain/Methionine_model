@@ -186,7 +186,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, boxrule=0pt, interior hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -500,8 +500,7 @@ curvature that might inhibit exploration via HMC.
 
 Posterior predictive checking indicated that our model achieved a good
 fit to the simulated reaction and metabolite concentration measurements,
-as shown by the graphs in the top row of figure
-Figure~\ref{fig-posterior}.
+as shown by the graphs in the top row of Figure~\ref{fig-posterior}.
 
 Analysis of the posterior distributions for kinetic parameters indicated
 that these are highly correlated. The marginal posterior distributions
@@ -510,23 +509,23 @@ the corresponding marginal prior distributions, even though these
 parameters' joint posterior distribution contained enough information to
 make accurate out of sample predictions. In some cases, there were
 two-dimensional correlations such as the one shown in the bottom left of
-figure Figure~\ref{fig-posterior}; in this case the marginal
-distribution of the two parameters is roughly banana shaped. More
-commonly, however, two-dimensional pair plots were insufficient to
-reveal the underlying correlation structure, as seen in the bottom-right
-plot in figure Figure~\ref{fig-posterior}. This does not mean that the
-parameters were uncorrelated, but rather that the correlations involve
-more than two parameters.
+Figure~\ref{fig-posterior}; in this case the marginal distribution of
+the two parameters is roughly banana shaped. More commonly, however,
+two-dimensional pair plots were insufficient to reveal the underlying
+correlation structure, as seen in the bottom-right plot in figure
+Figure~\ref{fig-posterior}. This does not mean that the parameters were
+uncorrelated, but rather that the correlations involve more than two
+parameters.
 
-Overall, our results show that Maud can fit a realistic pathway-sized
-dataset. This was achieved without fixing the marginal values of kinetic
-parameters: the information required to make good predictions was
-contained in the correlation structure of the joint posterior
-distribution. This finding is consistent with previous analyses of
-biological systems that found they are ``sloppy'', that is, sensitive to
-parameter combinations rather than marginal parameter values, with
-important combinations, scales and regions of sensitivity being
-difficult to ascertain in advance
+These results show that Maud can achieve an adequate fit to a realistic
+pathway-sized dataset. This was achieved without fixing the marginal
+values of kinetic parameters: the information required to make good
+predictions was contained in the correlation structure of the joint
+posterior distribution. This finding is consistent with previous
+analyses of biological systems that found they are ``sloppy'', that is,
+sensitive to parameter combinations rather than marginal parameter
+values, with important combinations, scales and regions of sensitivity
+being difficult to ascertain in advance
 \citep{gutenkunst_2007, poirier_revising_1998}.
 
 The question naturally arises whether the crucial high-dimensional
@@ -613,20 +612,20 @@ indistinguishable from zero.
 
 The difference between the Laplace approximation output and the true
 posterior distribution manifests not only in the parameter space, but
-also in the measurement space. Figure Figure~\ref{fig-laplace} frame B
-compares the 5\%-95\% interval for flux measurement log likelihoods in
-the true posterior with the Laplace approximation; lower log likelihood
-values indicate that the modelled and measured values are further away.
-The graph shows that the Laplace approximation yielded significantly
-worse predictions than the true posterior, even for the training data.
+also in the measurement space. The upper right (training data) and lower
+left (validation data) plots in Figure~\ref{fig-laplace} show 5\%-95\%
+marginal flux measurement log likelihood intervals for both methods;
+lower log likelihood values indicate that the modelled and measured
+values are further away. The graph shows that the Laplace approximation
+yielded significantly worse predictions than the true posterior, even
+for the training data.
 
 To further explore why this is the case we compared samples from the
 true posterior and the Laplace approximation for the pairwise marginal
 distributions of two Michaelis-Menten constants \(K_{m}^{A,r1}\) and
-\(K_{cat}^{r1}\): see the bottom right cell of figure
-Figure~\ref{fig-laplace}. This comparison demonstrates that the Laplace
-method is not able to capture the correct relationships between
-parameters' distributions.
+\(K_{cat}^{r1}\): see the bottom right cell of Figure~\ref{fig-laplace}.
+This comparison demonstrates that the Laplace method is not able to
+capture the correct relationships between parameters' distributions.
 
 This result shows that MCMC, while slower than Laplace approximation, is
 unfortunately preferable for posterior inference in this case. We expect
