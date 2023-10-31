@@ -34,6 +34,8 @@ $(FIGURE_2): $(MAIN_IDATA)
 $(FIGURE_3): $(VALIDATE_ODE)
 
 $(FIGURE_4): $(MAIN_IDATA_missing_ahcys)
+
+$(FIGURE_5): $(MAIN_IDATA)
 	
 figure_2: $(FIGURE_2)
 	. .venv/bin/activate && ( python plot_figure_2.py)
@@ -43,6 +45,9 @@ figure_3: $(FIGURE_3)
 
 figure_4: $(FIGURE_4)
 	. .venv/bin/activate && ( python plot_figure_4.py)
+
+figure_5: $(FIGURE_5)
+	. .venv/bin/activate && ( python plot_figure_5.py)
 
 sample_methionine: $(MAIN_IDATA_6) $(MAIN_IDATA_6_missing_ahcys)
 
