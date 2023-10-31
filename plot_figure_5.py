@@ -35,7 +35,7 @@ plt.style.use("ipynb")
 
 MAUD_OUTPUT = Path.cwd() / "results" / "methionine"
 MAUD_SIM = Path.cwd() / "results" / "methionine" / "simulate"
-PLOT_OUTPUT = Path.cwd() / "figures"
+PLOT_OUTPUT = Path.cwd() / "paper" / "figures"
 
 
 def plot_regulation(regulation_df, true_df, ax):

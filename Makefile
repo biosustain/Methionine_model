@@ -6,10 +6,10 @@ MAIN_IDATA_EXAMPLE_ODE = results/example_ode/idata.nc
 MAIN_LAPLACE_EXAMPLE_ODE = results/example_ode/idata.nc
 VALIDATE_6 = results/methionine/validation/inits.json
 VALIDATE_6_missing_ahcys = results/methionine_missing_ahcys/validation/inits.json
-FIGURE_2 = plots/posterior.png
-FIGURE_3 = plots/missing.png
-FIGURE_4 = plots/laplace.png
-FIGURE_5 = plots/decomposition.png
+FIGURE_2 = paper/figures/posterior.png
+FIGURE_3 = paper/figures/missing.png
+FIGURE_4 = paper/figures/laplace.png
+FIGURE_5 = paper/figures/decomposition.png
 
 $(MAIN_IDATA_6): | data/methionine/config.toml
 	.venv/bin/maud sample data/methionine | tail -n 1 | xargs -I '{}' mv {}  results/methionine

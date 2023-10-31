@@ -50,7 +50,7 @@ MAUD_OUTPUT_TRAINING = Path.cwd() / "results" / "example_ode"
 MAUD_OUTPUT_VALIDATION = MAUD_OUTPUT_TRAINING / "validation"
 MAUD_OUTPUT_LAPLACE_TRAINING = Path.cwd() / "results" / "example_ode_laplace"
 MAUD_OUTPUT_VALIDATION = MAUD_OUTPUT_LAPLACE_TRAINING / "validation"
-PLOT_OUTPUT = Path.cwd() / "figures" / "laplace.png"
+PLOT_OUTPUT = Path.cwd() / "paper" / "figures" / "laplace.png"
 
 colour_scheme = {"measurement": "0.2", "laplace": "#005F73", "posterior": "#001219"}
 
