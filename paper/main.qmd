@@ -536,10 +536,10 @@ main drivers of regulation between the two datasets in this case, with the
 curves for each component aligning with the ground truth shown in red.
 
 Importantly, this form of analysis takes into account all modelled sources of
-uncertainty, including uncertainty about the measured values of the flux in each
-dataset. Our result shows that Maud could be used in this realistic case not
-only to provide a user with an explanation for an observed difference in fluxes,
-but also a reasonable judgement as to the explanation's robustness.
+uncertainty, including uncertainty about the measured values of the flux in
+each dataset. Our result shows that Maud could be used in this realistic case
+not only to explain an observed difference in fluxes, but also to provide a
+reasonable judgement as to the explanation's robustness.
 
 ::: {#fig-decomposition layout-ncol=1}
 
@@ -758,8 +758,8 @@ in @vehtariRankNormalizationFoldingLocalization2021.
 ## Solving the steady state problem 
 
 Maud's parameters are connected with measurable quantities via the steady state
-equation \eqref{eq-steady}. Posterior sampling using adaptive Hamiltonian Monte
-Carlo requires repeatedly solving equation \eqref{eq-steady} and finding the
+equation \eqref{eq-3}. Posterior sampling using adaptive Hamiltonian Monte
+Carlo requires repeatedly solving equation \eqref{eq-3} and finding the
 gradients of its solution with respect to all model parameters. This must be
 done numerically as analytic solutions are not available for realistic kinetic
 models.
@@ -769,7 +769,7 @@ size and complexity of metabolic network that can practically be modelled. See
 @timonenImportanceSamplingApproach2022a for more about considerations involved
 in this kind of modelling.
 
-To solve equation \eqref{eq-steady} and find its gradients, Maud uses
+To solve equation \eqref{eq-3} and find its gradients, Maud uses
 a hybrid method involving two numerical solvers from the SUNDIALS
 suite [@serbanCVODESSensitivityEnabledODE2005]: CVODES and IDAS via
 their interface from Stan. The hybrid method follows that proposed by
@@ -784,7 +784,7 @@ our results, figures and paper, can be found at <https://biosustain/Methionine_m
 
 The document `supporting_information.pdf` contains the following information:
 
-- Description of Maud's input format
+- Description of Maud's input format.
 - Description of Maud's kinetic model including rate equations as well as
 parameters and their dimensions.
 - Details of the procedure used to generate our case study results, including

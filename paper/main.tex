@@ -141,7 +141,9 @@
 \hypersetup{
   pdftitle={Bayesian regression facilitates quantitative modelling of cell metabolism},
   pdfauthor={Teddy Groves; Nicholas Luke Cowie; Lars Keld Nielsen},
-  pdfkeywords={Bayesian inference, kinetic models of cell metabolism},
+  pdfkeywords={Bayesian inference, kinetic models of cell metabolism,
+multiomics integration, ordinary differential equations, regulatory
+anlaysis},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -168,7 +170,9 @@
 
 
 
-\keywords{Bayesian inference, kinetic models of cell metabolism}
+\keywords{Bayesian inference, kinetic models of cell metabolism,
+multiomics integration, ordinary differential equations, regulatory
+anlaysis}
 
 \title[]{Bayesian regression facilitates quantitative modelling of cell
 metabolism}
@@ -186,7 +190,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, frame hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden, sharp corners, breakable, frame hidden]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -780,9 +784,9 @@ in red.
 Importantly, this form of analysis takes into account all modelled
 sources of uncertainty, including uncertainty about the measured values
 of the flux in each dataset. Our result shows that Maud could be used in
-this realistic case not only to provide a user with an explanation for
-an observed difference in fluxes, but also a reasonable judgement as to
-the explanation's robustness.
+this realistic case not only to explain an observed difference in
+fluxes, but also to provide a reasonable judgement as to the
+explanation's robustness.
 
 \begin{figure}
 
@@ -901,15 +905,15 @@ Maud's prior model includes unknown parameters corresponding to
 quantities in the kinetic model that are assumed to be unknown, other
 than steady state metabolite concentrations and fluxes, which are
 derived from the values of other parameters by solving the steady state
-problem. See table (REFERENCE) in this paper's supporting information
-for a description of all these parameters and their dimensions. Note
-that some quantities in Maud's kinetic model are not treated as
-parameters: for example, temperatures, compartment volumes and the
-formation energy of water. Maud treats these quantities as if they were
-known precisely: they can be configured by the user or default values
-can be used. Although in practice there can be considerable uncertainty
-regarding these quantities, we chose to disregard this uncertainty in
-the interest of simplicity.
+problem. See table 1 in this paper's supporting information for a
+description of all these parameters and their dimensions. Note that some
+quantities in Maud's kinetic model are not treated as parameters: for
+example, temperatures, compartment volumes and the formation energy of
+water. Maud treats these quantities as if they were known precisely:
+they can be configured by the user or default values can be used.
+Although in practice there can be considerable uncertainty regarding
+these quantities, we chose to disregard this uncertainty in the interest
+of simplicity.
 
 Except for metabolites' standard condition Gibbs energy changes of
 formation, Maud uses independent normal prior distributions for
@@ -1038,10 +1042,10 @@ sample size and the improved \(\hat{R}\) statistic proposed in
 problem}\label{solving-the-steady-state-problem}}
 
 Maud's parameters are connected with measurable quantities via the
-steady state equation \eqref{eq-steady}. Posterior sampling using
-adaptive Hamiltonian Monte Carlo requires repeatedly solving equation
-\eqref{eq-steady} and finding the gradients of its solution with respect
-to all model parameters. This must be done numerically as analytic
+steady state equation \eqref{eq-3}. Posterior sampling using adaptive
+Hamiltonian Monte Carlo requires repeatedly solving equation
+\eqref{eq-3} and finding the gradients of its solution with respect to
+all model parameters. This must be done numerically as analytic
 solutions are not available for realistic kinetic models.
 
 The speed at which this problem can be solved is tightly coupled with
@@ -1049,7 +1053,7 @@ the size and complexity of metabolic network that can practically be
 modelled. See \citet{timonenImportanceSamplingApproach2022a} for more
 about considerations involved in this kind of modelling.
 
-To solve equation \eqref{eq-steady} and find its gradients, Maud uses a
+To solve equation \eqref{eq-3} and find its gradients, Maud uses a
 hybrid method involving two numerical solvers from the SUNDIALS suite
 \citep{serbanCVODESSensitivityEnabledODE2005}: CVODES and IDAS via their
 interface from Stan. The hybrid method follows that proposed by
@@ -1071,7 +1075,7 @@ information:
 \begin{itemize}
 \tightlist
 \item
-  Description of Maud's input format
+  Description of Maud's input format.
 \item
   Description of Maud's kinetic model including rate equations as well
   as parameters and their dimensions.
