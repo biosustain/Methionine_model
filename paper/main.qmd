@@ -276,9 +276,9 @@ network’s elementary flux modes.
 
 ### Training/validation split
 
-The training testing split was selected to achieve a large difference between
-the fluxes of the training and testing dataset. The split was determined as
-we are interested in showing how our model can fit to varied conditions, and
+The split between training and validation conditions was selected to achieve a
+large difference in fluxes between the two categories. The split was determined
+as we are interested in showing how our model can fit to varied conditions, and
 conditions closer to the training set are likely to be predicted well without
 necessarily learning the system.
 
@@ -302,7 +302,7 @@ The prior distributions and corresponding true parameter values used in our
 case study are shown in supporting information section 3.2. They were chosen to
 reflect a plausible pre-experimental information state. In 7 cases, the marginal
 prior distribution for a parameter disagrees with the true parameter values used
-to generate the data. A similar situation is likely to occur in practice due to
+to generate the data; a similar situation is likely to occur in practice due to
 *in vivo* vs *in vitro* measurement differences.
 
 ## Findings

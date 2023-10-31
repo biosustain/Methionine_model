@@ -186,7 +186,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, enhanced, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, boxrule=0pt, sharp corners, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -441,11 +441,11 @@ for each of the network's elementary flux modes.
 \subsubsection{Training/validation
 split}\label{trainingvalidation-split}}
 
-The training testing split was selected to achieve a large difference
-between the fluxes of the training and testing dataset. The split was
-determined as we are interested in showing how our model can fit to
-varied conditions, and conditions closer to the training set are likely
-to be predicted well without necessarily learning the system.
+The split between training and validation conditions was selected to
+achieve a large difference in fluxes between the two categories. The
+split was determined as we are interested in showing how our model can
+fit to varied conditions, and conditions closer to the training set are
+likely to be predicted well without necessarily learning the system.
 
 \hypertarget{additional-dataset-with-missing-measurements}{%
 \subsubsection{Additional dataset with missing
@@ -473,7 +473,7 @@ The prior distributions and corresponding true parameter values used in
 our case study are shown in supporting information section 3.2. They
 were chosen to reflect a plausible pre-experimental information state.
 In 7 cases, the marginal prior distribution for a parameter disagrees
-with the true parameter values used to generate the data. A similar
+with the true parameter values used to generate the data; a similar
 situation is likely to occur in practice due to \emph{in vivo} vs
 \emph{in vitro} measurement differences.
 
