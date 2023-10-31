@@ -73,6 +73,7 @@ def plot_flux(flux_df, ax):
     for line in ax.lines:
         line.set_marker("")
     ax.set_ylabel("")
+    ax.set_xlabel("Flux")
     ax.set_yticklabels(["Experiment 1", "Experiment 12"])
     return ax
 
