@@ -186,7 +186,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, boxrule=0pt, sharp corners, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -356,9 +356,11 @@ metabolism, whose intermediate metabolites participate in a variety of
 mechanisms which must compete for the same resources. Due to this
 competition, as well as the fact that all the functions occur
 simultaneously, the methionine cycle is highly regulated, with 6 known
-allosteric effectors (REFERENCE). This complex regulation means that
-quantitative modelling of the methionine cycle requires a detailed
-kinetic model: this is why we chose it as a case study for Maud.
+allosteric effectors
+\citep{martinov2000, nijhout2006, korendyaseva_allosteric_2008}. This
+complex regulation means that quantitative modelling of the methionine
+cycle requires a detailed kinetic model: this is why we chose it as a
+case study for Maud.
 
 \begin{figure}
 
