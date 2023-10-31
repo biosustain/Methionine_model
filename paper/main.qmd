@@ -16,22 +16,36 @@ author:
     orcid: 0000-0002-7109-3270
     email: tedgro@biosustain.dtu.dk
     affiliations: 
-    - id: biosustain
-      name: DTU
-      department: DTU Biosustain
-      city: Kongens Lyngby
-      country: Denmark
+      - id: biosustain
+        name: DTU
+        department: DTU Biosustain
+        city: Kongens Lyngby
+        country: Denmark
+    attributes:
+      corresponding: true
+      equal-contributor: true
+    note: These authors contributed equally to this research.
   - name: "Nicholas Luke Cowie"
     affiliations: 
-    - ref: biosustain
+      - id: biosustain
+        name: DTU
+        department: DTU Biosustain
+        city: Kongens Lyngby
+        country: Denmark
+    attributes:
+      equal-contributor: true
+    note: These authors contributed equally to this research.
   - name: "Lars Keld Nielsen"
     affiliations: 
-    - ref: biosustain
-    - id: UQ
-      name: The University of Queensland
-      department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
-      city: St Lucia
-      country: Australia
+      - name: The University of Queensland
+        department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
+        city: St Lucia
+        country: Australia
+      - id: biosustain
+        name: DTU
+        department: DTU Biosustain
+        city: Kongens Lyngby
+        country: Denmark
 bibliography: bibliography.bib
 format:
   acs-pdf:
