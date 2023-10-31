@@ -633,7 +633,7 @@ already been discussed above.
 Maud’s prior model includes unknown parameters corresponding to quantities
 in the kinetic model that are assumed to be unknown, other than steady state
 metabolite concentrations and fluxes, which are derived from the values of
-other parameters by solving the steady state problem. See table (REFERENCE) in
+other parameters by solving the steady state problem. See table 1 in
 this paper's supporting information for a description of all these parameters
 and their dimensions. Note that some quantities in Maud’s kinetic model are
 not treated as parameters: for example, temperatures, compartment volumes and
