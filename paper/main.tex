@@ -183,7 +183,7 @@ area, explain how Maud improves on the state of the art, describe the
 intended modelling workflow and illustrate its use with an example
 application.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, interior hidden, breakable, enhanced, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, enhanced, boxrule=0pt, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -498,8 +498,8 @@ curvature that might inhibit exploration via HMC.
 
 Posterior predictive checking indicated that our model achieved a good
 fit to the simulated reaction and metabolite concentration measurements,
-as shown by the graphs in the top row of figure 3. Note that the fit was
-good for both training and validation measurements.
+as shown by the graphs in the top row of figure
+Figure~\ref{fig-posterior}.
 
 Analysis of the posterior distributions for kinetic parameters indicated
 that these are highly correlated. The marginal posterior distributions
@@ -508,12 +508,13 @@ the corresponding marginal prior distributions, even though these
 parameters' joint posterior distribution contained enough information to
 make accurate out of sample predictions. In some cases, there were
 two-dimensional correlations such as the one shown in the bottom left of
-figure 3; in this case the marginal distribution of the two parameters
-is roughly banana shaped. More commonly, however, two-dimensional pair
-plots were insufficient to reveal the underlying correlation structure,
-as seen in the bottom-right plot in figure 3. This does not mean that
-the parameters were uncorrelated, but rather that the correlations
-involve more than two parameters.
+figure Figure~\ref{fig-posterior}; in this case the marginal
+distribution of the two parameters is roughly banana shaped. More
+commonly, however, two-dimensional pair plots were insufficient to
+reveal the underlying correlation structure, as seen in the bottom-right
+plot in figure Figure~\ref{fig-posterior}. This does not mean that the
+parameters were uncorrelated, but rather that the correlations involve
+more than two parameters.
 
 Overall, our results show that Maud can fit a realistic pathway-sized
 dataset. This was achieved without fixing the marginal values of kinetic
@@ -542,6 +543,36 @@ example, genome-scale kinetic models. To fit larger models, faster
 steady state solving methods or alternative inference algorithms will be
 required. Section~\ref{sec-laplace} addresses whether Laplace
 approximation is a suitable candidate.
+
+\begin{figure}
+
+\begin{minipage}[t]{\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{../figures/posterior.png}
+
+}
+
+}
+
+\end{minipage}%
+
+\caption{\label{fig-posterior}Marginal posterior distributions from our
+main model run. (\textbf{Top left}) Comparison of posterior predictive
+intervals with simulated flux measurement values. All the flux
+measurements are within the predictive intervals, indicating a good fit.
+(\textbf{Top right}) Comparison of posterior predictive intervals with
+simulated concentration measurement values. These also show a good fit.
+(\textbf{Bottom left}) Pairwise marginal posterior distribution for two
+uncorrelated parameters, namely \(K_m^{AHC1,hcys-L}\) and
+\(K_m^{AHC1_ahcys}\). (\textbf{Bottom right}) Pairwise marginal
+posterior distribution for two correlated parameters, namely
+\(K_m^{MAT3,atp}\) and \(K_{cat}^{MAT3}\).}
+
+\end{figure}
 
 \hypertarget{sec-laplace}{%
 \subsubsection{Comparison with Laplace
@@ -724,33 +755,32 @@ understanding}\label{application-to-regulatory-understanding}}
 
 To demonstrate how Maud's output can be used to yield useful metabolic
 insights we used the results of our case study to explain why the flux
-of the enzyme \(GNMT\) is higher in condition 1 than in condition 2.
-GNMT is an irreversible enzyme that is homotropically activated by its
+of the enzyme \(GNMT\) is higher in dataset 1 than in dataset 12. GNMT
+is an irreversible enzyme that is homotropically activated by its
 substrate, competitively inhibited by its product and heterotropically
-inhibited. The diverse regulation makes it the ideal test case to
-elucidate regulatory changes.
+inhibited by 5,10- methylenetetrahydrofolate (mlthf). The diverse
+regulation makes it the ideal test case to elucidate regulatory changes.
 
 Figure~\ref{fig-decomposition} shows the regulatory description of GNMT,
 according to the results our main case study analysis. Each curve shows
 the marginal posterior distribution of the ratio of the corresponding
-regulatory component in condition 1 compared with condition 2. A
-positive value indicates that the component was increased in condition 1
-relative to condition 2, with 0 indicating no difference. The
-probability, according to our model, of the component acting in each
-direction is given by the relative area under the curve on each side of
-the 0 point.
+regulatory component in dataset 1 compared with dataset 12. A positive
+value indicates that the component was increased in dataset 1 relative
+to dataset 12, with 0 indicating no difference. The probability,
+according to our model, of the component acting in each direction is
+given by the relative area under the curve on each side of the 0 point.
 
 Our model correctly inferred that saturation and allosteric effects were
-the main drivers of regulation between the two conditions in this case,
+the main drivers of regulation between the two datasets in this case,
 with the curves for each component aligning with the ground truth shown
 in red.
 
 Importantly, this form of analysis takes into account all modelled
 sources of uncertainty, including uncertainty about the true values of
-the flux in each condition, and propagates this uncertainty into the
-final conclusion. Our result shows that Maud could be used in this
-realistic case not only to provide a user with an explanation for an
-observed difference in fluxes, but also a reasonable judgement as to the
+the flux in each dataset, and propagates this uncertainty into the final
+conclusion. Our result shows that Maud could be used in this realistic
+case not only to provide a user with an explanation for an observed
+difference in fluxes, but also a reasonable judgement as to the
 explanation's robustness.
 
 \begin{figure}
@@ -776,14 +806,13 @@ associated with the enzyme \(GNMT1\). Dashed green lines represents
 allosteric activation, dashed red lines indicate allosteric inhibition
 and solid red lines represent competitive inhibition. (\textbf{Bottom
 Left}) Comparison of marginal posterior distributions for \(GNMT\) flux
-in conditions 1 and 2. (\textbf{Right}) Log-scale ratios of the
-regulatory elements defined in equation \eqref{eq-decomposition}. Note
-that the \(Reversibility\) and \(k_cat\) components are excluded: this
-is because this reaction was modelled as irreversible, and \(k_{cat}\)
-was modelled as constant across conditions. These plots identify why
-flux in condition 2 is higher than in condition 1: the flux increase is
-due to allostery and saturation with no control from enzyme
-concentration changes.}
+in datasets 1 and 2. (\textbf{Right}) Log-scale ratios of the regulatory
+elements defined in equation \eqref{eq-decomposition}. Note that the
+\(Reversibility\) and \(k_cat\) components are excluded: this is because
+this reaction was modelled as irreversible, and \(k_{cat}\) was modelled
+as constant across datasets. These plots identify why flux in dataset 12
+is higher than in dataset 1: the flux increase is due to allostery and
+saturation with no control from enzyme concentration changes.}
 
 \end{figure}
 

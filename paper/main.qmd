@@ -352,23 +352,17 @@ approximation is a suitable candidate.
 
 ![](../figures/posterior.png)
 
-Results of removing concentration measurements for the metabolite $ahcys_c$
-from our case study dataset.  (**Top**) A comparison of metabolite concentration
-residuals between the full measurement dataset (blue-green) and the missing-data
-dataset (grey), displayed on natural logarithmic scale. The missing-data
-model was unable to predict the withheld $ahcys_c$ concentrations.  (**Bottom
-Left**) The marginal posterior distribution for the Michaelis constant
-$K_m^{AHC1,ahcys_c}$ in each model, alongside the true parameter value used to
-generate both datasets. The true value is recovered by the complete-data model
-but not by the missing-data model.  (**Bottom Right**) The distribution of total
-log-likelihood for out-of-sample flux measurements in both models. There is a
-significant overlap between the two distributions, suggesting that removing the
-$ahcys_c$ measurement did not cause catastrophic prediction failure. However,
-overall the complete-data model tended to make better predictions.
+Marginal posterior distributions from our main model run. (**Top left**)
+Comparison of posterior predictive intervals with simulated flux measurement
+values. All the flux measurements are within the predictive intervals,
+indicating a good fit. (**Top right**) Comparison of posterior predictive
+intervals with simulated concentration measurement values. These also show a
+good fit. (**Bottom left**) Pairwise marginal posterior distribution for two
+uncorrelated parameters, namely $K_m^{AHC1,hcys-L}$ and $K_m^{AHC1_ahcys}$.
+(**Bottom right**) Pairwise marginal posterior distribution for two correlated
+parameters, namely $K_m^{MAT3,atp}$ and $K_{cat}^{MAT3}$.
 
 :::
-
-
 
 ### Comparison with Laplace approximation {#sec-laplace}
 
