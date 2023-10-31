@@ -282,7 +282,12 @@ missing-data datasets. For the full dataset we obtained 1000 post-warmup
 samples each from 4 independent Markov chains after 1000 warm-up samples and
 “hot-starting” with a mass metric output by a previous model run.
 
-For the missing-data dataset XXX.
+For the missing-data dataset 250 post-warmup samples were taken from 4
+indpendent Markov  chains after 100 warmup samples. The sampling was initialised
+using the mass matric from the complete measurement dataset and the warmup 
+consisted of step size adaption for 100 samples. The resulting posterior distribution
+had an $\hat{R} = 1.01$ for the log-probability and did not exhibit post-warmup 
+divergences that were not a result of differential equation errors. 
 
 # Laplace approximation case study
 
