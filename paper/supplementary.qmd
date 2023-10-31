@@ -11,6 +11,34 @@ format:
 
 The results of all reported Maud runs can be found at <https://github.com/biosustain/Methionine_model/blob/main/results>.
 
+# Maud's input format 
+
+Maud inputs are structured directories, somewhat inspired by the PEtab
+format [@SchmiesterSch2021]. A Maud input directory must contain a toml
+[@preston-wernertomandgedampradyunTOMLSpecification0rc2020] file called
+`config.toml` which gives the input a name, configures how Maud will be run
+and tells Maud where to find the other files, allowing these to have custom
+names. It must also include a file containing a kinetic model definition,
+a file specifying information about parameters and a file with information
+experiments. The required structure of these files is documented at <https://
+maud-metabolic-models.readthedocs.io/en/latest/inputting.html>. The input is
+validated against a Pydantic [@pydanticdevelopersPydantic2022] data model which can be
+inspected at <https://github.com/biosustain/Maud/tree/main/maud/data_model>.
+
+We chose to implement a custom input format despite the existence of standard
+formats in similar areas, including SBML [@keatingSBMLLevelExtensible2020]
+and PEtab [@SchmiesterSch2021]. This choice was partly motivated by the need
+to ensure flexibility as Maud was developed, but there are also features of
+SBML and PEtab that make them structurally unsuitable in this context. Our
+requirements for an input format included that it be mathematics-free, so that
+all mathematical details are encapsulated in source code, and that it has a
+detailed, verifiable structure. These requirements made toml more attractive
+than SBML: toml is easier for humans to read and edit and can straightforwardly
+be validated using tools like Pydantic. Further, an SBML representation of our
+desired input would not contain differential equations.  It would therefore not
+be interoperable with most SBML targeting software, which typically assumes that
+differential equations are available and does not know about Maud’s structure.
+
 # Maud's kinetic model
 
 ## Parameters

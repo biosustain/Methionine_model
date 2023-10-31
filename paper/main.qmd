@@ -203,7 +203,7 @@ case study for Maud.
 
 ::: {#fig-methionine-reactions layout-ncol=1}
 
-![](./figures/methionine-reactions.png)
+![](../figures/methionine-reactions.png)
 
 The methionine cycle as modelled, with the solid black lines representing the
 reactions, the green lines representing allosteric interaction, and the red
@@ -477,7 +477,7 @@ approach can produce sensible results from incomplete metabolomics data.
 
 ::: {#fig-missing layout-ncol=1}
 
-![](./figures/missing.png)
+![](../figures/missing.png)
 
 Results of removing concentration measurements for the metabolite $ahcys_c$
 from our case study dataset.  (**Top**) A comparison of metabolite concentration
@@ -528,7 +528,7 @@ judgement as to the explanation's robustness.
 
 ::: {#fig-decomposition layout-ncol=1}
 
-![](./figures/decomposition.png)
+![](../figures/decomposition.png)
 
 Illustration of how analysing a system with Maud can yield actionable insights
 about the underlying metabolic network.  (**Top Left**) A schematic of the
@@ -549,46 +549,29 @@ concentration changes.
 
 # Methods
 
-Maud is a command line application implementing Bayesian inference for
-a wide range of realistic kinetic models. Maud is written in Python
-[@vanrossumPythonReferenceManual2009], designed for use on Windows, macOS
-and Linux, registered on the Python Package Index as `maud-metabolic-models`,
-documented at <https://maud-metabolic-models.readthedocs.io> and actively
-developed and maintained at <https://github.com/biosustain/Maud/>.
+Maud is a command line application implementing Bayesian inference
+for a wide range of realistic kinetic models. Maud is written in
+Python [@vanrossumPythonReferenceManual2009], designed for use
+on Windows, macOS and Linux, is `pip` installable from the Python
+Package Index as `maud-metabolic-models`, documented at <https://maud-metabolic-models.readthedocs.io> 
+and actively developed and maintained at <https://github.com/biosustain/Maud/>.
 
 To use Maud, a user must first collate appropriate input information, represent
-it in files with Maud’s required formats (see section (REFERENCE)below).  Maud’s
-command line interface provides commands for inference, simulation and making
-out-of-sample predictions. Results are stored in files, using a structured,
-interoperable format.
+it in files with Maud’s required formats (see supporting information section on
+input format).  Maud’s command line interface provides commands for inference
+via a range of algorithms including adaptive Hamiltonian Monte Carlo, as well as
+commands for simulation and making out-of-sample predictions. Results are stored
+in files, using a structured, interoperable format.
 
-## Input format 
+As well as parameter values, Maud also performs inference for derived quantities
+including the components of the regulatory decomposition described below in
+equation \eqref{eq-decomposition}, log likelihoods, simulated measurement values
+and metabolic control analysis coefficients [@kacser_control_1973].
 
-Maud inputs are structured directories, somewhat inspired by the PEtab
-format [@SchmiesterSch2021]. A Maud input directory must contain a toml
-[@preston-wernertomandgedampradyunTOMLSpecification0rc2020] file called
-`config.toml` which gives the input a name, configures how Maud will be run
-and tells Maud where to find the other files, allowing these to have custom
-names. It must also include a file containing a kinetic model definition,
-a file specifying information about parameters and a file with information
-experiments. The required structure of these files is documented at <https://
-maud-metabolic-models.readthedocs.io/en/latest/inputting.html>. The input is
-validated against a Pydantic [@pydanticdevelopersPydantic2022] data model which can be
-inspected at <https://github.com/biosustain/Maud/tree/main/maud/data_model>.
-
-We chose to implement a custom input format despite the existence of standard
-formats in similar areas, including SBML [@keatingSBMLLevelExtensible2020]
-and PEtab [@SchmiesterSch2021]. This choice was partly motivated by the need
-to ensure flexibility as Maud was developed, but there are also features of
-SBML and PEtab that make them structurally unsuitable in this context. Our
-requirements for an input format included that it be mathematics-free, so that
-all mathematical details are encapsulated in source code, and that it has a
-detailed, verifiable structure. These requirements made toml more attractive
-than SBML: toml is easier for humans to read and edit and can straightforwardly
-be validated using tools like Pydantic. Further, an SBML representation of our
-desired input would not contain differential equations.  It would therefore not
-be interoperable with most SBML targeting software, which typically assumes that
-differential equations are available and does not know about Maud’s structure.
+In the rest of this section we describe Maud's kinetic model at high level and
+discuss Maud's statistical model, implementation and how it solves the crucial
+steady state problem. Further details about Maud's kinetic model can be found in
+the supporting information.
 
 ## Kinetic model 
 
@@ -739,49 +722,45 @@ for the sake of simplicity.
 ## Implementation 
 
 Maud uses the Python library click [@clickdevelopersClickPythonComposable2022]
-to implement a command line interface. The command line interface loads input
-files as Python dictionaries, which are parsed using the Python library `toml`
-[@pearsonTomlPythonLibrary2020] and then validated and converted into structured
-`MaudInput` objects using Pydantic [@pydanticdevelopersPydantic2022]. Maud’s
-statistical model is implemented in the probabilistic programming language Stan
-[@carpenterStanProbabilisticProgramming2017] and accessed using the interface
-cmdstanpy [@standevelopmentteamCmdStanPy2022]. For posterior sampling, Maud
-uses the `MaudInput` to create a Stan input json file and obtain configuration
-information for cmdstanpy, which it uses to (if necessary) generate a
-model executable file and then trigger posterior sampling using adaptive
-Hamiltonian Monte Carlo. When sampling is complete, Maud converts to the
-output into the standard format `InferenceData` using the Python library arviz
-[@kumarArviZUnifiedLibrary2019] and saves it as a json file, along with some
-information for debugging.
+to implement a command line interface. The command line interface loads
+input files as Python dictionaries, which are parsed using the Python library
+`toml` [@pearsonTomlPythonLibrary2020] and then validated and converted into
+structured `MaudInput` objects using Pydantic [@pydanticdevelopersPydantic2022].
+Maud’s statistical model is implemented in the probabilistic programming
+language Stan [@carpenterStanProbabilisticProgramming2017] and accessed using
+the interface cmdstanpy [@standevelopmentteamCmdStanPy2022]. For posterior
+sampling, Maud uses the `MaudInput` to create an input file for Stan and
+then trigger posterior sampling using adaptive Hamiltonian Monte Carlo. See
+@betancourtConceptualIntroductionHamiltonian2018 for more about this algorithm.
 
-Two details of Maud’s implementation are important to highlight: the method of
-posterior sampling and how Maud solves the steady state problem \eqref{eq-3}.
+When sampling is complete, Maud converts to the output into the standard format
+`InferenceData` using the Python library arviz [@kumarArviZUnifiedLibrary2019]
+and saves it as a json file, along with some information for debugging.
+This format allows for easy checking of MCMC diagnostics including divergent
+transitions, effective sample size and the improved $\hat{R}$ statistic proposed
+in @vehtariRankNormalizationFoldingLocalization2021.
 
-### Posterior sampling 
+## Solving the steady state problem 
 
-Although integrals of the joint probability model for kinetic models
-are typically analytically intractable, they can be approximated
-numerically using Markov Chain Monte Carlo (MCMC) and other methods.
-Maud uses MCMC primarily because there exist many methods for verifying
-that MCMC samples really do approximate the target probability
-distribution: see @vehtariRankNormalizationFoldingLocalization2021 and
-@taltsValidatingBayesianInference2018 for discussion of this point. In
-addition, there are several examples of successful Bayesian kinetic modelling
-projects using MCMC including @st.johnBayesianInferenceMetabolic2018 and
-@xingModelingKineticsLargescale2010.
+Maud's parameters are connected with measurable quantities via the steady state
+equation \eqref{eq-steady}. Posterior sampling using adaptive Hamiltonian Monte
+Carlo requires repeatedly solving equation \eqref{eq-steady} and finding the
+gradients of its solution with respect to all model parameters. This must be
+done numerically as analytic solutions are not available for realistic kinetic
+models.
 
-### Solving the steady state problem 
+The speed at which this problem can be solved is tightly coupled with the
+size and complexity of metabolic network that can practically be modelled. See
+@timonenImportanceSamplingApproach2022a for more about considerations involved
+in this kind of modelling.
 
-In order to implement adaptive Hamiltonian Monte Carlo, Maud must
-repeatedly solve the steady state problem \eqref{eq-3} and find its
-gradients with respect to all parameters. To achieve this, Maud uses a
-hybrid method involving two numerical solvers from the SUNDIALS suite
-[@serbanCVODESSensitivityEnabledODE2005]: CVODES and IDAS. These solvers are
-accessed via their interface from Stan. The hybrid method follows that proposed
-by @margossianComputingSteadyStates2018, and involves numerically evolving
-the ODE system for a short period of time, then using the difference between
-the evolved and starting concentrations as the target for a numerical algebra
-solver.
+To solve equation \eqref{eq-steady} and find its gradients, Maud uses
+a hybrid method involving two numerical solvers from the SUNDIALS
+suite [@serbanCVODESSensitivityEnabledODE2005]: CVODES and IDAS via
+their interface from Stan. The hybrid method follows that proposed by
+@margossianComputingSteadyStates2018, and involves numerically evolving the ODE
+system for a short period of time, then using the difference between the evolved
+and starting concentrations as the target for a numerical algebra solver.
 
 # Supporting information
 
