@@ -17,14 +17,11 @@
 """Code for plotting posterior distribution."""
 import os
 from pathlib import Path
-import arviz as az
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-import matplotlib.image as mpimg
-import matplotlib.transforms as transforms
 from matplotlib.gridspec import GridSpec
 from matplotlib.lines import Line2D
 
@@ -55,9 +52,6 @@ cm = 1 / 2.54  # centimeters in inches
 
 
 def plot_residual_state_variables(residual_df, ax):
-    # offset = lambda p: transforms.ScaledTranslation(
-    #     p / 72.0, 0, plt.gcf().dpi_scale_trans
-    # )
     for model, direction in zip(
         ["missing ahcys measurement", "complete measurement set"], [1, -1]
     ):

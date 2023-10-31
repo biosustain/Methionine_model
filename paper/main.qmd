@@ -307,23 +307,22 @@ we observed no post warm-up divergent transitions, indicating that the sampler
 was able to transform the log-posterior distribution, avoiding any regions with
 excessive curvature that might inhibit exploration via HMC.
 
-Posterior predictive checking indicated that our model achieved a good fit
-to the simulated reaction and metabolite concentration measurements, as shown
-by the graphs in the top row of figure 3. Note that the fit was good for both
-training and validation measurements.
+Posterior predictive checking indicated that our model achieved a good fit to
+the simulated reaction and metabolite concentration measurements, as shown by
+the graphs in the top row of figure @fig-posterior.
 
 Analysis of the posterior distributions for kinetic parameters indicated that
 these are highly correlated. The marginal posterior distributions for most
 kinetic parameters did not shrink significantly compared with the corresponding
 marginal prior distributions, even though these parameters’ joint posterior
 distribution contained enough information to make accurate out of sample
-predictions. In some cases, there were two-dimensional correlations such
-as the one shown in the bottom left of figure 3; in this case the marginal
-distribution of the two parameters is roughly banana shaped. More commonly,
-however, two-dimensional pair plots were insufficient to reveal the underlying
-correlation structure, as seen in the bottom-right plot in figure 3. This does
-not mean that the parameters were uncorrelated, but rather that the correlations
-involve more than two parameters.
+predictions. In some cases, there were two-dimensional correlations such as
+the one shown in the bottom left of figure @fig-posterior; in this case the
+marginal distribution of the two parameters is roughly banana shaped. More
+commonly, however, two-dimensional pair plots were insufficient to reveal the
+underlying correlation structure, as seen in the bottom-right plot in figure
+@fig-posterior. This does not mean that the parameters were uncorrelated, but
+rather that the correlations involve more than two parameters.
 
 Overall, our results show that Maud can fit a realistic pathway-sized dataset.
 This was achieved without fixing the marginal values of kinetic parameters: the
@@ -348,6 +347,28 @@ of approximately the same size, but not, for example, genome-scale kinetic
 models. To fit larger models, faster steady state solving methods or alternative
 inference algorithms will be required. @sec-laplace addresses whether Laplace
 approximation is a suitable candidate.
+
+::: {#fig-posterior layout-ncol=1}
+
+![](../figures/posterior.png)
+
+Results of removing concentration measurements for the metabolite $ahcys_c$
+from our case study dataset.  (**Top**) A comparison of metabolite concentration
+residuals between the full measurement dataset (blue-green) and the missing-data
+dataset (grey), displayed on natural logarithmic scale. The missing-data
+model was unable to predict the withheld $ahcys_c$ concentrations.  (**Bottom
+Left**) The marginal posterior distribution for the Michaelis constant
+$K_m^{AHC1,ahcys_c}$ in each model, alongside the true parameter value used to
+generate both datasets. The true value is recovered by the complete-data model
+but not by the missing-data model.  (**Bottom Right**) The distribution of total
+log-likelihood for out-of-sample flux measurements in both models. There is a
+significant overlap between the two distributions, suggesting that removing the
+$ahcys_c$ measurement did not cause catastrophic prediction failure. However,
+overall the complete-data model tended to make better predictions.
+
+:::
+
+
 
 ### Comparison with Laplace approximation {#sec-laplace}
 
