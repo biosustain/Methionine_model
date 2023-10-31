@@ -521,11 +521,11 @@ regulatory interactions associated with the enzyme $GNMT1$. Dashed green
 lines represents allosteric activation, dashed red lines indicate allosteric
 inhibition and solid red lines represent competitive inhibition. (**Bottom
 Left**) Comparison of marginal posterior distributions for $GNMT$ flux in
-conditions 1 and 2. (**Right**) Log-scale ratios of the regulatory elements
+datasets 1 and 2. (**Right**) Log-scale ratios of the regulatory elements
 defined in equation \eqref{eq-decomposition}. Note that the $Reversibility$
 and $k_cat$ components are excluded: this is because this reaction was modelled
-as irreversible, and $k_{cat}$ was modelled as constant across conditions.
-These plots identify why flux in condition 2 is higher than in condition 1: the
+as irreversible, and $k_{cat}$ was modelled as constant across datasets.
+These plots identify why flux in dataset 12 is higher than in dataset 1: the
 flux increase is due to allostery and saturation with no control from enzyme
 concentration changes.
 
