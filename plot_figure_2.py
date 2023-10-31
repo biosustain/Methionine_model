@@ -17,7 +17,7 @@ from maud.getting_idatas import get_idata
 
 
 MAUD_OUTPUT = Path.cwd() / "results" / "methionine"
-PLOT_OUTPUT = Path.cwd() / "figures" / "figure_2"
+PLOT_OUTPUT = Path.cwd() / "figures" / "posterior.png"
 
 plt.style.use('ipynb')
 

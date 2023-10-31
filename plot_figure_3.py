@@ -43,7 +43,7 @@ plots.
 
 MAUD_OUTPUT_MISSING_AHCYS = Path.cwd() / "results" / "methionine_missing_ahcys"
 MAUD_OUTPUT = Path.cwd() / "results" / "methionine"
-PLOT_OUTPUT = Path.cwd() / "figures" / "figure_3.png"
+PLOT_OUTPUT = Path.cwd() / "figures" / "missing.png"
 
 colour_scheme = {
     "complete measurement set": "#001219",

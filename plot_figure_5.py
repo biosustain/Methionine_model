@@ -151,7 +151,7 @@ def plot_figure_5():
 
     plt.figure(dpi = 300)
     fig.tight_layout()
-    fig.savefig(PLOT_OUTPUT / "figure_5.png")
+    fig.savefig(PLOT_OUTPUT / "decomposition.png")
 
 if __name__ == "__main__":
     plot_figure_5()
