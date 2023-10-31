@@ -512,13 +512,13 @@ overall the complete-data model tended to make better predictions.
 
 ### Application to regulatory understanding 
 
-To demonstrate how Maud's output can be used to yield useful metabolic
-insights we used the results of our case study to explain why the flux of
-the enzyme $GNMT$ is higher in dataset 1 than in dataset 12. GNMT is
-an irreversible enzyme that is homotropically activated by its substrate,
-competitively inhibited by its product and heterotropically inhibited by 5,10-
-methylenetetrahydrofolate (mlthf). The diverse regulation makes it the ideal
-test case to elucidate regulatory changes.
+To demonstrate how Maud's output can be used to yield useful metabolic insights
+we used the results of our case study to explain why the flux of the enzyme
+GNMT is higher in dataset 1 than in dataset 12. GNMT is an irreversible enzyme
+that is homotropically activated by its substrate, competitively inhibited by
+its product and heterotropically inhibited by 5,10- methylenetetrahydrofolate
+(mlthf). The diverse regulation makes it the ideal test case to elucidate
+regulatory changes.
 
 @fig-decomposition shows the regulatory description of GNMT, according to the
 results our main case study analysis. Each curve shows the marginal posterior
@@ -527,7 +527,7 @@ distribution of the ratio of the corresponding regulatory component in dataset
 was increased in dataset 1 relative to dataset 12, with 0 indicating no
 difference. The probability, according to our model, of the component acting in
 each direction is given by the relative area under the curve on each side of the
-0 point.
+zero point.
 
 Our model correctly inferred that saturation and allosteric effects were the
 main drivers of regulation between the two datasets in this case, with the
