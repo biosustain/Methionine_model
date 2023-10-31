@@ -1,4 +1,4 @@
 project:
   render:
     - main.qmd
-    - supplementary.qmd
+    - supporting_information.qmd

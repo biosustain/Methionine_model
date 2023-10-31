@@ -2,14 +2,14 @@
 title: "Bayesian regression facilitates quantitative modelling of cell metabolism"
 keywords: Bayesian inference, kinetic models of cell metabolism 
 abstract: >
-  This paper presents Maud, a command-line application that implements
-  Bayesian statistical inference for kinetic models of biochemical metabolic
-  reaction networks. Maud takes into account quantitative information from omics
+  This paper presents Maud, a command-line application that implements Bayesian
+  statistical inference for kinetic models of biochemical metabolic reaction
+  networks. Maud takes into account quantitative information from omics
   experiments and background knowledge, as well as structural information about
-  kinetic mechanisms, regulatory interactions and enzyme knockouts. Below, we
-  review the existing options in this area, explain how Maud improves on the state
-  of the art, describe the intended modelling workflow and illustrate its use with
-  an example application.
+  kinetic mechanisms, regulatory interactions and enzyme knockouts. Our paper
+  reviews the existing options in this area, presents a case study illustrating
+  how Maud can be used to analyse a metabolic network and explains the
+  biological, statistical and computational design decisions underpinning Maud.
 number-sections: true
 author: 
   - name: "Teddy Groves"
@@ -28,10 +28,10 @@ author:
     affiliations: 
     - ref: biosustain
     - id: UQ
-    - name: The University of Queensland
-    - department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
-    - city: St Lucia
-    - country: Australia
+      name: The University of Queensland
+      department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
+      city: St Lucia
+      country: Australia
 bibliography: bibliography.bib
 format:
   acs-pdf:
@@ -41,7 +41,6 @@ format:
       type: article  #article, note, communication, review, letter, or perspectivee
       layout: traditional #traditional or twocolumn, twocolumn currently broken for longtables
       hide-email: false # if enabled, hides email addresses (and fax/phone)
-      abbreviations: IR,NMR,UV
   acs-html:
    include-in-header: mathjax.html
    embed-resources: true
@@ -216,7 +215,7 @@ and the regular font represents the metabolites.
 
 The simulated dataset and underlying kinetic model that we used for our analysis
 can be found at <https://github.com/biosustain/Methionine_model/tree/main/data/methionine>
-and is described in supplementary information section [REFERENCE].
+and is described in supporting information section 3.
 
 We constructed a kinetic model of the methionine cycle in Maud’s format using
 the description in @korendyaseva_allosteric_2008. The ordinary differential
@@ -283,14 +282,11 @@ values, which needed to be inferred from the training data and priors. These
 inputs can be found at <https://github.com/biosustain/Methionine_model/tree/main/data>.
 
 The prior distributions and corresponding true parameter values used in our
-case study are shown in supplementary materials section [REFERENCE]. The first
-two columns show the 1% and 99% quantiles of each marginal prior distribution.
-True parameter value are shown in column three, and the last column shows the
-z-score on log scale of the true parameter value according the marginal prior
-distribution. As can be seen from the table, there are 7 parameters for which
-the true value is outside the 1%-99% range. This is desirable, making the case
-study more realistic, because extreme deviance from the prior distribution is
-likely to occur in practice due to in vivo to in vitro measurement differences.
+case study are shown in supporting information section 3.2. They were chosen to
+reflect a plausible pre-experimental information state. In 7 cases, the marginal
+prior distribution for a parameter disagrees with the true parameter values used
+to generate the data. A similar situation is likely to occur in practice due to
+*in vivo* vs *in vitro* measurement differences.
 
 ## Findings
 
@@ -597,7 +593,7 @@ in @matosGRASPComputationalPlatform2022. To capture the effect on enzyme
 activity of coupled phosphorylation and dephosphorylation processes we developed
 a new mathematical model inspired by the generalised MWC model of allosteric
 regulation. Full details of all mathematical aspects of Maud’s kinetic model can
-be found in supplementary material section (REFERENCE).
+be found in supporting information section 2.
 
 ## Statistical model 
 
@@ -620,7 +616,7 @@ Maud’s prior model includes unknown parameters corresponding to quantities
 in the kinetic model that are assumed to be unknown, other than steady state
 metabolite concentrations and fluxes, which are derived from the values of
 other parameters by solving the steady state problem. See table (REFERENCE) in
-this paper's supplementary materials for a description of all these parameters
+this paper's supporting information for a description of all these parameters
 and their dimensions. Note that some quantities in Maud’s kinetic model are
 not treated as parameters: for example, temperatures, compartment volumes and
 the formation energy of water. Maud treats these quantities as if they were
@@ -763,15 +759,18 @@ and starting concentrations as the target for a numerical algebra solver.
 
 # Supporting information
 
-The document `supplementary.pdf` contains the following information:
+The analyses described in this paper, as well as instructions for reproducing
+our results, figures and paper, can be found at <https://biosustain/Methionine_model>.
 
-- Description of Maud's kinetic model including parameter dimensions and rate
-equations.
+The document `supporting_information.pdf` contains the following information:
+
+- Description of Maud's input format
+- Description of Maud's kinetic model including rate equations as well as
+parameters and their dimensions.
 - Details of the procedure used to generate our case study results, including
 generating the artificial case study datasets, specifying priors and carrying
 out computation.
-- Specification of the prior distribution used for the case studies
-
+- Specification of the prior distribution used for the case studies.
 
 # Acknowledgements
 

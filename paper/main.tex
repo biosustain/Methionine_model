@@ -160,7 +160,8 @@
 
 \author{Lars Keld Nielsen}
 \affiliation{DTU Biosustain, DTU, Kongens Lyngby, Denmark}
-\affiliation{   }
+\affiliation{Australian Institute for Bioengineering and Nanotechnology
+(AIBN), The University of Queensland, St Lucia, Australia}
 
 
 
@@ -178,12 +179,12 @@ Bayesian statistical inference for kinetic models of biochemical
 metabolic reaction networks. Maud takes into account quantitative
 information from omics experiments and background knowledge, as well as
 structural information about kinetic mechanisms, regulatory interactions
-and enzyme knockouts. Below, we review the existing options in this
-area, explain how Maud improves on the state of the art, describe the
-intended modelling workflow and illustrate its use with an example
-application.
+and enzyme knockouts. Our paper reviews the existing options in this
+area, presents a case study illustrating how Maud can be used to analyse
+a metabolic network and explains the biological, statistical and
+computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, enhanced, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, frame hidden, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, frame hidden, enhanced, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -387,7 +388,7 @@ specification}\label{dataset-and-model-specification}}
 The simulated dataset and underlying kinetic model that we used for our
 analysis can be found at
 \url{https://github.com/biosustain/Methionine_model/tree/main/data/methionine}
-and is described in supplementary information section {[}REFERENCE{]}.
+and is described in supporting information section 3.
 
 We constructed a kinetic model of the methionine cycle in Maud's format
 using the description in \citet{korendyaseva_allosteric_2008}. The
@@ -466,16 +467,12 @@ training data and priors. These inputs can be found at
 \url{https://github.com/biosustain/Methionine_model/tree/main/data}.
 
 The prior distributions and corresponding true parameter values used in
-our case study are shown in supplementary materials section
-{[}REFERENCE{]}. The first two columns show the 1\% and 99\% quantiles
-of each marginal prior distribution. True parameter value are shown in
-column three, and the last column shows the z-score on log scale of the
-true parameter value according the marginal prior distribution. As can
-be seen from the table, there are 7 parameters for which the true value
-is outside the 1\%-99\% range. This is desirable, making the case study
-more realistic, because extreme deviance from the prior distribution is
-likely to occur in practice due to in vivo to in vitro measurement
-differences.
+our case study are shown in supporting information section 3.2. They
+were chosen to reflect a plausible pre-experimental information state.
+In 7 cases, the marginal prior distribution for a parameter disagrees
+with the true parameter values used to generate the data. A similar
+situation is likely to occur in practice due to \emph{in vivo} vs
+\emph{in vitro} measurement differences.
 
 \hypertarget{findings}{%
 \subsection{Findings}\label{findings}}
@@ -591,7 +588,7 @@ unrealistic parameter configurations. We therefore made a comparison for
 a simpler model. This input can be found at
 \url{https://github.com/biosustain/Methionine_model/tree/main/data/example_ode}.
 
-MCMC sampling for our comparison input yielded 200 samples in 625
+MCMC sampling for our comparison input yielded 800 samples in 625
 minutes; Laplace sampling yielded the same number of samples in only one
 minute. The diagnostics indicated that our algorithm was able to find
 the maximum a posteriori parameter configuration, approximate the
@@ -735,7 +732,7 @@ measurements for the metabolite \(ahcys_c\) from our case study dataset.
 (\textbf{Top}) A comparison of metabolite concentration residuals
 between the full measurement dataset (blue-green) and the missing-data
 dataset (grey), displayed on natural logarithmic scale. The missing-data
-model was unable to predict the withheld \(ahcys_c\) concentrations.
+model was unable to estimate the withheld \(ahcys_c\) concentrations.
 (\textbf{Bottom Left}) The marginal posterior distribution for the
 Michaelis constant \(K_m^{AHC1,ahcys_c}\) in each model, alongside the
 true parameter value used to generate both datasets. The true value is
@@ -776,12 +773,11 @@ with the curves for each component aligning with the ground truth shown
 in red.
 
 Importantly, this form of analysis takes into account all modelled
-sources of uncertainty, including uncertainty about the true values of
-the flux in each dataset, and propagates this uncertainty into the final
-conclusion. Our result shows that Maud could be used in this realistic
-case not only to provide a user with an explanation for an observed
-difference in fluxes, but also a reasonable judgement as to the
-explanation's robustness.
+sources of uncertainty, including uncertainty about the measured values
+of the flux in each dataset. Our result shows that Maud could be used in
+this realistic case not only to provide a user with an explanation for
+an observed difference in fluxes, but also a reasonable judgement as to
+the explanation's robustness.
 
 \begin{figure}
 
@@ -822,50 +818,29 @@ saturation with no control from enzyme concentration changes.}
 Maud is a command line application implementing Bayesian inference for a
 wide range of realistic kinetic models. Maud is written in Python
 \citep{vanrossumPythonReferenceManual2009}, designed for use on Windows,
-macOS and Linux, registered on the Python Package Index as
-\texttt{maud-metabolic-models}, documented at
+macOS and Linux, is \texttt{pip} installable from the Python Package
+Index as \texttt{maud-metabolic-models}, documented at
 \url{https://maud-metabolic-models.readthedocs.io} and actively
 developed and maintained at \url{https://github.com/biosustain/Maud/}.
 
 To use Maud, a user must first collate appropriate input information,
-represent it in files with Maud's required formats (see section
-(REFERENCE)below). Maud's command line interface provides commands for
-inference, simulation and making out-of-sample predictions. Results are
-stored in files, using a structured, interoperable format.
+represent it in files with Maud's required formats (see supporting
+information section on input format). Maud's command line interface
+provides commands for inference via a range of algorithms including
+adaptive Hamiltonian Monte Carlo, as well as commands for simulation and
+making out-of-sample predictions. Results are stored in files, using a
+structured, interoperable format.
 
-\hypertarget{input-format}{%
-\subsection{Input format}\label{input-format}}
+As well as parameter values, Maud also performs inference for derived
+quantities including the components of the regulatory decomposition
+described below in equation \eqref{eq-decomposition}, log likelihoods,
+simulated measurement values and metabolic control analysis coefficients
+\citep{kacser_control_1973}.
 
-Maud inputs are structured directories, somewhat inspired by the PEtab
-format \citep{SchmiesterSch2021}. A Maud input directory must contain a
-toml \citep{preston-wernertomandgedampradyunTOMLSpecification0rc2020}
-file called \texttt{config.toml} which gives the input a name,
-configures how Maud will be run and tells Maud where to find the other
-files, allowing these to have custom names. It must also include a file
-containing a kinetic model definition, a file specifying information
-about parameters and a file with information experiments. The required
-structure of these files is documented at \textless https://
-maud-metabolic-models.readthedocs.io/en/latest/inputting.html\textgreater.
-The input is validated against a Pydantic
-\citep{pydanticdevelopersPydantic2022} data model which can be inspected
-at \url{https://github.com/biosustain/Maud/tree/main/maud/data_model}.
-
-We chose to implement a custom input format despite the existence of
-standard formats in similar areas, including SBML
-\citep{keatingSBMLLevelExtensible2020} and PEtab
-\citep{SchmiesterSch2021}. This choice was partly motivated by the need
-to ensure flexibility as Maud was developed, but there are also features
-of SBML and PEtab that make them structurally unsuitable in this
-context. Our requirements for an input format included that it be
-mathematics-free, so that all mathematical details are encapsulated in
-source code, and that it has a detailed, verifiable structure. These
-requirements made toml more attractive than SBML: toml is easier for
-humans to read and edit and can straightforwardly be validated using
-tools like Pydantic. Further, an SBML representation of our desired
-input would not contain differential equations. It would therefore not
-be interoperable with most SBML targeting software, which typically
-assumes that differential equations are available and does not know
-about Maud's structure.
+In the rest of this section we describe Maud's kinetic model at high
+level and discuss Maud's statistical model, implementation and how it
+solves the crucial steady state problem. Further details about Maud's
+kinetic model can be found in the supporting information.
 
 \hypertarget{kinetic-model}{%
 \subsection{Kinetic model}\label{kinetic-model}}
@@ -895,7 +870,7 @@ To capture the effect on enzyme activity of coupled phosphorylation and
 dephosphorylation processes we developed a new mathematical model
 inspired by the generalised MWC model of allosteric regulation. Full
 details of all mathematical aspects of Maud's kinetic model can be found
-in supplementary material section (REFERENCE).
+in supporting information section 2.
 
 \hypertarget{statistical-model}{%
 \subsection{Statistical model}\label{statistical-model}}
@@ -921,7 +896,7 @@ Maud's prior model includes unknown parameters corresponding to
 quantities in the kinetic model that are assumed to be unknown, other
 than steady state metabolite concentrations and fluxes, which are
 derived from the values of other parameters by solving the steady state
-problem. See table (REFERENCE) in this paper's supplementary materials
+problem. See table (REFERENCE) in this paper's supporting information
 for a description of all these parameters and their dimensions. Note
 that some quantities in Maud's kinetic model are not treated as
 parameters: for example, temperatures, compartment volumes and the
@@ -1039,66 +1014,68 @@ into structured \texttt{MaudInput} objects using Pydantic
 implemented in the probabilistic programming language Stan
 \citep{carpenterStanProbabilisticProgramming2017} and accessed using the
 interface cmdstanpy \citep{standevelopmentteamCmdStanPy2022}. For
-posterior sampling, Maud uses the \texttt{MaudInput} to create a Stan
-input json file and obtain configuration information for cmdstanpy,
-which it uses to (if necessary) generate a model executable file and
-then trigger posterior sampling using adaptive Hamiltonian Monte Carlo.
+posterior sampling, Maud uses the \texttt{MaudInput} to create an input
+file for Stan and then trigger posterior sampling using adaptive
+Hamiltonian Monte Carlo. See
+\citet{betancourtConceptualIntroductionHamiltonian2018} for more about
+this algorithm.
+
 When sampling is complete, Maud converts to the output into the standard
 format \texttt{InferenceData} using the Python library arviz
 \citep{kumarArviZUnifiedLibrary2019} and saves it as a json file, along
-with some information for debugging.
-
-Two details of Maud's implementation are important to highlight: the
-method of posterior sampling and how Maud solves the steady state
-problem \eqref{eq-3}.
-
-\hypertarget{posterior-sampling}{%
-\subsubsection{Posterior sampling}\label{posterior-sampling}}
-
-Although integrals of the joint probability model for kinetic models are
-typically analytically intractable, they can be approximated numerically
-using Markov Chain Monte Carlo (MCMC) and other methods. Maud uses MCMC
-primarily because there exist many methods for verifying that MCMC
-samples really do approximate the target probability distribution: see
-\citet{vehtariRankNormalizationFoldingLocalization2021} and
-\citet{taltsValidatingBayesianInference2018} for discussion of this
-point. In addition, there are several examples of successful Bayesian
-kinetic modelling projects using MCMC including
-\citet{st.johnBayesianInferenceMetabolic2018} and
-\citet{xingModelingKineticsLargescale2010}.
+with some information for debugging. This format allows for easy
+checking of MCMC diagnostics including divergent transitions, effective
+sample size and the improved \(\hat{R}\) statistic proposed in
+\citet{vehtariRankNormalizationFoldingLocalization2021}.
 
 \hypertarget{solving-the-steady-state-problem}{%
-\subsubsection{Solving the steady state
+\subsection{Solving the steady state
 problem}\label{solving-the-steady-state-problem}}
 
-In order to implement adaptive Hamiltonian Monte Carlo, Maud must
-repeatedly solve the steady state problem \eqref{eq-3} and find its
-gradients with respect to all parameters. To achieve this, Maud uses a
+Maud's parameters are connected with measurable quantities via the
+steady state equation \eqref{eq-steady}. Posterior sampling using
+adaptive Hamiltonian Monte Carlo requires repeatedly solving equation
+\eqref{eq-steady} and finding the gradients of its solution with respect
+to all model parameters. This must be done numerically as analytic
+solutions are not available for realistic kinetic models.
+
+The speed at which this problem can be solved is tightly coupled with
+the size and complexity of metabolic network that can practically be
+modelled. See \citet{timonenImportanceSamplingApproach2022a} for more
+about considerations involved in this kind of modelling.
+
+To solve equation \eqref{eq-steady} and find its gradients, Maud uses a
 hybrid method involving two numerical solvers from the SUNDIALS suite
-\citep{serbanCVODESSensitivityEnabledODE2005}: CVODES and IDAS. These
-solvers are accessed via their interface from Stan. The hybrid method
-follows that proposed by \citet{margossianComputingSteadyStates2018},
-and involves numerically evolving the ODE system for a short period of
-time, then using the difference between the evolved and starting
-concentrations as the target for a numerical algebra solver.
+\citep{serbanCVODESSensitivityEnabledODE2005}: CVODES and IDAS via their
+interface from Stan. The hybrid method follows that proposed by
+\citet{margossianComputingSteadyStates2018}, and involves numerically
+evolving the ODE system for a short period of time, then using the
+difference between the evolved and starting concentrations as the target
+for a numerical algebra solver.
 
 \hypertarget{supporting-information}{%
 \section{Supporting information}\label{supporting-information}}
 
-The document \texttt{supplementary.pdf} contains the following
+The analyses described in this paper, as well as instructions for
+reproducing our results, figures and paper, can be found at
+\url{https://biosustain/Methionine_model}.
+
+The document \texttt{supporting\_information.pdf} contains the following
 information:
 
 \begin{itemize}
 \tightlist
 \item
-  Description of Maud's kinetic model including parameter dimensions and
-  rate equations.
+  Description of Maud's input format
+\item
+  Description of Maud's kinetic model including rate equations as well
+  as parameters and their dimensions.
 \item
   Details of the procedure used to generate our case study results,
   including generating the artificial case study datasets, specifying
   priors and carrying out computation.
 \item
-  Specification of the prior distribution used for the case studies
+  Specification of the prior distribution used for the case studies.
 \end{itemize}
 
 \hypertarget{acknowledgements}{%
