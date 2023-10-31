@@ -1,0 +1,44 @@
+---
+title: Cover letter
+
+---
+
+# Manuscript title
+
+Bayesian regression facilitates quantitative modelling of cell metabolism
+
+# Name of the corresponding author
+
+Teddy Groves (email: <mailto:tedgro@dtu.dk>)
+
+# Names of the other authors
+
+- Nicholas Cowie (email: <mailto:nicow@dtu.dk>)
+- Lars Keld Nielsen (email: <mailto:lars.nielsen@uq.edu.au>)
+
+# Why the paper is appropriate for ACS Synthetic Biology
+
+Our paper is intended of the virtual special issue of ACS Synthetic Biology
+concentrating on quantitative synthetic biology. It presents Maud, a software
+application that we developed for fitting Bayesian statistical models of fluxes
+through systems of metabolic reactions at steady state, enabling inference about
+these systems from quantitative metabolomics, fluxomics and proteomics data.
+
+Our software is a "quantitative technology and tool for synthetic
+biology", as described in the [call for papers](https://axial.acs.org/biology-and-biological-chemistry/cfp-quantitative-synthetic-biology),
+because it is intended to be used as a synthetic biology tool. For example, as
+we illustrate in our paper, Maud can be used to identify drivers of regulation
+through a pathway, thereby helping to identify or rule out knockout targets.
+
+# Short lay summary
+
+This paper presents Maud, a command-line application that implements
+Bayesian statistical inference for kinetic models of biochemical metabolic
+reaction networks. 
+
+Maud takes into account quantitative information from omics experiments
+and background knowledge, as well as structural information about kinetic
+mechanisms, regulatory interactions and enzyme knockouts. 
+
+Our paper reviews alternative options, illustrates Maud's use with two case
+studies, and explains Maud's implementation and intended usage.

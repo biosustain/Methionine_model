@@ -1,5 +1,5 @@
 ---
-title: "Bayesian regression modelling facilitates quantitative modelling of cell metabolism"
+title: "Bayesian regression facilitates quantitative modelling of cell metabolism"
 keywords: Bayesian inference, kinetic models of cell metabolism 
 abstract: >
   This paper presents Maud, a command-line application that implements
