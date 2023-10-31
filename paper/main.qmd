@@ -383,7 +383,7 @@ case study using Laplace approximation, as the algorithm could not recover from
 solver failures caused by unrealistic parameter configurations. We therefore
 made a comparison for a simpler model. This input can be found at <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode>.
 
-MCMC sampling for our comparison input yielded 200 samples in 625 minutes;
+MCMC sampling for our comparison input yielded 800 samples in 625 minutes;
 Laplace sampling yielded the same number of samples in only one minute.
 The diagnostics indicated that our algorithm was able to find the maximum
 a posteriori parameter configuration, approximate the Hessian and use these
@@ -489,7 +489,7 @@ Results of removing concentration measurements for the metabolite $ahcys_c$
 from our case study dataset.  (**Top**) A comparison of metabolite concentration
 residuals between the full measurement dataset (blue-green) and the missing-data
 dataset (grey), displayed on natural logarithmic scale. The missing-data
-model was unable to predict the withheld $ahcys_c$ concentrations.  (**Bottom
+model was unable to estimate the withheld $ahcys_c$ concentrations.  (**Bottom
 Left**) The marginal posterior distribution for the Michaelis constant
 $K_m^{AHC1,ahcys_c}$ in each model, alongside the true parameter value used to
 generate both datasets. The true value is recovered by the complete-data model
@@ -526,11 +526,10 @@ main drivers of regulation between the two datasets in this case, with the
 curves for each component aligning with the ground truth shown in red.
 
 Importantly, this form of analysis takes into account all modelled sources of
-uncertainty, including uncertainty about the true values of the flux in each
-dataset, and propagates this uncertainty into the final conclusion. Our result
-shows that Maud could be used in this realistic case not only to provide a user
-with an explanation for an observed difference in fluxes, but also a reasonable
-judgement as to the explanation's robustness.
+uncertainty, including uncertainty about the measured values of the flux in each
+dataset. Our result shows that Maud could be used in this realistic case not
+only to provide a user with an explanation for an observed difference in fluxes,
+but also a reasonable judgement as to the explanation's robustness.
 
 ::: {#fig-decomposition layout-ncol=1}
 
