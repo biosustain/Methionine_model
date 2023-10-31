@@ -72,7 +72,7 @@ networks [@christodoulou_reserve_2018] and identify potential drug targets
 models in practice is hindered by their dependence on noisy and uncertain
 information sources. Quantitative in vivo measurements of chemical abundances,
 and in vitro measurements relating to kinetic parameters, both contain vital
-information but are notoriously inaccurate (REFERENCES). Practically useful
+information but are notoriously inaccurate [siskos2017; tabb2010]. Practically useful
 kinetic modelling therefore requires a principled statistical approach that
 encompasses multiple possible model parameterisations.
 
