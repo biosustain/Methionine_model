@@ -9,6 +9,8 @@ format:
   docx: default
 ---
 
+The results of all reported Maud runs can be found at <https://github.com/biosustain/Methionine_model/blob/main/results>.
+
 # Maud's kinetic model
 
 ## Parameters
@@ -238,7 +240,22 @@ eQuilibrator [@beberEQuilibratorPlatformEstimation2021].
 The values for $\Delta_fG$ parameters, as well as all other model parameters,
 can be found by inspecting the file `priors.toml` which is online at <https://github.com/biosustain/Methionine_model/blob/main/data/methionine/priors.toml>.
 
-The results of all reported Maud runs can be found at <https://github.com/biosustain/Methionine_model/blob/main/results>.
+## Computation
+
+We conducted adaptive Hamiltonian Monte Carlo sampling for the full and missing-
+-data datasets. For the full dataset we obtained 1000 post-warmup samples each
+from 4 independent Markov chains after 1000 warm-up samples and "hot-starting"
+with a mass metric output by a previous model run.
+
+For the missing-data dataset XXX.
+
+# Laplace approximation case study
+
+To compare MCMC sampling with Laplace approximation we used a different model.
+ The full Maud input folders can be found at <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode> 
+and <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode_laplace>
+
+To generate Laplace samples we used Maud's Laplace mode.
 
 # References
 
