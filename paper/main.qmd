@@ -210,7 +210,7 @@ pathway in human metabolism, whose intermediate metabolites participate in a
 variety of mechanisms which must compete for the same resources. Due to this
 competition, as well as the fact that all the functions occur simultaneously,
 the methionine cycle is highly regulated, with 6 known allosteric effectors
-(REFERENCE). This complex regulation means that quantitative modelling of the
+[@martinov2000; @nijhout2006; @korendyaseva_allosteric_2008]. This complex regulation means that quantitative modelling of the
 methionine cycle requires a detailed kinetic model: this is why we chose it as a
 case study for Maud.
 
