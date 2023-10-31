@@ -186,7 +186,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, enhanced, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -236,7 +236,7 @@ v = f(C, E, \theta)
 \end{equation}
 
 The parameters must include sufficient boundary concentrations and
-fluxes to solve \eqref{eq-1}.
+fluxes to solve equation \eqref{eq-1}.
 
 It is common to assume pseudo-steady state for metabolites, i.e., the
 rate of fluxes towards any metabolite is much greater than the rate of
@@ -254,10 +254,10 @@ state metabolite concentrations and fluxes can be found by solving for
 S\cdot f(C;\theta) = 0
 \end{equation}
 
-In a fermentation context, \eqref{eq-3} captures the rapid kinetics
-inside the cell, while another set of ODEs would be used to describe the
-external substrate and product concentrations, which could act as
-boundary parameters to \eqref{eq-3}.
+In a fermentation context, equation \eqref{eq-3} captures the rapid
+kinetics inside the cell, while another set of ODEs would be used to
+describe the external substrate and product concentrations, which could
+act as boundary parameters to equation \eqref{eq-3}.
 
 In the context of kinetic modelling, Bayesian inference is appealing
 because it allows uncertainty to be represented appropriately without
@@ -276,9 +276,9 @@ which measurable quantities are sensitive to combinations of parameters
 but not to individual marginal parameter values are ubiquitous in models
 of biological systems \citep{gutenkunst_2007, white_2016}. The parameter
 correlation structure represents the set of potential models that
-describe the observed data. As we demonstrate in our case study below,
-capturing this correlation structure is difficult outside a Bayesian
-context.
+describe the observed data. As we demonstrate in
+Section~\ref{sec-laplace} below, capturing this correlation structure is
+difficult outside a fully Bayesian context.
 
 Previous Bayesian kinetic models have either sacrificed mechanistic
 accuracy or have attempted to fit realistic kinetic models using
@@ -306,9 +306,9 @@ experimental conditions outside the reference dataset.
 
 There have also been efforts to implement Bayesian inference for kinetic
 models without the use of MCMC. Examples of alternative inference
-methods include variational inference as in
-\citet{st.johnBayesianInferenceMetabolic2018}, rejection sampling and
-approximate Bayesian computation \citet{saa_construction_2016} and
+methods include variational inference
+\citep{st.johnBayesianInferenceMetabolic2018}, rejection sampling and
+approximate Bayesian computation \citep{saa_construction_2016} and
 Laplace approximation, in which the Fisher information matrix is used to
 calculate a normal approximation around the maximum a posteriori
 parameter configuration
@@ -320,34 +320,35 @@ realistic kinetic models tend to induce highly correlated, non-Gaussian,
 joint probability distributions
 \citep{gutenkunst_2007, stapor_pesto_2018}.
 
-Our application Maud is the first Bayesian kinetic model to combine
-biologically realistic mechanistic accuracy---including accurate rate
-laws, post- translational modification and thermodynamics---with fast,
-robust MCMC sampling using adaptive Hamiltonian Monte Carlo. Further,
-Maud is a general-purpose application that can be used to fit a wide
-range of Bayesian kinetic models.
+Our application Maud provides the first Bayesian kinetic model to
+combine biologically realistic mechanistic accuracy---including accurate
+rate laws, post- translational modification and thermodynamics---with
+fast, robust MCMC sampling using adaptive Hamiltonian Monte Carlo.
+Further, Maud is a general-purpose application that can be used to fit a
+wide range of Bayesian kinetic models.
 
 \hypertarget{results-and-discussion}{%
 \section{Results and Discussion}\label{results-and-discussion}}
 
 To demonstrate our application's capabilities, we used Maud to analyse
-an artificial dataset based on the human methionine cycle. We first used
-Maud to generate simulated training and validation measurements based on
-plausible parameter values, then performed posterior sampling. Next, we
-used Maud to predict the validation data.
+an artificial dataset based on the human methionine cycle. We generated
+this dataset using Maud, by simulating measurements for a set of
+training and validation conditions based on plausible parameter values.
+Next, we performed posterior inference for the training measurements and
+prediction for both training and validation measurements.
 
-To show that Maud is robust to missing measurements we compared the
-results of fitting the full dataset with an intentionally incomplete
+We investigated Maud's sensitivity to missing measurements by comparing
+the results of fitting a full dataset with an intentionally incomplete
 dataset. To demonstrate why a full Bayesian approach is preferable to an
 approach based on a Laplace approximation of the posterior distribution,
-we also fit our methionine cycle model using the latter method and
-compared the results with MCMC sampling.
+we compared the results of analysing a representative metabolic network
+using both methods.
 
-Finally, we investigated our results to find out what our model learned
-about the contributions of different regulatory factors to the flux
-through GNMT, an important reaction. This analysis illustrates how Maud
-can be used to generate actionable insights about metabolism without the
-need for further statistical analysis.
+Finally, we dug into our results to find out what our full dataset
+methionine model learned about the contributions of different regulatory
+factors to the flux through GNMT, an important reaction. This analysis
+illustrates how Maud can be used to generate actionable insights about
+metabolism without the need for further statistical analysis.
 
 The methionine cycle, illustrated in
 Figure~\ref{fig-methionine-reactions}, is a fundamental pathway in human
