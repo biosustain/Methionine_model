@@ -74,7 +74,7 @@ networks [@christodoulou_reserve_2018] and identify potential drug targets
 models in practice is hindered by their dependence on noisy and uncertain
 information sources. Quantitative in vivo measurements of chemical abundances,
 and in vitro measurements relating to kinetic parameters, both contain vital
-information but are notoriously inaccurate [siskos2017; tabb2010]. Practically useful
+information but are notoriously inaccurate [@siskos2017; @tabb2010; @lu2017]. Practically useful
 kinetic modelling therefore requires a principled statistical approach that
 encompasses multiple possible model parameterisations.
 
@@ -221,7 +221,7 @@ case study for Maud.
 
 ::: {#fig-methionine-reactions layout-ncol=1}
 
-![](../figures/methionine-reactions.png)
+![](./figures/methionine-reactions.png)
 
 The methionine cycle as modelled, with the solid black lines representing the
 reactions, the green lines representing allosteric interaction, and the red
@@ -366,7 +366,7 @@ approximation is a suitable candidate.
 
 ::: {#fig-posterior layout-ncol=1}
 
-![](../figures/posterior.png)
+![](./figures/posterior.png)
 
 Marginal posterior distributions from our main model run. (**Top left**)
 Comparison of posterior predictive intervals with simulated flux measurement
@@ -445,7 +445,7 @@ model inference; we leave research into this topic to future work.
 
 ::: {#fig-laplace layout-ncol=1}
 
-![](../figures/laplace.png)
+![](./figures/laplace.png)
 
 Graphical comparison of approximate posterior samples generated using Laplace
 sampling (blue-green) with posterior samples generated using MCMC (dark
@@ -493,7 +493,7 @@ approach can produce sensible results from incomplete metabolomics data.
 
 ::: {#fig-missing layout-ncol=1}
 
-![](../figures/missing.png)
+![](./figures/missing.png)
 
 Results of removing concentration measurements for the metabolite $ahcys_c$
 from our case study dataset.  (**Top**) A comparison of metabolite concentration
@@ -543,7 +543,7 @@ reasonable judgement as to the explanation's robustness.
 
 ::: {#fig-decomposition layout-ncol=1}
 
-![](../figures/decomposition.png)
+![](./figures/decomposition.png)
 
 Illustration of how analysing a system with Maud can yield actionable insights
 about the underlying metabolic network.  (**Top Left**) A schematic of the
