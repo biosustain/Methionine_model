@@ -1,0 +1,679 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Supporting information},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Supporting information}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, frame hidden, boxrule=0pt, interior hidden, sharp corners, breakable, enhanced]}{\end{tcolorbox}}\fi
+
+This document provides information in support of our article ``Bayesian
+regression facilitates quantitative modelling of cell metabolism''.
+
+The results of all reported Maud runs can be found at
+\url{https://github.com/biosustain/Methionine_model/blob/main/results}.
+
+\hypertarget{mauds-input-format}{%
+\section{Maud's input format}\label{mauds-input-format}}
+
+Maud inputs are structured directories, somewhat inspired by the PEtab
+format (Schmiester et al. 2021). A Maud input directory must contain a
+toml (Preston-Werner, Tom and Gedam, Pradyun 2020) file called
+\texttt{config.toml} which gives the input a name, configures how Maud
+will be run and tells Maud where to find the other files, allowing these
+to have custom names. It must also include a file containing a kinetic
+model definition, a file specifying information about parameters and a
+file with information experiments. The required structure of these files
+is documented at
+\url{https://maud-metabolic-models.readthedocs.io/en/latest/inputting.html}.
+The input is validated against a Pydantic (Pydantic developers 2022)
+data model.
+
+We chose to implement a custom input format despite the existence of
+standard formats in similar areas, including SBML (Keating et al. 2020)
+and PEtab (Schmiester et al. 2021). This choice was partly motivated by
+the need to ensure flexibility as Maud was developed, but there are also
+features of SBML and PEtab that make them structurally unsuitable in
+this context. Our requirements for an input format included that it be
+mathematics-free, so that all mathematical details are encapsulated in
+source code, and that it has a detailed, verifiable structure. These
+requirements made toml more attractive than SBML: toml is easier for
+humans to read and edit and can straightforwardly be validated using
+tools like Pydantic. Further, an SBML representation of our desired
+input would not contain differential equations. It would therefore not
+be interoperable with most SBML targeting software, which typically
+assumes that differential equations are available and does not know
+about Maud's structure.
+
+\hypertarget{mauds-kinetic-model}{%
+\section{Maud's kinetic model}\label{mauds-kinetic-model}}
+
+\hypertarget{parameters}{%
+\subsection{Parameters}\label{parameters}}
+
+Table~\ref{tbl-params} shows all of Maud's unknown parameters along with
+their dimensions
+
+Note that Maud's metabolic model includes some quantities that are not
+treated as parameters in its statistical model, including temperatures,
+compartment volumes and the formation energy of water. Maud treats these
+quantities as if they were known precisely: they can be configured by
+the user or default values can be used. Although in practice there can
+be considerable uncertainty regarding these quantities, we chose to
+disregard this uncertainty in the interest of simplicity.
+
+\hypertarget{tbl-params}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4722}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}@{}}
+\caption{\label{tbl-params}Parameters of Maud's statistical
+model}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modelled quantity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Dimensions
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modelled quantity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Dimensions
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\Delta_fG\) & Formation energy & metabolites \\
+\(k_M\) & Michaelis Menten constants & Substrates of all
+enzyme/reactions and products of reversible enzyme/reactions \\
+\(k_I\) & Inhibition constants & Inhibiting metabolite/compartments of
+enzyme/reactions exhibiting competitive inhibition \\
+\(k_{cat}\) & Rate constants & Enzyme/reactions \\
+\(L_0\) & Transfer constants & Allosteric interactions \\
+\(e_T\) & T dissociation constants & Modifying metabolites of allosteric
+inhibitions \\
+\(e_R\) & R dissociation constants & Modifying metabolites of allosteric
+activations \\
+\(k_{cat\, pme}\) & Rate constants of phosphorylation modifying enzymes
+& Phosphorylation modifying enzymes \\
+\(v_{drain}\) & Drain fluxes & Drains, experiments \\
+\(Enzyme\) & Enzyme concentrations & Enzymes, experiments \\
+\(C_{unbalanced}\) & Unbalanced metabolite/compartment concentrations &
+Unbalanced metabolite/compartments, experiments \\
+\(C_{pme}\) & Phosphorylation modifying enzyme concentrations &
+Phosphorylation modifying enzymes, experiments \\
+\(\psi\) & Membrane potentials & Experiments \\
+\end{longtable}
+
+Solving the steady state problem for a given set of parameters in an
+experiment yields a vector \(C_{balanced}\) of balanced metabolite
+concentrations. These are combined with the balanced metabolite
+concentrations \(C_{unbalanced}\) to produce a vector \(C_{mic}\) with a
+concentration for each metabolite/compartment combination.
+
+\(\Delta_fG\) parameters can optionally be fixed; this can be useful for
+computational purposes, as for example to avoid estimating the formation
+energy of a metabolite about which there is no available information due
+to it only participating in irreversible reactions.
+
+\hypertarget{rate-equations}{%
+\subsection{Rate equations}\label{rate-equations}}
+
+As discussed in the main text, Maud's kinetic model decomposes into
+factors contributing to the flux in a metabolic network in an experiment
+as shown in equation \eqref{eq-decomposition}. For succinctness, and
+since Maud's model assumes that there are no interactions between
+experiments, we omit any notation referring to experiments below. We
+also omit any reference to the network's drain reactions: these are
+modelled as being exactly determined by the values of the parameter
+vector \(v_{drain}\).
+
+\begin{equation}
+F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allostery \label{eq-decomposition}
+\end{equation}
+
+The term \(Enzyme\) in equation \eqref{eq-decomposition} is a vector of
+non-negative real numbers representing the concentration of the enzyme
+catalysing each reaction.
+
+The term \(k_{cat}\) in equation \eqref{eq-decomposition} is a vector of
+non-negative real numbers representing the amount of flux carried per
+unit of saturated enzyme.
+
+The term \(Reversibility\) in equation \eqref{eq-decomposition} is a
+vector of real numbers capturing the impact of thermodynamic effects on
+the reaction's flux, as shown in equation \eqref{eq-reversibility}.
+
+\begin{align} 
+  Reversibility &= 1 - \exp(\frac{\Delta_{r}G + RT \cdot S^T \ln(C_{mic})}{RT}) \label{eq-reversibility} \\ 
+  \Delta_{r}G &= S^{T}\Delta_{f}G + n F \psi \nonumber 
+\end{align}
+
+The terms in \eqref{eq-reversibility} have the following meanings:
+
+\begin{itemize}
+\tightlist
+\item
+  \(T\) is the temperature in Kelvin (a number),
+\item
+  \(R\) is the gas constant (a number),
+\item
+  \(\Delta_rG\) is a vector representing the Gibbs free energy change of
+  each reaction in standard conditions,
+\item
+  \(\Delta_fG\) is a vector representing the standard condition Gibbs
+  free energy change of each metabolite's formation reaction, or in
+  other words each metabolite's `formation energy'.
+\item
+  \(n\) is a vector representing the number of charges transported by
+  each reaction.
+\item
+  \(F\) is the Faraday constant (a number)
+\item
+  \(\psi\) is a vector representing each reaction's membrane potential
+  (these numbers only matter for reactions that transport non-zero
+  charge)
+\end{itemize}
+
+Note that, for reactions with zero transported charge, the thermodynamic
+effect on each reaction is derived from metabolite formation energies.
+This formulation is helpful because, provided that all reactions' rates
+are calculated from the same formation energies, they are guaranteed to
+be thermodynamically consistent.
+
+The term \(n\) accounts for both the charge and the directionality. For
+instance, a reaction that exports 2 protons to the extracellular space
+in the forward direction would have -2 charge. If a negatively charged
+molecule like acetate is exported in the forward direction, \(n\) would
+be 1.
+
+Note that this way of modelling the effect of transported charge does
+not take into account that the concentration gradient used by the
+transport is that of the dissociated molecules. Thus, this expression is
+only correct for ions whose concentration can be expressed in the model
+only in the charged form; e.g., protons, \(K^+\), \(Na^+\), \(Cl^-\),
+etc.
+
+The term \(Saturation\) in equation \eqref{eq-decomposition} is a vector
+of non-negative real numbers representing, for each reaction, the
+fraction of enzyme that is saturated, i.e.~bound to one of the
+reaction's substrates. To describe saturation we use equation
+\eqref{eq-saturation}, which is taken from Liebermeister, Uhlendorf, and
+Klipp (2010) and Noor et al. (2013). Additionally, this term captures
+competitive inhibition: as competitive inhibitor concentration
+increases, the saturation denominator increases, effectively decreasing
+the saturation of the substrate on the total enzyme pool. Conversely, as
+the substrate concentration increases this term approaches 1.
+
+\begin{align} 
+Saturation_r &= a \cdot \text{free enzyme ratio}\label{eq-saturation} \\ 
+a &= \prod_{\text{s substrate}}\frac{C_{mic}^s}{k_{M}^{rs}} \nonumber \\ 
+\text{free enzyme ratio} &= \begin{cases} 
+  \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} 
+  + \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} & r\text{ irreversible} \\ 
+  -1 
+  + \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} 
+     + \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} 
+     + \prod_{\text{p product}} (1 + \frac{C_{mic}^p}{k_{M}^{rp}})^{S_pr}  & r\text{ reversible} 
+    \end{cases} \nonumber
+\end{align}
+
+The term \(Allostery\) in equation \eqref{eq-decomposition} is a vector
+of non-negative numbers describing the effect of allosteric regulation
+on each reaction. Allosteric regulation happens when binding to a
+certain molecule changes an enzyme's shape in a way that changes its
+catalytic behaviour. We use equation \eqref{eq-allostery} to describe
+this phenomenon, following the generalised MWC approach described in
+Monod, Wyman, and Changeux (1965), Changeux (2013), Popova and Sel'kov
+(1975) and Popova and Sel'kov (1979).
+
+\begin{align} 
+  Allostery_r &= \frac{1}{1 + L_0^r \cdot (\text{free enzyme ratio}_r \cdot \frac{Qtense}{Qrelaxed})^{subunits}}\label{eq-allostery} \\ 
+       Qtense &= 1 + \sum_{\text{i inhibitor}} \frac{C_{mic}^i}{e_T^{ri}}\nonumber \\ 
+     Qrelaxed &= 1 + \sum_{\text{a activator}} \frac{C_{mic}^a}{e_R^{ra}}\nonumber
+\end{align}
+
+The parameter \(L_0\) in equation \eqref{eq-decomposition} is called the
+transfer constant, and the parameter vectors \(e_T\) and \(e_R\) are
+called tense and relaxed dissociation constants respectively.
+
+Finally, the term \(Phosphorylation\) in equation
+\eqref{eq-decomposition} captures the important effect whereby enzyme
+activity is altered due to a coupled process of phosphorylation and
+dephosphorylation. This description achieves a similar behaviour to the
+MWC formalism for describing allosteric regulation, but using the rates
+of phosphorylation and dephosphorylation rather than concentrations of
+metabolites.
+
+\begin{align}
+Phosphorylation_r &= (\frac{\alpha}{\alpha + \beta})^{subunits} \label{eq-phosphorylation}\\
+\alpha &= \sum_{\text{p phosphoylator}} k_{cat\,pme}^{p} \cdot C_{pme}^p \nonumber \\
+\beta &= \sum_{\text{d dephosphoylator}} k_{cat\,pme}^{d} \cdot C_{pme}^d \nonumber 
+\end{align}
+
+\hypertarget{sec-methionine-case-study}{%
+\section{Methionine case study}\label{sec-methionine-case-study}}
+
+\hypertarget{dataset-generation}{%
+\subsection{Dataset generation}\label{dataset-generation}}
+
+Starting with the model in Saa and Nielsen (2016), we extracted values
+for enzyme concentrations, boundary conditions and fluxes. We used these
+values to generate MCMC samples using Maud using the priors specified in
+section Section~\ref{sec-methionine-priors}. When this was finished, we
+selected one sample with relatively high log probability to use as a
+ground truth in our case study. These parameter values are shown below
+in table Table~\ref{tbl-case-study-params}. We manually inspected the
+parameter values to screen for any obviously implausible values; we did
+not find any of these.
+
+\hypertarget{sec-methionine-priors}{%
+\subsection{Prior distributions compared with true parameter
+values}\label{sec-methionine-priors}}
+
+Table~\ref{tbl-case-study-params} shows the prior distributions we used
+for independent parameters. The first two columns show the 1\% and 99\%
+quantiles of each marginal prior distribution. True parameter value are
+shown in column three, and the last column shows the z-score on log
+scale of the true parameter value according the marginal prior
+distribution. As can be seen from the table, there are 7 parameters for
+which the true value is outside the 1\%-99\% range.
+
+\hypertarget{tbl-case-study-params}{}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3211}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1560}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1651}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1101}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2477}}@{}}
+\caption{\label{tbl-case-study-params}Parameter specification, marginal
+prior distributions and true parameter values used in our case
+study.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+parameter name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+1\% prior quantile
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+99\% prior quantile
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+true value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+prior Z-score of true value
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+parameter name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+1\% prior quantile
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+99\% prior quantile
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+true value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+prior Z-score of true value
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(e_{𝑅}^{𝐶𝐵𝑆1,𝑎𝑚𝑒𝑡𝑐}\) & 3.430e-06 & 0.002480 & 9.3e-05 & 0.004 \\
+\(e_{𝑅}^{𝐺𝑁𝑀𝑇1,𝑎𝑚𝑒𝑡𝑐}\) & 3.000e-05 & 0.002000 & 2.000e-05 & -2.787 \\
+\(e_{𝑅}^{𝑀𝐴𝑇3,𝑎𝑚𝑒𝑡𝑐}\) & 1.000e-04 & 0.001000 & 3.170e-04 & 0.003 \\
+\(e_{𝑅}^{𝑀𝐴𝑇3,𝑚𝑒𝑡−𝐿𝑐}\) & 4.500e-04 & 0.000800 & 6.000e-04 & 0.000 \\
+\(e_{𝑅}^{𝑀𝑇𝐻𝐹𝑅1,𝑎ℎ𝑐𝑦𝑠𝑐}\) & 1.120e-07 & 0.000081 & 2.000e-06 & -0.101 \\
+\(e_{𝑇}^{𝐺𝑁𝑀𝑇1,𝑚𝑙𝑡ℎ𝑓𝑐}\) & 1.120e-05 & 0.008050 & 2.290e-04 & -0.136 \\
+\(e_{𝑇}^{𝑀𝑇𝐻𝐹𝑅1,𝑎𝑚𝑒𝑡𝑐}\) & 1.120e-07 & 0.000081 & 1.500e-05 &
+0.549306 \\
+\(k_{𝑐𝑎𝑡}^{𝐴𝐻𝐶1}\) & 1.200e+02 & 400.000000 & 2.340e+02 & 0.179861 \\
+\(k_{𝑐𝑎𝑡}^{𝐵𝐻𝑀𝑇1}\) & 6.000e+00 & 35.000000 & 1.380e+01 & -0.135 \\
+\(k_{𝑐𝑎𝑡}^{𝐶𝐵𝑆1}\) & 1.000e+01 & 188.000000 & 7.020e+00 & -2.887 \\
+\(k_{𝑐𝑎𝑡}^{𝐺𝑁𝑀𝑇1}\) & 7.000e-01 & 60.000000 & 1.050e+01 & 0.352083 \\
+\(k_{𝑐𝑎𝑡}^{𝑀𝐴𝑇1}\) & 8.200e-02 & 59.100000 & 7.900e+00 & 0.44375 \\
+\(k_{𝑐𝑎𝑡}^{𝑀𝐴𝑇3}\) & 5.890e-01 & 424.000000 & 1.990e+01 & 0.080556 \\
+\(k_{𝑐𝑎𝑡}^{𝑀𝐸𝑇𝐻−𝐺𝑒𝑛}\) & 4.840e-01 & 349.000000 & 1.160e+00 & -1.209 \\
+\(k_{𝑐𝑎𝑡}^{𝑀𝑆1kcatMS1}\) & 1.000e+00 & 3.300000 & 1.770e+00 & -0.091 \\
+\(k_{𝑐𝑎𝑡}^{𝑀𝑇𝐻𝐹𝑅1}\) & 1.300e+00 & 4.200000 & 3.170e+00 & 0.183333 \\
+\(k_{𝑐𝑎𝑡}^{𝑃𝑅𝑂𝑇1}\) & 1.590e-01 & 0.222000 & 2.650e-01 & 0.41875 \\
+\(k_{𝐼}^{𝐺𝑁𝑀𝑇1,𝑎ℎ𝑐𝑦𝑠𝑐}\) & 2.000e-06 & 0.001400 & 5.300e-05 & 0.010 \\
+\(k_{𝐼}^{𝑀𝐴𝑇1,𝑎𝑚𝑒𝑡𝑐}\) & 3.000e-04 & 0.000400 & 3.470e-04 & 0.014 \\
+\(k_{𝐼}^{𝑀𝐸𝑇𝐻−𝐺𝑒𝑛,𝑎ℎ𝑐𝑦𝑠𝑐}\) & 1.000e-06 & 0.000030 & 6.000e-06 &
+0.021 \\
+\(k_{𝑀}^{𝐴𝐻𝐶1,𝑎ℎ𝑐𝑦𝑠𝑐}\) & 5.220e-05 & 0.037600 & 2.320e-05 & -2.050 \\
+\(k_{𝑀}^{𝐴𝐻𝐶1,𝑎𝑑𝑛𝑐}\) & 1.670e-07 & 0.000120 & 5.660e-06 & 0.081944 \\
+\(k_{𝑀}^{𝐴𝐻𝐶1,ℎ𝑐𝑦𝑠−𝐿𝑐}\) & 1.580e-07 & 0.000114 & 1.060e-05 &
+0.318056 \\
+\(k_{𝑀}^{𝐵𝐻𝑀𝑇1,ℎ𝑐𝑦𝑠−𝐿𝑐}\) & 1.200e-05 & 0.000032 & 1.980e-05 & 0.049 \\
+\(k_{𝑀}^{𝐵𝐻𝑀𝑇1,𝑔𝑙𝑦𝑏𝑐}\) & 4.720e-05 & 0.034000 & 8.460e-03 & 0.659028 \\
+\(k_{𝑀}^{𝐶𝐵𝑆1,ℎ𝑐𝑦𝑠−𝐿𝑐}\) & 1.000e-06 & 0.000025 & 4.240e-05 & 3.090 \\
+\(k_{𝑀}^{𝐶𝐵𝑆1,𝑠𝑒𝑟−𝐿𝑐}\) & 2.000e-06 & 0.000004 & 2.830e-06 & 0.004 \\
+\(k_{𝑀}^{𝐺𝑁𝑀𝑇1,𝑎𝑚𝑒𝑡𝑐}\) & 1.300e-05 & 0.009400 & 5.200e-04 & 0.1375 \\
+\(k_{𝑀}^{𝐺𝑁𝑀𝑇1,𝑎ℎ𝑐𝑦𝑠𝑐}\) & 4.100e-07 & 0.000295 & 1.100e-05 & 0.000 \\
+\(k_{𝑀}^{𝐺𝑁𝑀𝑇1,𝑔𝑙𝑦𝑐}\) & 5.480e-05 & 0.039500 & 2.540e-03 & 0.189583 \\
+\(k_{𝑀}^{𝐺𝑁𝑀𝑇1,𝑠𝑎𝑟𝑐𝑠𝑐}\) & 3.730e-09 & 0.000003 & 1.000e-07 & 0.000 \\
+\(k_{𝑀}^{𝑀𝐴𝑇1,𝑚𝑒𝑡−𝐿𝑐}\) & 1.400e-05 & 0.000720 & 1.070e-04 & 0.074 \\
+\(k_{𝑀}^{𝑀𝐴𝑇1,𝑎𝑡𝑝𝑐}\) & 5.270e-05 & 0.038000 & 2.030e-03 & 0.125694 \\
+\(k_{𝑀}^{𝑀𝐴𝑇3,𝑚𝑒𝑡−𝐿𝑐}\) & 4.470e-05 & 0.032200 & 1.130e-03 & -0.029 \\
+\(k_{𝑀}^{𝑀𝐴𝑇3,𝑎𝑡𝑝𝑐}\) & 5.270e-05 & 0.038000 & 2.370e-03 & 0.179167 \\
+\(k_{𝑀}^{𝑀𝐸𝑇𝐻−𝐺𝑒𝑛,𝑎𝑚𝑒𝑡𝑐}\) & 7.000e-06 & 0.000013 & 9.370e-06 &
+-0.135 \\
+\(k_{𝑀}^{𝑀𝑆1,5𝑚𝑡ℎ𝑓𝑐}\) & 3.320e-06 & 0.002390 & 6.940e-05 & -0.124 \\
+\(k_{𝑀}^{𝑀𝑆1,ℎ𝑐𝑦𝑠−𝐿𝑐}\) & 1.000e-06 & 0.000003 & 1.710e-06 & -0.054 \\
+\(k_{𝑀}^{𝑀𝑇𝐻𝐹𝑅1,𝑚𝑙𝑡ℎ𝑓𝑐}\) & 7.500e-05 & 0.000088 & 8.080e-05 & -0.158 \\
+\(k_{𝑀}^{𝑀𝑇𝐻𝐹𝑅1,𝑛𝑎𝑑𝑝ℎ𝑐}\) & 1.600e-05 & 0.000028 & 2.090e-05 & -0.105 \\
+\(k_{𝑀}^{𝑃𝑅𝑂𝑇1,𝑚𝑒𝑡−𝐿𝑐}\) & 4.500e-05 & 0.000085 & 4.390e-05 & -2.507 \\
+\(𝐿_{0}^{𝐶𝐵𝑆1}\) & 3.730e-02 & 26.800000 & 1.030e+00 & 0.017 \\
+\(𝐿_{0}^{𝐺𝑁𝑀𝑇1}\) & 3.730e-02 & 26.800000 & 1.310e+02 & 0.3875 \\
+\(𝐿_{0}^{𝑀𝐴𝑇3}\) & 3.730e-03 & 2.680000 & 1.080e-01 & 0.037 \\
+\(𝐿_{0}^{𝑀𝑇𝐻𝐹𝑅1}\) & 1.120e-01 & 80.500000 & 3.920e-01 & -1.018 \\
+\end{longtable}
+
+\(\Delta_fG\) parameters for most metabolites were fixed; those that
+were modelled as unknown had a multivariate normal prior distribution
+derived from eQuilibrator (Beber et al. 2021).
+
+The values for \(\Delta_fG\) parameters, as well as all other model
+parameters, can be found by inspecting the file \texttt{priors.toml}
+which is online at
+\url{https://github.com/biosustain/Methionine_model/blob/main/data/methionine/priors.toml}.
+
+\hypertarget{computation}{%
+\subsection{Computation}\label{computation}}
+
+We conducted adaptive Hamiltonian Monte Carlo sampling for the full and
+missing-data datasets. For the full dataset we obtained 1000 post-warmup
+samples each from 4 independent Markov chains after 1000 warm-up samples
+and ``hot-starting'' with a mass metric output by a previous model run.
+
+For the missing-data dataset 250 post-warmup samples were taken from 4
+indpendent Markov chains after 100 warmup samples. The sampling was
+initialised using the mass matric from the complete measurement dataset
+and the warmup consisted of step size adaption for 100 samples. The
+resulting posterior distribution had an \(\hat{R} = 1.01\) for the
+log-probability and did not exhibit post-warmup divergences that were
+not a result of differential equation errors.
+
+\hypertarget{laplace-approximation-case-study}{%
+\section{Laplace approximation case
+study}\label{laplace-approximation-case-study}}
+
+To compare MCMC sampling with Laplace approximation we used a different
+model with fewer parameters and state variables. This model was chosen
+because we were not able to generate results for our methionine model
+using Laplace approximation. The simpler case still serves to illustrate
+the general issues with approximating the posterior distributions of
+Bayesian kinetic models using the Laplace method, and that the
+associated numerical instability is another reason to prefer other
+methods where possible.
+
+The full Maud input folders used for our Laplace approximation case
+study can be found at
+\url{https://github.com/biosustain/Methionine_model/tree/main/data/example_ode}
+and
+\url{https://github.com/biosustain/Methionine_model/tree/main/data/example_ode_laplace}.
+
+To generate Laplace samples we used Maud's Laplace mode.
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-beberEQuilibratorPlatformEstimation2021}{}}%
+Beber, Moritz E., Mattia G. Gollub, Dana Mozaffari, Kevin M. Shebek, and
+Elad Noor. 2021. {``{eQuilibrator} 3.0 -- a Platform for the Estimation
+of Thermodynamic Constants.''} \emph{arXiv:2103.00621 {[}q-Bio{]}},
+February. \url{http://arxiv.org/abs/2103.00621}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-changeux_2013}{}}%
+Changeux, Jean-Pierre. 2013. {``50 Years of Allosteric Interactions: The
+Twists and Turns of the Models.''} \emph{Nature Reviews. Molecular Cell
+Biology} 14 (12): 819--29. \url{https://doi.org/10.1038/nrm3695}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-keatingSBMLLevelExtensible2020}{}}%
+Keating, Sarah M, Dagmar Waltemath, Matthias König, Fengkai Zhang,
+Andreas Dräger, Claudine Chaouiya, Frank T Bergmann, et al. 2020.
+{``{\textsc{SBML}} {Level} 3: An Extensible Format for the Exchange and
+Reuse of Biological Models.''} \emph{Molecular Systems Biology} 16 (8):
+e9110. \url{https://doi.org/10.15252/msb.20199110}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-liebermeister_modular_2010}{}}%
+Liebermeister, Wolfram, Jannis Uhlendorf, and Edda Klipp. 2010.
+{``Modular Rate Laws for Enzymatic Reactions: Thermodynamics,
+Elasticities and Implementation.''} \emph{Bioinformatics} 26 (12):
+1528--34. \url{https://doi.org/10.1093/bioinformatics/btq141}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-monod_nature_1965}{}}%
+Monod, J, J Wyman, and J P Changeux. 1965. {``On the Nature of
+Allosteric Transitions: A Plausible Model.''} \emph{Journal of Molecular
+Biology} 12 (May): 88--118.
+\url{https://doi.org/10.1016/S0022-2836(65)80285-6}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-noor_note_2013}{}}%
+Noor, Elad, Avi Flamholz, Wolfram Liebermeister, Arren Bar-Even, and Ron
+Milo. 2013. {``A Note on the Kinetics of Enzyme Action: {A}
+Decomposition That Highlights Thermodynamic Effects.''} \emph{FEBS
+Letters}, A century of {Michaelis} - {Menten} kinetics, 587 (17):
+2772--77. \url{https://doi.org/10.1016/j.febslet.2013.07.028}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-popova_generalization_1975}{}}%
+Popova, S V, and E E Sel'kov. 1975. {``Generalization of the Model by
+{Monod}, {Wyman} and {Changeux} for the Case of a Reversible
+Monosubtrate Reaction {SR},{TP}.''} \emph{FEBS Letters} 53 (3): 269--73.
+\url{https://doi.org/10.1016/0014-5793(75)80034-2}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-popova_description_1979}{}}%
+---------. 1979. {``{[}{Description} of the Kinetics of the Two
+Substrate Reactions {S1}+ {S2} Goes to and Comes from {S3}+{S4} by a
+Generalized {Monod}, { Wyman}, {Changeux} Model{]}.''}
+\emph{Molekuliarnaia Biologiia} 13 (1): 129--39.
+\url{https://www.ncbi.nlm.nih.gov/pubmed/156878}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-preston-wernertomandgedampradyunTOMLSpecification0rc2020}{}}%
+Preston-Werner, Tom and Gedam, Pradyun. 2020. {``{TOML Specification}
+1.0.0-Rc.1.''} \url{https://toml.io/en/v1.0.0-rc.1/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-pydanticdevelopersPydantic2022}{}}%
+Pydantic developers. 2022. {``Pydantic.''}
+\url{https://pypi.org/project/pydantic/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-saa_construction_2016}{}}%
+Saa, Pedro A, and Lars K Nielsen. 2016. {``Construction of Feasible and
+Accurate Kinetic Models of Metabolism: {A} {Bayesian} Approach.''}
+\emph{Scientific Reports} 6 (July): 29635.
+\url{https://doi.org/10.1038/srep29635}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-SchmiesterSch2021}{}}%
+Schmiester, Leonard, Yannik Schälte, Frank T. Bergmann, Tacio Camba,
+Erika Dudkin, Janine Egert, Fabian Frö hlich, et al. 2021.
+{``{PEtab}\textemdash{{Interoperable}} Specification of Parameter
+Estimation Problems in Systems Biology.''} \emph{PLOS Computational
+Biology} 17 (1): 1--10.
+\url{https://doi.org/10.1371/journal.pcbi.1008646}.
+
+\end{CSLReferences}
+
+
+
+\end{document}
