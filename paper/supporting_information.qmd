@@ -6,7 +6,8 @@ format:
   html:
     embed-resources: true
     include-in-header: mathjax.html
-  pdf: default
+  pdf: 
+    keep-tex: true
   docx: default
 ---
 
