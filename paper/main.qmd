@@ -1,5 +1,5 @@
 ---
-title: "Maud: Bayesian regression modelling facilitates quantitative modelling of cell metabolism"
+title: "Bayesian regression facilitates quantitative modelling of cell metabolism"
 keywords: Bayesian inference, kinetic models of cell metabolism, 
           multiomics integration, ordinary differential equations,
           regulatory anlaysis
@@ -20,7 +20,7 @@ author:
     affiliations: 
       - id: biosustain
         name: DTU
-        department: DTU Biosustain
+        department: The Novo Nordisk Foundation Center for Biosustainability
         city: Kongens Lyngby
         country: Denmark
     attributes:
@@ -28,26 +28,21 @@ author:
       equal-contributor: true
     note: These authors contributed equally to this research.
   - name: "Nicholas Luke Cowie"
+    orcid: 0000-0003-3367-2105
     affiliations: 
-      - id: biosustain
-        name: DTU
-        department: DTU Biosustain
-        city: Kongens Lyngby
-        country: Denmark
+      - ref: biosustain
     attributes:
       equal-contributor: true
     note: These authors contributed equally to this research.
   - name: "Lars Keld Nielsen"
+    orcid: 0000-0001-8191-3511
     affiliations: 
-      - name: The University of Queensland
+      - id: uq
+        name: The University of Queensland
         department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
         city: St Lucia
         country: Australia
-      - id: biosustain
-        name: DTU
-        department: DTU Biosustain
-        city: Kongens Lyngby
-        country: Denmark
+      - ref: biosustain
 bibliography: bibliography.bib
 format:
   acs-pdf:
@@ -181,7 +176,7 @@ results approximate the target posterior distribution. This is a problem because
 realistic kinetic models tend to induce highly correlated, non-Gaussian, joint
 probability distributions [@gutenkunst_2007; @stapor_pesto_2018].
 
-Our application Maud provides the first Bayesian kinetic model to combine
+Our application Maud provides a Bayesian kinetic model that combines
 biologically realistic mechanistic accuracy---including accurate rate laws,
 post- translational modification and thermodynamics---with fast, robust
 MCMC sampling using adaptive Hamiltonian Monte Carlo. Further, Maud is a
@@ -316,9 +311,7 @@ such as the one shown in the bottom left of @fig-posterior; in this case the
 marginal distribution of the two parameters is roughly banana shaped. More
 commonly, however, two-dimensional pair plots were insufficient to reveal the
 underlying correlation structure, as seen in the bottom-right plot in figure
-@fig-posterior, which shows two marginally independent parameters. This kind of
-marginal independence does not mean that the parameters are independent in the
-full joint posterior distribution.
+@fig-posterior, which shows two marginally independent parameters. 
 
 These results show that Maud can achieve an adequate fit to a realistic
 pathway-sized dataset. This was achieved without fixing the marginal values
@@ -347,9 +340,9 @@ values. All the flux measurements are within the predictive intervals,
 indicating a good fit. (**Top right**) Comparison of posterior predictive
 intervals with simulated concentration measurement values. These also show
 a good fit. (**Bottom left**) Pairwise marginal posterior distribution
-for two pairwise correlated parameters, namely $K_m^{AHC1,hcys-L}$ and
+for two correlated parameters, namely $K_m^{AHC1,hcys-L}$ and
 $K_m^{AHC1_ahcys}$. (**Bottom right**) Pairwise marginal posterior distribution
-for two pairwise-uncorrelated parameters, namely $K_m^{MAT3,atp}$ and $K_{cat}^{MAT3}$.
+for two uncorrelated parameters, namely $K_m^{MAT3,atp}$ and $K_{cat}^{MAT3}$.
 
 :::
 
@@ -622,13 +615,7 @@ in the kinetic model that are assumed to be unknown, other than steady state
 metabolite concentrations and fluxes, which are derived from the values of
 other parameters by solving the steady state problem. See table 1 in
 this paper's supporting information for a description of all these parameters
-and their dimensions. Note that some quantities in Maud’s kinetic model are
-not treated as parameters: for example, temperatures, compartment volumes and
-the formation energy of water. Maud treats these quantities as if they were
-known precisely: they can be configured by the user or default values can be
-used. Although in practice there can be considerable uncertainty regarding
-these quantities, we chose to disregard this uncertainty in the interest of
-simplicity.
+and their dimensions. 
 
 Except for metabolites’ standard condition Gibbs energy changes of formation,
 Maud uses independent normal prior distributions for parameters that can in

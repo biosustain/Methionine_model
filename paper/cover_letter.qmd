@@ -18,7 +18,7 @@ Teddy Groves (email: <mailto:tedgro@dtu.dk>)
 
 # Why the paper is appropriate for ACS Synthetic Biology
 
-Our paper is intended of the virtual special issue of ACS Synthetic Biology
+Our paper is intended for the virtual special issue of ACS Synthetic Biology
 concentrating on quantitative synthetic biology. It presents Maud, a software
 application that we developed for fitting Bayesian statistical models of fluxes
 through systems of metabolic reactions at steady state, enabling inference about
