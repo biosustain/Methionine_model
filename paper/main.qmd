@@ -1,5 +1,5 @@
 ---
-title: "Bayesian regression facilitates quantitative modelling of cell metabolism"
+title: "Maud: Bayesian regression modelling facilitates quantitative modelling of cell metabolism"
 keywords: Bayesian inference, kinetic models of cell metabolism, 
           multiomics integration, ordinary differential equations,
           regulatory anlaysis
@@ -93,20 +93,20 @@ reaction $j$. The change in metabolite concentrations is:
 \frac{dC}{dt} = S\cdot v - \mu\cdot C 
 \end{equation}
 
-In equation \eqref{eq-1}, C represents a vector of metabolite concentrations,
-$v$ is a vector of reaction rates, and $\mu$ is the growth rate. The second term
-represents the dilution due to cell growth.
+where C represents a vector of metabolite concentrations, $v$ is a vector of
+reaction rates, and $\mu$ is the growth rate. The second term represents the
+dilution due to cell growth.
 
 In a kinetic model, the rates, $v$, are expressed as a function of the enzyme
-concentrations, $E$, the metabolite concentrations, $C$, and a set of parameters,
-$\theta$ as shown in equation \eqref{eq-2}
+concentrations, $E$, the metabolite concentrations, $C$, and a set of parameters
+$\theta$:
 
 \begin{equation}\label{eq-2}
 v = f(C, E, \theta)
 \end{equation}
 
 The parameters must include sufficient boundary concentrations and fluxes to
-solve equation \eqref{eq-1}.
+solve \eqref{eq-1}.
 
 It is common to assume pseudo-steady state for metabolites, i.e., the rate
 of fluxes towards any metabolite is much greater than the rate of change in
@@ -123,10 +123,10 @@ algebraic equation:
 S\cdot f(C;\theta) = 0
 \end{equation}
 
-In a fermentation context, equation \eqref{eq-3} captures the rapid kinetics
+In a fermentation context, \eqref{eq-3} captures the rapid kinetics
 inside the cell, while another set of ODEs would be used to describe the
 external substrate and product concentrations, which could act as boundary
-parameters to equation \eqref{eq-3}.
+parameters to \eqref{eq-3}.
 
 In the context of kinetic modelling, Bayesian inference is appealing because
 it allows uncertainty to be represented appropriately without sacrificing
@@ -134,25 +134,25 @@ mechanistic accuracy. Measurement uncertainty can naturally be represented in a
 Bayesian measurement model, whereas the prior model can represent quantitative
 uncertainty about kinetic parameters. Finally, kinetic rate laws can be
 represented in Bayesian data generation models with arbitrarily high fidelity.
-See @gelmanBayesianDataAnalysis2020a for more about Bayesian inference and
-@gelmanBayesianWorkflow2020 for a discussion of practical Bayesian workflow.
+See @gelmanBayesianDataAnalysis2020a for more details about Bayesian inference
+and @gelmanBayesianWorkflow2020 for a discussion of practical Bayesian workflow.
 
 Another advantage is that Bayesian inference problems are well-posed even when
-not all parameters are strongly identified. Sloppy models in which measurable
-quantities are sensitive to combinations of parameters but not to individual
-marginal parameter values are ubiquitous in models of biological systems
-[@gutenkunst_2007; @white_2016]. The parameter correlation structure represents
-the set of potential models that describe the observed data. As we demonstrate
-in @sec-laplace below, capturing this correlation structure is difficult outside
-a fully Bayesian context.
+not all parameters are strongly identified. Sloppy parameter models in which
+measurable quantities are sensitive to combinations of parameters but not to
+individual marginal parameter values are ubiquitous in models of biological
+systems [@gutenkunst_2007; @white_2016]. The parameter correlation structure
+represents the set of potential models that describe the observed data. As we
+demonstrate later, capturing this correlation structure is difficult outside a
+fully Bayesian context.
 
 Previous Bayesian kinetic models have either sacrificed mechanistic accuracy
 or have attempted to fit realistic kinetic models using obsolete or unreliable
 computational methods.
 
-The most popular algorithm for fitting Bayesian statistical models is
-Markov Chain Monte Carlo (MCMC). Modern MCMC algorithms allow exploration of
-high- dimensional posterior distributions, have robust failure diagnostics
+The most popular algorithm for fitting Bayesian statistical models is Markov
+Chain Monte Carlo (MCMC). Modern MCMC algorithms enable exploration of
+high-dimensional posterior distributions, have robust failure diagnostics
 [@vehtariRankNormalizationFoldingLocalization2021] and can incorporate fast
 numerical solvers, thereby making inference feasible for Bayesian kinetic
 models. Nonetheless, the kinetic modelling literature reports an aversion
@@ -164,7 +164,7 @@ detailed kinetic models using relatively inefficient MCMC algorithms that
 do not scale well to high dimensional parameter spaces limiting the scope
 of modelling. Conversely, @st.johnBayesianInferenceMetabolic2018 utilises an
 efficient sampling algorithm but uses approximate kinetics, namely lin-log
-kinetics @visser_dynamic_2003, limiting the scope of interpreting parameters and
+kinetics [@visser_dynamic_2003], limiting the scope of interpreting parameters and
 inferring cellular behaviour in experimental conditions outside the reference
 dataset.
 
@@ -176,11 +176,10 @@ Laplace approximation, in which the Fisher information matrix is used to
 calculate a normal approximation around the maximum a posteriori parameter
 configuration [@liebermeister_model_2021; @gopalakrishnan_k-fit_2020;
 @stapor_pesto_2018; @raue_joining_2013]. Non-MCMC-based Bayesian kinetic
-models have limited utility because they lack reliable diagnostic tools for
-verifying that their results approximate the target posterior distribution.
-This is a problem because realistic kinetic models tend to induce highly
-correlated, non-Gaussian, joint probability distributions [@gutenkunst_2007;
-@stapor_pesto_2018].
+models suffer from a lack of reliable diagnostic tools for verifying that their
+results approximate the target posterior distribution. This is a problem because
+realistic kinetic models tend to induce highly correlated, non-Gaussian, joint
+probability distributions [@gutenkunst_2007; @stapor_pesto_2018].
 
 Our application Maud provides the first Bayesian kinetic model to combine
 biologically realistic mechanistic accuracy---including accurate rate laws,
@@ -238,7 +237,7 @@ and is described in supporting information section 3.
 
 We constructed a kinetic model of the methionine cycle in Maud’s format using
 the description in @korendyaseva_allosteric_2008. The ordinary differential
-equation system describing this model is shown in Equation \eqref{eq-meth-ode}.
+equation system describing this model is
 
 \begin{align}
 \frac{d[met]}{dt} &= v_{Influx} - v_{PROT} - v_{MAT} +v_{MS} + v_{BHMT} \label{eq-meth-ode} \\
@@ -256,16 +255,12 @@ this model).
 We used these parameters to simulate steady states in a range of plausible
 experimental conditions, again using @saa_construction_2016 as a starting point.
 These steady states were then used to generate simulated measurements using the
-measurement model described below in @sec-methionine-measurement-model.
+measurement model.
 
-### Measurement model {#sec-methionine-measurement-model}
-
-Generating an artificial dataset required a specification of the true
-measurement error. For enzyme and metabolite concentration measurements
-we specified a standard deviation of 0.1 on natural logarithmic scale,
-corresponding to approximately 10% measurement error. For each reaction
-measurement a measurement standard deviation of approximately 10% of the
-simulated value.
+For enzyme and metabolite concentration measurements we specified a standard
+deviation of 0.1 on natural logarithmic scale, corresponding to approximately
+10% measurement error. For each reaction measurement a measurement standard
+deviation of approximately 10% of the simulated value.
 
 These measurement error specifications are somewhat optimistic considering the
 many sources of variation and uncertainty affecting quantitative proteomics,
@@ -274,31 +269,20 @@ a realistic set of measurements.
 
 For our main model run, we assumed that all metabolite and enzyme concentrations
 were measured, and that there was a reaction measurement for each of the
-network’s elementary flux modes.
+network’s free fluxes.
 
-### Training/validation split
-
-The split between training and validation conditions was selected to achieve a
-large difference in fluxes between the two categories. The split was determined
-as we are interested in showing how our model can fit to varied conditions, and
-conditions closer to the training set are likely to be predicted well without
-necessarily learning the system.
-
-### Additional dataset with missing measurements
-
-To gain insight into our model’s robustness to missing measurements, we
-also performed a model run with the same 6 experimental datasets, but with
-measurements of the metabolite S-Adenosyl-L-homocysteine, or “ahcys” removed.
-Since ahcys regulates three enzymes in the methionine cycle, including one
-enzyme which is also thermodynamically regulated, we expected the removal of
-these measurements to yield interesting results.
-
-### Maud input specification
+The simulated experiments and measurements were split into a training and a
+validation dataset in a way that achieved a large difference in flux between the
+two categories. This was done to evaluate whether the fitted model is able to
+extrapolate to conditions well outside the training dataset rather than merely
+interpolating between the training data without necessarily learning the system.
 
 We constructed inputs in Maud’s format for each of the analysed datasets, based
 on the scenario that the true kinetic model was known except for parameter
 values, which needed to be inferred from the training data and priors. These
 inputs can be found at <https://github.com/biosustain/Methionine_model/tree/main/data>.
+
+## Posterior inference 
 
 The prior distributions and corresponding true parameter values used in our
 case study are shown in supporting information section 3.2. They were chosen to
@@ -306,10 +290,6 @@ reflect a plausible pre-experimental information state. In 7 cases, the marginal
 prior distribution for a parameter disagrees with the true parameter values used
 to generate the data; a similar situation is likely to occur in practice due to
 *in vivo* vs *in vitro* measurement differences.
-
-## Findings
-
-### Posterior inference 
 
 Running standard diagnostic checks indicated that the samples we generated
 were from the target posterior distribution. The improved $\hat{R}$ statistic
@@ -326,18 +306,19 @@ Posterior predictive checking indicated that our model achieved a good fit to
 the simulated reaction and metabolite concentration measurements, as shown by
 the graphs in the top row of @fig-posterior.
 
-Analysis of the posterior distributions for kinetic parameters indicated that
-these are highly correlated. The marginal posterior distributions for most
-kinetic parameters did not shrink significantly compared with the corresponding
-marginal prior distributions, even though these parameters’ joint posterior
-distribution contained enough information to make accurate out of sample
-predictions. In some cases, there were two-dimensional correlations such as
-the one shown in the bottom left of @fig-posterior; in this case the
+Analysis of the posterior distributions for kinetic parameters indicated
+that these are highly correlated. The marginal posterior distributions
+for most kinetic parameters did not shrink significantly compared to the
+corresponding marginal prior distributions, even though these parameters’
+joint posterior distribution contained enough information to make accurate out
+of sample predictions. In some cases, there were two-dimensional correlations
+such as the one shown in the bottom left of @fig-posterior; in this case the
 marginal distribution of the two parameters is roughly banana shaped. More
 commonly, however, two-dimensional pair plots were insufficient to reveal the
 underlying correlation structure, as seen in the bottom-right plot in figure
-@fig-posterior. This does not mean that the parameters were uncorrelated, but
-rather that the correlations involve more than two parameters.
+@fig-posterior, which shows two marginally independent parameters. This kind of
+marginal independence does not mean that the parameters are independent in the
+full joint posterior distribution.
 
 These results show that Maud can achieve an adequate fit to a realistic
 pathway-sized dataset. This was achieved without fixing the marginal values
@@ -353,16 +334,8 @@ The question naturally arises whether the crucial high-dimensional parameter
 correlations are linear or non-linear. This is relevant to the question of
 model performance, as linear correlations are easier to correct for. A linearly
 correlated posterior space would also be easier to summarise. We address this
-question below in @sec-laplace.
+question in the next section.
 
-This case study illustrates the type of kinetic model and dataset that Maud
-can fit. The model we analysed has 10 reactions, 5 state variables and 212
-parameters. Generalising from our ability to fit this model in a reasonable time
-using Maud, we expect that Maud can be used to fit realistic Bayesian models
-of approximately the same size, but not, for example, genome-scale kinetic
-models. To fit larger models, faster steady state solving methods or alternative
-inference algorithms will be required. @sec-laplace addresses whether Laplace
-approximation is a suitable candidate.
 
 ::: {#fig-posterior layout-ncol=1}
 
@@ -372,65 +345,71 @@ Marginal posterior distributions from our main model run. (**Top left**)
 Comparison of posterior predictive intervals with simulated flux measurement
 values. All the flux measurements are within the predictive intervals,
 indicating a good fit. (**Top right**) Comparison of posterior predictive
-intervals with simulated concentration measurement values. These also show a
-good fit. (**Bottom left**) Pairwise marginal posterior distribution for two
-uncorrelated parameters, namely $K_m^{AHC1,hcys-L}$ and $K_m^{AHC1_ahcys}$.
-(**Bottom right**) Pairwise marginal posterior distribution for two correlated
-parameters, namely $K_m^{MAT3,atp}$ and $K_{cat}^{MAT3}$.
+intervals with simulated concentration measurement values. These also show
+a good fit. (**Bottom left**) Pairwise marginal posterior distribution
+for two pairwise correlated parameters, namely $K_m^{AHC1,hcys-L}$ and
+$K_m^{AHC1_ahcys}$. (**Bottom right**) Pairwise marginal posterior distribution
+for two pairwise-uncorrelated parameters, namely $K_m^{MAT3,atp}$ and $K_{cat}^{MAT3}$.
 
 :::
 
 ### Comparison with Laplace approximation {#sec-laplace}
 
-We found that the Laplace method was not able to produce an accurate posterior
-approximation for our model and dataset.
+This current case study illustrates the type of kinetic model and dataset that
+Maud can fit. The model we analysed has 10 reactions, 5 state variables and 212
+parameters. Generalising from our ability to fit this model in a reasonable time
+using Maud, we expect that Maud can be used to fit realistic Bayesian models
+of approximately the same size, but not, for example, genome-scale kinetic
+models. To fit larger models, faster steady state solving methods or alternative
+inference algorithms will be required. The Laplace approximation, in which the
+Fisher information matrix is used to calculate a normal approximation around
+the maximum a posteriori parameter configuration, is a popular strategy for
+generating approximate posterior samples while avoiding a full MCMC approach.
 
-Our overall strategy was to compare samples generated using MCMC, which we
-were confident could be treated as draws from the true posterior distribution,
-with approximate posterior samples generated using the Laplace method. We were
-unable to generate approximate posterior samples for our main methionine cycle
-case study using Laplace approximation, as the algorithm could not recover from
-solver failures caused by unrealistic parameter configurations. We therefore
-made a comparison for a simpler model. This input can be found at <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode>.
+Using the recently implemented Laplace approximation in Stan, we were unable to
+generate approximate posterior samples for our main methionine cycle case study
+using Laplace approximation, as the algorithm could not recover from solver
+failures caused by unrealistic parameter configurations. This is not an inherent
+issue of the Laplace transformation but highlights some of the challenges around
+solving \eqref{eq-3} for real problems.
 
-MCMC sampling for our comparison input yielded 800 samples in 625 minutes;
+In order still to assess the potential use of the Laplace approximation, we made
+a comparison for a simpler model. This input can be found at <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode>.
+MCMC sampling for this simpler model yielded 800 samples in 625 minutes, while
 Laplace sampling yielded the same number of samples in only one minute.
 The diagnostics indicated that our algorithm was able to find the maximum
 a posteriori parameter configuration, approximate the Hessian and use these
 quantities to generate approximate posterior samples. The results can be found
 at <https://github.com/biosustain/Methionine_model/tree/main/results>.
 
-@fig-laplace summarises the results of comparing the samples generated using
-each method. As can be seen from the top left plot, the Laplace method does not
-provide a good approximation to the true posterior distribution in this case,
-as the marginal distribution of the total log probability density is clearly
-different. This impression was confirmed using the Kolmogorov-Smirnov test,
-which is a test to differentiate two empirical univariate distributions. The
-two distributions were significantly different with a p-value indistinguishable
-from zero.
+Comparing the samples generated using each method shows that the Laplace
+approximation does not provide a good approximation to the true posterior
+distribution in this case (@fig-laplace). As can be seen from the top left
+plot, the total log probability density is clearly different and this was
+confirmed by a test of the equality of two empirical univariate distributions
+(Kolmogorov-Smirnov, $p=1.7\times10^{-65}$).
 
 The difference between the Laplace approximation output and the true posterior
 distribution manifests not only in the parameter space, but also in the
-measurement space. The upper right (training data) and lower left (validation
-data) plots in @fig-laplace show 5%-95% marginal flux measurement log likelihood
-intervals for both methods; lower log likelihood values indicate that the
-modelled and measured values are further away. The graph shows that the Laplace
-approximation yielded significantly worse predictions than the true posterior,
-even for the training data.
+measurement space for both training data (upper right) and validation data
+(lower left). The lower log likelihood values indication that the modelled and
+measured values are further away and that the Laplace approximation yielded
+significantly worse predictions than the true posterior, even for the training
+data.
 
 To further explore why this is the case we compared samples from the true
 posterior and the Laplace approximation for the pairwise marginal distributions
-of two Michaelis-Menten constants $K_{m}^{A,r1}$ and $K_{cat}^{r1}$: see the
-bottom right cell of @fig-laplace. This comparison demonstrates that
-the Laplace method is not able to capture the correct relationships between
-parameters’ distributions.
+of two Michaelis-Menten constants $K_{m}^{A,r1}$ and $K_{cat}^{r1}$
+(@fig-laplace, bottom right). This comparison demonstrates that the Laplace
+method is not able to capture the correct relationships between parameters’
+distributions.
 
 This result shows that MCMC, while slower than Laplace approximation, is
-unfortunately preferable for posterior inference in this case. We expect that
-the Laplace method will produce worse approximations the more complex the target
-model. Since the approximation is already unacceptable for our simple test
-model, we recommend that Maud users use MCMC sampling in preference to Laplace
-approximation if possible when fitting realistic Bayesian kinetic models.
+required for posterior inference in this case. We expect that the Laplace method
+will produce worse approximations the more complex the target model. Since the
+approximation is already unacceptable for our simple test model, we recommend
+that Maud users use MCMC sampling in preference to Laplace approximation if
+possible when fitting realistic Bayesian kinetic models.
 
 Our results here also provide circumstantial evidence that the parameter
 correlations in Bayesian kinetic model posteriors tend to be non-linear, as
@@ -452,37 +431,44 @@ sampling (blue-green) with posterior samples generated using MCMC (dark
 grey). (**Top left**) the two sets of samples clearly have different marginal
 distributions for the overall log probability variable, indicating that the
 Laplace samples do not accurately approximate the target distribution. (**Top
-right**) The distribution of marginal posterior predictive log likelihood values
-for training data flux measurements shows that the Laplace method tended to
-yield much worse predictions compared with the true model. (**Bottom left**)
-The Laplace method also tended to produce worse flux predictions for held-back
-test measurements. (**Bottom right**) The marginal joint distribution of two
-parameters: $K_m^{A,rl}$ and $K_{cat}^{r1}$. The Laplace method is not able
-to track the correct joint distribution for this pair of parameters. This is
-unsurprising given that the target distribution has position-dependent scales
-which are difficult for a linear approximation to capture.
+right**) The distribution of marginal posterior predictive log likelihood
+values for training data flux measurements shows that the Laplace method
+tended to yield much worse predictions compared with the true model (lower log
+likelihood values indicate that the modelled and measured values are further
+away). (**Bottom left**) The Laplace method also tended to produce worse flux
+predictions for held-back test measurements. (**Bottom right**) The marginal
+joint distribution of two parameters: $K_m^{A,rl}$ and $K_{cat}^{r1}$. The
+Laplace method is not able to track the correct joint distribution for this
+pair of parameters. This is unsurprising given that the target distribution
+has position-dependent scales which are difficult for a linear approximation
+to capture.
 
 :::
 
-### Effect of missing metabolite concentration measurements 
+## Effect of missing metabolite concentration measurements 
+
+To gain insight into our model’s robustness to missing measurements, we
+also performed a model run with the same 6 experimental datasets, but with
+measurements of the metabolite S-Adenosyl-L-homocysteine, or “ahcys” removed.
+Since ahcys regulates three enzymes in the methionine cycle, including one
+enzyme which is also thermodynamically regulated, we expected the removal of
+these measurements to yield interesting results.
 
 Comparing model runs with and without the ahcys measurements showed that Maud
 can produce sensible results even from incomplete metabolomics data.
 
-@fig-missing shows that, as might be expected, the model with missing
-measurements did not correctly infer the missing ahcys concentrations.
-Nonetheless, the remaining measured metabolites were still well predicted,
-suggesting that information about the network is still preserved despite the
-missing measurements. Comparison of flux measurements in both models also
-indicated that removing the ahcys measurement did not result in catastrophic
-model failure.
+As might be expected, the model with missing measurements did not correctly
+infer the missing ahcys concentrations (@fig-missing). Nonetheless, the
+remaining measured metabolites were still well predicted, suggesting
+that information about the network is still preserved despite the missing
+measurements. Comparison of flux measurements in both models also indicated that
+removing the ahcys measurement did not result in catastrophic model failure.
 
 The missing measurements did affect Maud’s ability to infer parameter values
-correctly. The lower left plot of @fig-missing shows that the model with full
-metabolomics learned the true value for the displayed dissociation constant,
-despite this value being far from the mean of the corresponding marginal prior
-distribution. In contrast, the model with missing measurements stayed in the
-neighbourhood of the prior.
+correctly (@fig-missing, lower left). The model with full metabolomics learned
+the true value for the displayed dissociation constant, despite this value being
+far from the mean of the corresponding marginal prior distribution. In contrast,
+the model with missing measurements stayed in the neighbourhood of the prior.
 
 This result is reassuring because not having access to all measurements is a
 common situation in multi-omics studies. For instance, measuring all metabolites
@@ -512,20 +498,20 @@ overall the complete-data model tended to make better predictions.
 :::
 
 
-### Application to regulatory understanding 
+## Application to regulatory understanding 
 
 To demonstrate how Maud's output can be used to yield useful metabolic insights
 we used the results of our case study to explain why the flux of the enzyme
-GNMT is higher in dataset 1 than in dataset 12. GNMT is an irreversible enzyme
-that is homotropically activated by its substrate, competitively inhibited by
-its product and heterotropically inhibited by 5,10- methylenetetrahydrofolate
-(mlthf). The diverse regulation makes it the ideal test case to elucidate
-regulatory changes.
+GNMT is higher in dataset 1 than in dataset 12 (@fig-decomposition). GNMT
+is an irreversible enzyme that is homotropically activated by its substrate,
+competitively inhibited by its product and heterotropically inhibited by 5,10-
+methylenetetrahydrofolate (mlthf). The complex regulation makes it the ideal
+test case to elucidate regulatory changes.
 
-@fig-decomposition shows the regulatory description of GNMT, according to the
-results our main case study analysis. Each curve shows the marginal posterior
-distribution of the ratio of the corresponding regulatory component in dataset
-1 compared with dataset 12. A positive value indicates that the component
+Regulation can be separated into enzyme abundance, allostery and saturation,
+and we can plot the marginal posterior distribution of the ratio of the
+corresponding regulatory component in dataset 1 compared with dataset 12
+(@fig-decomposition, right panel). A positive value indicates that the component
 was increased in dataset 1 relative to dataset 12, with 0 indicating no
 difference. The probability, according to our model, of the component acting in
 each direction is given by the relative area under the curve on each side of the
@@ -552,7 +538,7 @@ lines represents allosteric activation, dashed red lines indicate allosteric
 inhibition and solid red lines represent competitive inhibition. (**Bottom
 Left**) Comparison of marginal posterior distributions for $GNMT$ flux in
 datasets 1 and 2. (**Right**) Log-scale ratios of the regulatory elements
-defined in equation \eqref{eq-decomposition}. Note that the $Reversibility$
+defined in \eqref{eq-decomposition}. Note that the $Reversibility$
 and $k_cat$ components are excluded: this is because this reaction was modelled
 as irreversible, and $k_{cat}$ was modelled as constant across datasets.
 These plots identify why flux in dataset 12 is higher than in dataset 1: the
@@ -580,7 +566,7 @@ in files, using a structured, interoperable format.
 
 As well as parameter values, Maud also performs inference for derived quantities
 including the components of the regulatory decomposition described below in
-equation \eqref{eq-decomposition}, log likelihoods, simulated measurement values
+\eqref{eq-decomposition}, log likelihoods, simulated measurement values
 and metabolic control analysis coefficients [@kacser_control_1973].
 
 In the rest of this section we describe Maud's kinetic model at high level and
@@ -590,8 +576,7 @@ the supporting information.
 
 ## Kinetic model 
 
-Maud’s kinetic model decomposes into factors as shown in equation
-\eqref{eq-decomposition}.
+Maud’s kinetic model decomposes into factors:
 
 \begin{equation}
 F(C;\theta) = Enzyme\cdot k_{cat}\cdot Reversibility \cdot Saturation \cdot Allostery \label{eq-decomposition}
@@ -669,8 +654,7 @@ number of times in any condition.
 
 Metabolite and enzyme measurements are intended to represent the results of
 quantitative metabolomics and proteomics experiments. The likelihood functions
-for such measurements are shown in equations Equation \eqref{eq-yconc} and
-Equation \eqref{eq-yenz}.
+for such measurements are:
 
 \begin{align}
 y_i^{conc} &\sim LN(\ln{\hat{y}_i^{conc}}, \sigma_i^{conc})\label{eq-yconc} \\
@@ -679,39 +663,34 @@ y_i^{enz} &\sim LN(\ln{\hat{y}_i^{enz}}, \sigma_i^{enz})\label{eq-yenz}
 
 Both equations are log-normal generalised linear models with a standard
 link function (the natural logarithm $\ln$) and known standard deviation
-$\sigma_{𝑐𝑜𝑛𝑐}$. The use of this measurement model is motivated by the
+$ \sigma_{𝑐𝑜𝑛𝑐}$. The use of this measurement model is motivated by the
 consideration that concentrations are constrained to be non-negative, so the
 measurement model should avoid assigning positive probability mass to negative
 metabolite concentration values. In addition, we expect the precision of most
-metabolomics and proteomics experiments to be roughly proportional to the value
-of the true measured quantity, which supports a measurement model with constant
+metabolomics and proteomics experiments to be roughly proportional to the true
+value of the measured quantity, which supports a measurement model with constant
 coefficient of variation. The measurement standard deviations $\sigma_{𝑐𝑜𝑛𝑐}$
 and $\sigma_{𝑒𝑛𝑧}$ are assumed to be known exactly for simplicity; plausible
 values can be elicited by considering the likely coefficient of variation of the
-measuring apparatus.
+measuring apparatus. Our measurement model improves on analyses of metabolomics
+and proteomics data that assume a regression model with normally distributed
+errors, whether explicitly using a standard linear model or implicitly using
+ordinary least squares fitting.
 
 Flux measurements, representing the results of quantitative fluxomics analyses,
 are modelled using a likelihood function from a standard linear regression
-model, as shown in equation \eqref{eq-yflux}. Flux measurements can be obtained
-from the results of isotope labelling experiments using metabolic flux analysis,
-for example as described in (Young 2014). When entering flux measurements,
-it is important only to specify measurements for a network’s free fluxes, as
-the values of some steady state fluxes in a metabolic network are constrained
-by others, with the result that dependent fluxes cannot typically be measured
-separately. If measurements of multiple dependent fluxes are entered,
-information will inappropriately be double counted.
+model \eqref{eq-yflux}. Flux measurements can be obtained from isotope labelling
+experiments using metabolic flux analysis, for example as described in (Young
+2014). When entering flux measurements, it is important only to specify
+measurements for a network’s free fluxes, as the values of some steady state
+fluxes in a metabolic network are constrained by others, with the result that
+dependent fluxes cannot typically be measured separately. If measurements of
+multiple dependent fluxes are entered, information will inappropriately be
+double counted.
 
 \begin{equation}
 y_i^{flux} \sim LN(\ln{\hat{y}_i^{flux}}, \sigma_i^{flux})\label{eq-yflux}
 \end{equation}
-
-Our measurement model improves on analyses of metabolomics and proteomics
-data that assume a regression model with normally distributed errors, whether
-explicitly using a standard linear model or implicitly using ordinary least
-squares fitting. This assumption is undesirable because it implies that the
-measured quantity could in principle be negative, and assumes an additive
-underlying random process, whereas multiplicative processes tend to better
-describe real concentration data.
 
 The use of independent measurement models for metabolite, enzyme and flux
 measurements carries an implicit assumption that there are no systematic
@@ -759,20 +738,19 @@ in @vehtariRankNormalizationFoldingLocalization2021.
 
 Maud's parameters are connected with measurable quantities via the steady state
 equation \eqref{eq-3}. Posterior sampling using adaptive Hamiltonian Monte
-Carlo requires repeatedly solving equation \eqref{eq-3} and finding the
-gradients of its solution with respect to all model parameters. This must be
-done numerically as analytic solutions are not available for realistic kinetic
-models.
+Carlo requires repeatedly solving \eqref{eq-3} and finding the gradients of its
+solution with respect to all model parameters. This must be done numerically as
+analytic solutions are not available for realistic kinetic models.
 
 The speed at which this problem can be solved is tightly coupled with the
 size and complexity of metabolic network that can practically be modelled. See
 @timonenImportanceSamplingApproach2022a for more about considerations involved
 in this kind of modelling.
 
-To solve equation \eqref{eq-3} and find its gradients, Maud uses
-a hybrid method involving two numerical solvers from the SUNDIALS
-suite [@serbanCVODESSensitivityEnabledODE2005]: CVODES and IDAS via
-their interface from Stan. The hybrid method follows that proposed by
+To solve \eqref{eq-3} and find its gradients, Maud uses a hybrid
+method involving two numerical solvers from the SUNDIALS suite
+[@serbanCVODESSensitivityEnabledODE2005]: CVODES and IDAS via their
+interface from Stan. The hybrid method follows that proposed by
 @margossianComputingSteadyStates2018, and involves numerically evolving the ODE
 system for a short period of time, then using the difference between the evolved
 and starting concentrations as the target for a numerical algebra solver.
@@ -794,8 +772,8 @@ out computation.
 
 # Acknowledgements
 
-This research was funded by the Novo Nordisk foundation using grant number
-NNF14OC0009473.
+This research was funded by the Novo Nordisk Foundation (Grant numbers
+NNF20CC0035580 NNF14OC0009473).
 
 # References
 
