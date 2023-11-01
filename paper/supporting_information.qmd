@@ -146,7 +146,7 @@ The term $Saturation$ in equation \eqref{eq-decomposition} is a vector of
 non-negative real numbers representing, for each reaction, the fraction of
 enzyme that is saturated, i.e. bound to one of the reaction's substrates.
 To describe saturation we use equation \eqref{eq-saturation}, which is taken
-from @liebermeister_modular_2010. Additionally, this term captures competitive
+from @liebermeister_modular_2010 and @noor_note_2013. Additionally, this term captures competitive
 inhibition: as competitive inhibitor concentration increases, the saturation
 denominator increases, effectively decreasing the saturation of the substrate on
 the total enzyme pool. Conversely, as the substrate concentration increases this
