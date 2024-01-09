@@ -21,7 +21,7 @@ author:
       - id: biosustain
         name: DTU
         department: The Novo Nordisk Foundation Center for Biosustainability
-        city: Kongens Lyngby
+        city: Kongens Lyngby 2800
         country: Denmark
     attributes:
       corresponding: true
@@ -40,7 +40,7 @@ author:
       - id: uq
         name: The University of Queensland
         department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
-        city: St Lucia
+        city: St Lucia 4067
         country: Australia
       - ref: biosustain
 bibliography: bibliography.bib
@@ -762,7 +762,20 @@ out computation.
 This research was funded by the Novo Nordisk Foundation (Grant numbers
 NNF20CC0035580 NNF14OC0009473).
 
-# References
+# Author information
+
+## Author contribution
+
+Teddy Groves and Nicholas Cowie: Writing code and documentation, designing
+statistical model, biological model, software architecture and user interface,
+writing and maintaining code, documentation and manuscript.
+
+Lars Keld Nielsen: Supervision, writing manuscript, designing statistical model,
+biological model, software architecture and user interface.   # References
+
+## Conflict of interest
+
+The authors declare no competing financial interest
 
 ::: {#refs}
 :::

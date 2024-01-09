@@ -3,10 +3,11 @@
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
-\documentclass[
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod]{scrartcl}
+\documentclass[journal=asbcd6,manuscript=article,layout=traditional]{achemso}
+\usepackage[version=3]{mhchem}
+\newcommand*\mycommand[1]{\texttt{\emph{#1}}}
+
+
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -77,31 +78,8 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\KOMAoption{captions}{tableheading}
+\renewcommand{\thepage}{S\arabic{page}}
 \makeatletter
 \makeatother
 \makeatletter
@@ -162,7 +140,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Supporting information},
+  pdftitle={Supporting information - Bayesian regression facilitates quantitative modelling of cell metabolism},
+  pdfauthor={Teddy Groves; Nicholas Luke Cowie; Lars Keld Nielsen},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -170,13 +149,37 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Supporting information}
-\author{}
-\date{}
+\author{Teddy Groves}
+\affiliation{The Novo Nordisk Foundation Center for
+Biosustainability, DTU, Kongens Lyngby 2800, Denmark}
 
+\altaffiliation{These authors contributed equally to this research.}
+
+\email{tedgro@biosustain.dtu.dk}
+\author{Nicholas Luke Cowie}
+\affiliation{The Novo Nordisk Foundation Center for
+Biosustainability, DTU, Kongens Lyngby 2800, Denmark}
+
+\altaffiliation{These authors contributed equally to this research.}
+
+\author{Lars Keld Nielsen}
+\affiliation{The Novo Nordisk Foundation Center for
+Biosustainability, DTU, Kongens Lyngby 2800, Denmark}
+\affiliation{Australian Institute for Bioengineering and Nanotechnology
+(AIBN), The University of Queensland, St Lucia 4067, Australia}
+
+
+
+
+
+\title[]{Supporting information - Bayesian regression facilitates
+quantitative modelling of cell metabolism}
+\makeatletter
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, frame hidden, interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, interior hidden, frame hidden]}{\end{tcolorbox}}\fi
+
+\newpage{}
 
 This document provides information in support of our article ``Bayesian
 regression facilitates quantitative modelling of cell metabolism''.
@@ -188,24 +191,25 @@ The results of all reported Maud runs can be found at
 \section{Maud's input format}\label{mauds-input-format}}
 
 Maud inputs are structured directories, somewhat inspired by the PEtab
-format (Schmiester et al. 2021). A Maud input directory must contain a
-toml (Preston-Werner, Tom and Gedam, Pradyun 2020) file called
-\texttt{config.toml} which gives the input a name, configures how Maud
-will be run and tells Maud where to find the other files, allowing these
-to have custom names. It must also include a file containing a kinetic
-model definition, a file specifying information about parameters and a
-file with information experiments. The required structure of these files
-is documented at
+format \citep{SchmiesterSch2021}. A Maud input directory must contain a
+toml \citep{preston-wernertomandgedampradyunTOMLSpecification0rc2020}
+file called \texttt{config.toml} which gives the input a name,
+configures how Maud will be run and tells Maud where to find the other
+files, allowing these to have custom names. It must also include a file
+containing a kinetic model definition, a file specifying information
+about parameters and a file with information experiments. The required
+structure of these files is documented at
 \url{https://maud-metabolic-models.readthedocs.io/en/latest/inputting.html}.
-The input is validated against a Pydantic (Pydantic developers 2022)
-data model.
+The input is validated against a Pydantic
+\citep{pydanticdevelopersPydantic2022} data model.
 
 We chose to implement a custom input format despite the existence of
-standard formats in similar areas, including SBML (Keating et al. 2020)
-and PEtab (Schmiester et al. 2021). This choice was partly motivated by
-the need to ensure flexibility as Maud was developed, but there are also
-features of SBML and PEtab that make them structurally unsuitable in
-this context. Our requirements for an input format included that it be
+standard formats in similar areas, including SBML
+\citep{keatingSBMLLevelExtensible2020} and PEtab
+\citep{SchmiesterSch2021}. This choice was partly motivated by the need
+to ensure flexibility as Maud was developed, but there are also features
+of SBML and PEtab that make them structurally unsuitable in this
+context. Our requirements for an input format included that it be
 mathematics-free, so that all mathematical details are encapsulated in
 source code, and that it has a detailed, verifiable structure. These
 requirements made toml more attractive than SBML: toml is easier for
@@ -238,7 +242,7 @@ disregard this uncertainty in the interest of simplicity.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2500}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4722}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}@{}}
-\caption{\label{tbl-params}Parameters of Maud's statistical
+\caption{\label{tbl-params}Table S1 -- Parameters of Maud's statistical
 model}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
@@ -377,12 +381,13 @@ The term \(Saturation\) in equation \eqref{eq-decomposition} is a vector
 of non-negative real numbers representing, for each reaction, the
 fraction of enzyme that is saturated, i.e.~bound to one of the
 reaction's substrates. To describe saturation we use equation
-\eqref{eq-saturation}, which is taken from Liebermeister, Uhlendorf, and
-Klipp (2010) and Noor et al. (2013). Additionally, this term captures
-competitive inhibition: as competitive inhibitor concentration
-increases, the saturation denominator increases, effectively decreasing
-the saturation of the substrate on the total enzyme pool. Conversely, as
-the substrate concentration increases this term approaches 1.
+\eqref{eq-saturation}, which is taken from
+\citet{liebermeister_modular_2010} and \citet{noor_note_2013}.
+Additionally, this term captures competitive inhibition: as competitive
+inhibitor concentration increases, the saturation denominator increases,
+effectively decreasing the saturation of the substrate on the total
+enzyme pool. Conversely, as the substrate concentration increases this
+term approaches 1.
 
 \begin{align} 
 Saturation_r &= a \cdot \text{free enzyme ratio}\label{eq-saturation} \\ 
@@ -403,8 +408,8 @@ on each reaction. Allosteric regulation happens when binding to a
 certain molecule changes an enzyme's shape in a way that changes its
 catalytic behaviour. We use equation \eqref{eq-allostery} to describe
 this phenomenon, following the generalised MWC approach described in
-Monod, Wyman, and Changeux (1965), Changeux (2013), Popova and Sel'kov
-(1975) and Popova and Sel'kov (1979).
+\citet{monod_nature_1965}, \citet{changeux_2013},
+\citet{popova_generalization_1975} and \citet{popova_description_1979}.
 
 \begin{align} 
   Allostery_r &= \frac{1}{1 + L_0^r \cdot (\text{free enzyme ratio}_r \cdot \frac{Qtense}{Qrelaxed})^{subunits}}\label{eq-allostery} \\ 
@@ -436,15 +441,15 @@ Phosphorylation_r &= (\frac{\alpha}{\alpha + \beta})^{subunits} \label{eq-phosph
 \hypertarget{dataset-generation}{%
 \subsection{Dataset generation}\label{dataset-generation}}
 
-Starting with the model in Saa and Nielsen (2016), we extracted values
-for enzyme concentrations, boundary conditions and fluxes. We used these
-values to generate MCMC samples using Maud using the priors specified in
-section Section~\ref{sec-methionine-priors}. When this was finished, we
-selected one sample with relatively high log probability to use as a
-ground truth in our case study. These parameter values are shown below
-in table Table~\ref{tbl-case-study-params}. We manually inspected the
-parameter values to screen for any obviously implausible values; we did
-not find any of these.
+Starting with the model in \citet{saa_construction_2016}, we extracted
+values for enzyme concentrations, boundary conditions and fluxes. We
+used these values to generate MCMC samples using Maud using the priors
+specified in section Section~\ref{sec-methionine-priors}. When this was
+finished, we selected one sample with relatively high log probability to
+use as a ground truth in our case study. These parameter values are
+shown below in table Table~\ref{tbl-case-study-params}. We manually
+inspected the parameter values to screen for any obviously implausible
+values; we did not find any of these.
 
 \hypertarget{sec-methionine-priors}{%
 \subsection{Prior distributions compared with true parameter
@@ -465,9 +470,9 @@ which the true value is outside the 1\%-99\% range.
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1651}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1101}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2477}}@{}}
-\caption{\label{tbl-case-study-params}Parameter specification, marginal
-prior distributions and true parameter values used in our case
-study.}\tabularnewline
+\caption{\label{tbl-case-study-params}Table S2 -- Parameter
+specification, marginal prior distributions and true parameter values
+used in our case study.}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 parameter name
@@ -551,7 +556,8 @@ prior Z-score of true value
 
 \(\Delta_fG\) parameters for most metabolites were fixed; those that
 were modelled as unknown had a multivariate normal prior distribution
-derived from eQuilibrator (Beber et al. 2021).
+derived from eQuilibrator
+\citep{beberEQuilibratorPlatformEstimation2021}.
 
 The values for \(\Delta_fG\) parameters, as well as all other model
 parameters, can be found by inspecting the file \texttt{priors.toml}
@@ -598,82 +604,9 @@ To generate Laplace samples we used Maud's Laplace mode.
 \hypertarget{references}{%
 \section{References}\label{references}}
 
-\hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-beberEQuilibratorPlatformEstimation2021}{}}%
-Beber, Moritz E., Mattia G. Gollub, Dana Mozaffari, Kevin M. Shebek, and
-Elad Noor. 2021. {``{eQuilibrator} 3.0 -- a Platform for the Estimation
-of Thermodynamic Constants.''} \emph{arXiv:2103.00621 {[}q-Bio{]}},
-February. \url{http://arxiv.org/abs/2103.00621}.
+\renewcommand{\bibsection}{}
+\bibliography{bibliography.bib}
 
-\leavevmode\vadjust pre{\hypertarget{ref-changeux_2013}{}}%
-Changeux, Jean-Pierre. 2013. {``50 Years of Allosteric Interactions: The
-Twists and Turns of the Models.''} \emph{Nature Reviews. Molecular Cell
-Biology} 14 (12): 819--29. \url{https://doi.org/10.1038/nrm3695}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-keatingSBMLLevelExtensible2020}{}}%
-Keating, Sarah M, Dagmar Waltemath, Matthias König, Fengkai Zhang,
-Andreas Dräger, Claudine Chaouiya, Frank T Bergmann, et al. 2020.
-{``{\textsc{SBML}} {Level} 3: An Extensible Format for the Exchange and
-Reuse of Biological Models.''} \emph{Molecular Systems Biology} 16 (8):
-e9110. \url{https://doi.org/10.15252/msb.20199110}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-liebermeister_modular_2010}{}}%
-Liebermeister, Wolfram, Jannis Uhlendorf, and Edda Klipp. 2010.
-{``Modular Rate Laws for Enzymatic Reactions: Thermodynamics,
-Elasticities and Implementation.''} \emph{Bioinformatics} 26 (12):
-1528--34. \url{https://doi.org/10.1093/bioinformatics/btq141}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-monod_nature_1965}{}}%
-Monod, J, J Wyman, and J P Changeux. 1965. {``On the Nature of
-Allosteric Transitions: A Plausible Model.''} \emph{Journal of Molecular
-Biology} 12 (May): 88--118.
-\url{https://doi.org/10.1016/S0022-2836(65)80285-6}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-noor_note_2013}{}}%
-Noor, Elad, Avi Flamholz, Wolfram Liebermeister, Arren Bar-Even, and Ron
-Milo. 2013. {``A Note on the Kinetics of Enzyme Action: {A}
-Decomposition That Highlights Thermodynamic Effects.''} \emph{FEBS
-Letters}, A century of {Michaelis} - {Menten} kinetics, 587 (17):
-2772--77. \url{https://doi.org/10.1016/j.febslet.2013.07.028}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-popova_generalization_1975}{}}%
-Popova, S V, and E E Sel'kov. 1975. {``Generalization of the Model by
-{Monod}, {Wyman} and {Changeux} for the Case of a Reversible
-Monosubtrate Reaction {\(S\overleftrightarrow{(R,T)}P\)}.''} \emph{FEBS
-Letters} 53 (3): 269--73.
-\url{https://doi.org/10.1016/0014-5793(75)80034-2}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-popova_description_1979}{}}%
----------. 1979. {``{[}{Description} of the Kinetics of the Two
-Substrate Reactions {S1}+ {S2} Goes to and Comes from {S3}+{S4} by a
-Generalized {Monod}, { Wyman}, {Changeux} Model{]}.''}
-\emph{Molekuliarnaia Biologiia} 13 (1): 129--39.
-\url{https://www.ncbi.nlm.nih.gov/pubmed/156878}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-preston-wernertomandgedampradyunTOMLSpecification0rc2020}{}}%
-Preston-Werner, Tom and Gedam, Pradyun. 2020. {``{TOML Specification}
-1.0.0-Rc.1.''} \url{https://toml.io/en/v1.0.0-rc.1/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-pydanticdevelopersPydantic2022}{}}%
-Pydantic developers. 2022. {``Pydantic.''}
-\url{https://pypi.org/project/pydantic/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-saa_construction_2016}{}}%
-Saa, Pedro A, and Lars K Nielsen. 2016. {``Construction of Feasible and
-Accurate Kinetic Models of Metabolism: {A} {Bayesian} Approach.''}
-\emph{Scientific Reports} 6 (July): 29635.
-\url{https://doi.org/10.1038/srep29635}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-SchmiesterSch2021}{}}%
-Schmiester, Leonard, Yannik Schälte, Frank T. Bergmann, Tacio Camba,
-Erika Dudkin, Janine Egert, Fabian Frö hlich, et al. 2021.
-{``{PEtab}\textemdash{{Interoperable}} Specification of Parameter
-Estimation Problems in Systems Biology.''} \emph{PLOS Computational
-Biology} 17 (1): 1--10.
-\url{https://doi.org/10.1371/journal.pcbi.1008646}.
-
-\end{CSLReferences}
 
 
 

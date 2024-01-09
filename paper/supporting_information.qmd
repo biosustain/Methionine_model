@@ -1,15 +1,53 @@
 ---
-title: Supporting information
-bibliography: bibliography.bib
-number-sections: true
+title: Supporting information - Bayesian regression facilitates quantitative modelling of cell metabolism
 format:
   html:
     embed-resources: true
     include-in-header: mathjax.html
-  pdf: 
+  acs-pdf: 
+    include-in-header: 
+      - text: \renewcommand{\thepage}{S\arabic{page}}
     keep-tex: true
+    journal:
+      id: asbcd6  #This is an identifier for the target journal: from https://pubs.acs.org/, the identifier is the part of the URL after https://pubs.acs.org/journal/, e.g. for J. Org. Chem. it would be joceah.
+      type: article  #article, note, communication, review, letter, or perspectivee
+      layout: traditional #traditional or twocolumn, twocolumn currently broken for longtables
   docx: default
+number-sections: true
+author: 
+  - name: "Teddy Groves"
+    orcid: 0000-0002-7109-3270
+    email: tedgro@biosustain.dtu.dk
+    affiliations: 
+      - id: biosustain
+        name: DTU
+        department: The Novo Nordisk Foundation Center for Biosustainability
+        city: Kongens Lyngby 2800
+        country: Denmark
+    attributes:
+      corresponding: true
+      equal-contributor: true
+    note: These authors contributed equally to this research.
+  - name: "Nicholas Luke Cowie"
+    orcid: 0000-0003-3367-2105
+    affiliations: 
+      - ref: biosustain
+    attributes:
+      equal-contributor: true
+    note: These authors contributed equally to this research.
+  - name: "Lars Keld Nielsen"
+    orcid: 0000-0001-8191-3511
+    affiliations: 
+      - id: uq
+        name: The University of Queensland
+        department: Australian Institute for Bioengineering and Nanotechnology (AIBN)
+        city: St Lucia 4067
+        country: Australia
+      - ref: biosustain
+bibliography: bibliography.bib
 ---
+
+{{< pagebreak >}}
 
 This document provides information in support of our article "Bayesian
 regression facilitates quantitative modelling of cell metabolism".
@@ -73,7 +111,7 @@ interest of simplicity.
 | $C_{pme}$ | Phosphorylation modifying enzyme concentrations | Phosphorylation modifying enzymes, experiments|
 | $\psi$ | Membrane potentials | Experiments |
 
-: Parameters of Maud's statistical model {#tbl-params}
+: Table S1 – Parameters of Maud's statistical model {#tbl-params}
 
 Solving the steady state problem for a given set of parameters in an experiment
 yields a vector $C_{balanced}$ of balanced metabolite concentrations. These
@@ -267,7 +305,7 @@ are 7 parameters for which the true value is outside the 1%-99% range.
 | $𝐿_{0}^{𝑀𝐴𝑇3}$                          | 3.730e-03      | 2.680000           | 1.080e-01 | 0.037                       |
 | $𝐿_{0}^{𝑀𝑇𝐻𝐹𝑅1}$                      | 1.120e-01      | 80.500000          | 3.920e-01 | -1.018                     |
 
-: Parameter specification, marginal prior distributions and true parameter values used in our case study. {#tbl-case-study-params}
+: Table S2 – Parameter specification, marginal prior distributions and true parameter values used in our case study. {#tbl-case-study-params}
 
 $\Delta_fG$ parameters for most metabolites were fixed; those that were
 modelled as unknown had a multivariate normal prior distribution derived from
