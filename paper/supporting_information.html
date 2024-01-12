@@ -3703,11 +3703,22 @@ Phosphorylation_r &amp;= (\frac{\alpha}{\alpha + \beta})^{subunits} \label{eq-ph
 <p>The full Maud input folders used for our Laplace approximation case study can be found at <a href="https://github.com/biosustain/Methionine_model/tree/main/data/example_ode" class="uri">https://github.com/biosustain/Methionine_model/tree/main/data/example_ode</a> and <a href="https://github.com/biosustain/Methionine_model/tree/main/data/example_ode_laplace" class="uri">https://github.com/biosustain/Methionine_model/tree/main/data/example_ode_laplace</a>.</p>
 <p>To generate Laplace samples we used Maud’s Laplace mode.</p>
 </section>
-<section id="references" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> References</h1>
+<section id="multimodal-posterior-distributions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Multimodal posterior distributions</h1>
+<p>While we have not yet observed this in practice, we expect that Maud is capable of accurately sampling mildly multi-modal posterior distributions, i.e. those for which regions of parameter space with high probability density are not very sharply separated. This is because this ability depends primarily on the underlying inference algorithm, and adaptive Hamiltonian Monte Carlo is known to be able to sample many such posterior distributions. See, for example, <span class="citation" data-cites="mangiolaSccompRobustDifferential2023">Mangiola et al. (<a href="#ref-mangiolaSccompRobustDifferential2023" role="doc-biblioref">2023</a>)</span>, which reports the successful use of adaptive Hamiltonian Monte Carlo to sample posterior distributions involving mixtures of Gaussian distributions, which are typically multi-modal.</p>
+<p>Moreover, in cases where it fails to sample a multi-modal posterior distribution adaptive Hamiltonian Monte Carlo typically exhibits poor mixing and divergent transitions, which Maud is set up to detect automatically, making this case easy for users to diagnose.</p>
+<p>Nonetheless, it is also well known that strongly multi-modal posterior distributions pose a problem for adaptive Hamiltonian Monte Carlo, as well as other MCMC algorithms. See <span class="citation" data-cites="betancourtmichaelMarkovChainMonte2020">(<a href="#ref-betancourtmichaelMarkovChainMonte2020" role="doc-biblioref">Betancourt, Michael 2020, sec. 3.2</a>)</span> for a general discussion of this issue. <span class="citation" data-cites="mangoubiDoesHamiltonianMonte2018">Mangoubi, Pillai, and Smith (<a href="#ref-mangoubiDoesHamiltonianMonte2018" role="doc-biblioref">2018</a>)</span> explores the related question of the relative performance of Hamiltonian Monte Carlo vs random walk Metropolis Hastings, finding that, for certain cases where the target distribution exhibits highly disconnected and similarly shaped modes, the two algorithms have similar performance.</p>
+<p>It is therefore important to pay careful attention to MCMC diagnostics and monitor developments in computational statistics that might expand the range of posterior distributions that can practically be sampled.</p>
+<p><span class="citation" data-cites="zamora-silleroEfficientCharacterizationHighdimensional2011">Zamora-Sillero et al. (<a href="#ref-zamora-silleroEfficientCharacterizationHighdimensional2011" role="doc-biblioref">2011</a>)</span> introduces the method HYPERSPACE, which is designed to identify disconnected regions of a biochemical parameter space and characterise them by estimating their dimensions. HYPERSPACE does not perform parameter inference and is therefore not directly comparable with algorithms like adaptive Hamiltonian Monte Carlo as used in Maud, but could plausibly be adapted into such an algorithm, for example by supplementation with importance sampling (see <span class="citation" data-cites="vehtariParetoSmoothedImportance2022">Vehtari et al. (<a href="#ref-vehtariParetoSmoothedImportance2022" role="doc-biblioref">2022</a>)</span>). However, any such algorithm would be limited by HYPERSPACE’s dependency on a random walk Metropolis Hastings algorithm. This kind of algorithm’s performance is known to scale poorly compared with Hamiltonian Monte Carlo algorithms as the number of parameters increases: see <span class="citation" data-cites="mangoubiDoesHamiltonianMonte2018">Mangoubi, Pillai, and Smith (<a href="#ref-mangoubiDoesHamiltonianMonte2018" role="doc-biblioref">2018</a>)</span>. Since Maud aims to fit models with hundreds of parameters, this means that it is unlikely that HYPERSPACE can directly be used to improve Maud’s efficiency.</p>
+</section>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-beberEQuilibratorPlatformEstimation2021" class="csl-entry" role="listitem">
 Beber, Moritz E., Mattia G. Gollub, Dana Mozaffari, Kevin M. Shebek, and Elad Noor. 2021. <span>“<span class="nocase">eQuilibrator</span> 3.0 – a Platform for the Estimation of Thermodynamic Constants.”</span> <em>arXiv:2103.00621 [q-Bio]</em>, February. <a href="http://arxiv.org/abs/2103.00621">http://arxiv.org/abs/2103.00621</a>.
+</div>
+<div id="ref-betancourtmichaelMarkovChainMonte2020" class="csl-entry" role="listitem">
+Betancourt, Michael. 2020. <span>“Markov <span>Chain Monte Carlo</span>.”</span> <a href="https://github.com/betanalpha/knitr_case_studies/tree/master/markov_chain_monte_carlo, commit b474ec1a5a79347f7c9634376c866fe3294d657a">https://github.com/betanalpha/knitr_case_studies/tree/master/markov_chain_monte_carlo, commit b474ec1a5a79347f7c9634376c866fe3294d657a</a>.
 </div>
 <div id="ref-changeux_2013" class="csl-entry" role="listitem">
 Changeux, Jean-Pierre. 2013. <span>“50 Years of Allosteric Interactions: The Twists and Turns of the Models.”</span> <em>Nature Reviews. Molecular Cell Biology</em> 14 (12): 819–29. <a href="https://doi.org/10.1038/nrm3695">https://doi.org/10.1038/nrm3695</a>.
@@ -3717,6 +3728,12 @@ Keating, Sarah M, Dagmar Waltemath, Matthias König, Fengkai Zhang, Andreas Drä
 </div>
 <div id="ref-liebermeister_modular_2010" class="csl-entry" role="listitem">
 Liebermeister, Wolfram, Jannis Uhlendorf, and Edda Klipp. 2010. <span>“Modular Rate Laws for Enzymatic Reactions: Thermodynamics, Elasticities and Implementation.”</span> <em>Bioinformatics</em> 26 (12): 1528–34. <a href="https://doi.org/10.1093/bioinformatics/btq141">https://doi.org/10.1093/bioinformatics/btq141</a>.
+</div>
+<div id="ref-mangiolaSccompRobustDifferential2023" class="csl-entry" role="listitem">
+Mangiola, Stefano, Alexandra J. Roth-Schulze, Marie Trussart, Enrique Zozaya-Valdés, Mengyao Ma, Zijie Gao, Alan F. Rubin, Terence P. Speed, Heejung Shim, and Anthony T. Papenfuss. 2023. <span>“Sccomp: <span>Robust</span> Differential Composition and Variability Analysis for Single-Cell Data.”</span> <em>Proceedings of the National Academy of Sciences</em> 120 (33): e2203828120. <a href="https://doi.org/10.1073/pnas.2203828120">https://doi.org/10.1073/pnas.2203828120</a>.
+</div>
+<div id="ref-mangoubiDoesHamiltonianMonte2018" class="csl-entry" role="listitem">
+Mangoubi, Oren, Natesh S. Pillai, and Aaron Smith. 2018. <span>“Does <span>Hamiltonian Monte Carlo</span> Mix Faster Than a Random Walk on Multimodal Densities?”</span> <span>arXiv</span>. <a href="http://arxiv.org/abs/1808.03230">http://arxiv.org/abs/1808.03230</a>.
 </div>
 <div id="ref-monod_nature_1965" class="csl-entry" role="listitem">
 Monod, J, J Wyman, and J P Changeux. 1965. <span>“On the Nature of Allosteric Transitions: A Plausible Model.”</span> <em>Journal of Molecular Biology</em> 12 (May): 88–118. <a href="https://doi.org/10.1016/S0022-2836(65)80285-6">https://doi.org/10.1016/S0022-2836(65)80285-6</a>.
@@ -3741,6 +3758,12 @@ Saa, Pedro A, and Lars K Nielsen. 2016. <span>“Construction of Feasible and Ac
 </div>
 <div id="ref-SchmiesterSch2021" class="csl-entry" role="listitem">
 Schmiester, Leonard, Yannik Schälte, Frank T. Bergmann, Tacio Camba, Erika Dudkin, Janine Egert, Fabian Frö hlich, et al. 2021. <span>“<span>PEtab</span> Specification of Parameter Estimation Problems in Systems Biology.”</span> <em>PLOS Computational Biology</em> 17 (1): 1–10. <a href="https://doi.org/10.1371/journal.pcbi.1008646">https://doi.org/10.1371/journal.pcbi.1008646</a>.
+</div>
+<div id="ref-vehtariParetoSmoothedImportance2022" class="csl-entry" role="listitem">
+Vehtari, Aki, Daniel Simpson, Andrew Gelman, Yuling Yao, and Jonah Gabry. 2022. <span>“Pareto <span>Smoothed Importance Sampling</span>.”</span> <span>arXiv</span>. <a href="http://arxiv.org/abs/1507.02646">http://arxiv.org/abs/1507.02646</a>.
+</div>
+<div id="ref-zamora-silleroEfficientCharacterizationHighdimensional2011" class="csl-entry" role="listitem">
+Zamora-Sillero, Elías, Marc Hafner, Ariane Ibig, Joerg Stelling, and Andreas Wagner. 2011. <span>“Efficient Characterization of High-Dimensional Parameter Spaces for Systems Biology.”</span> <em>BMC Systems Biology</em> 5 (1): 142. <a href="https://doi.org/10.1186/1752-0509-5-142">https://doi.org/10.1186/1752-0509-5-142</a>.
 </div>
 </div>
 </section>

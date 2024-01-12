@@ -18020,3 +18020,81 @@
 	        Measurement Pitfalls to Avoid and Prac.pdf},
 }
 
+@misc{vehtariParetoSmoothedImportance2022,
+  title = {Pareto {{Smoothed Importance Sampling}}},
+  author = {Vehtari, Aki and Simpson, Daniel and Gelman, Andrew and Yao, Yuling and Gabry, Jonah},
+  year = {2022},
+  month = aug,
+  number = {arXiv:1507.02646},
+  eprint = {1507.02646},
+  primaryclass = {stat},
+  publisher = {{arXiv}},
+  url = {http://arxiv.org/abs/1507.02646},
+  urldate = {2024-01-09},
+  abstract = {Importance weighting is a general way to adjust Monte Carlo integration to account for draws from the wrong distribution, but the resulting estimate can be highly variable when the importance ratios have a heavy right tail. This routinely occurs when there are aspects of the target distribution that are not well captured by the approximating distribution, in which case more stable estimates can be obtained by modifying extreme importance ratios. We present a new method for stabilizing importance weights using a generalized Pareto distribution fit to the upper tail of the distribution of the simulated importance ratios. The method, which empirically performs better than existing methods for stabilizing importance sampling estimates, includes stabilized effective sample size estimates, Monte Carlo error estimates, and convergence diagnostics. The presented Pareto k{\textasciicircum} finite sample convergence rate diagnostic is useful for any Monte Carlo estimator.},
+  archiveprefix = {arxiv},
+  langid = {english},
+  keywords = {Statistics - Computation,Statistics - Machine Learning,Statistics - Methodology},
+  file = {/Users/tedgro/Zotero/storage/XUCG6QDN/Vehtari et al. - 2022 - Pareto Smoothed Importance Sampling.pdf}
+}
+
+@techreport{betancourtmichaelMarkovChainMonte2020,
+  title = {Markov {{Chain Monte Carlo}}},
+  author = {{Betancourt, Michael}},
+  year = {2020},
+  url = {https://github.com/betanalpha/knitr_case_studies/tree/master/markov_chain_monte_carlo, commit b474ec1a5a79347f7c9634376c866fe3294d657a}
+}
+
+@article{mangiolaSccompRobustDifferential2023,
+  title = {Sccomp: {{Robust}} Differential Composition and Variability Analysis for Single-Cell Data},
+  shorttitle = {Sccomp},
+  author = {Mangiola, Stefano and {Roth-Schulze}, Alexandra J. and Trussart, Marie and {Zozaya-Vald{\'e}s}, Enrique and Ma, Mengyao and Gao, Zijie and Rubin, Alan F. and Speed, Terence P. and Shim, Heejung and Papenfuss, Anthony T.},
+  year = {2023},
+  month = aug,
+  journal = {Proceedings of the National Academy of Sciences},
+  volume = {120},
+  number = {33},
+  pages = {e2203828120},
+  publisher = {{Proceedings of the National Academy of Sciences}},
+  doi = {10.1073/pnas.2203828120},
+  url = {https://www.pnas.org/doi/10.1073/pnas.2203828120},
+  urldate = {2024-01-09},
+  abstract = {Cellular omics such as single-cell genomics, proteomics, and microbiomics allow the characterization of tissue and microbial community composition, which can be compared between conditions to identify biological drivers. This strategy has been critical to revealing markers of disease progression, such as cancer and pathogen infection. A dedicated statistical method for differential variability analysis is lacking for cellular omics data, and existing methods for differential composition analysis do not model some compositional data properties, suggesting there is room to improve model performance. Here, we introduce sccomp, a method for differential composition and variability analyses that jointly models data count distribution, compositionality, group-specific variability, and proportion mean{\textendash}variability association, being aware of outliers. sccomp provides a comprehensive analysis framework that offers realistic data simulation and cross-study knowledge transfer. Here, we demonstrate that mean{\textendash}variability association is ubiquitous across technologies, highlighting the inadequacy of the very popular Dirichlet-multinomial distribution. We show that sccomp accurately fits experimental data, significantly improving performance over state-of-the-art algorithms. Using sccomp, we identified differential constraints and composition in the microenvironment of primary breast cancer.},
+  file = {/Users/tedgro/Zotero/storage/BJ5VBWMH/Mangiola et al. - 2023 - sccomp Robust differential composition and variab.pdf}
+}
+
+@misc{mangoubiDoesHamiltonianMonte2018,
+  title = {Does {{Hamiltonian Monte Carlo}} Mix Faster than a Random Walk on Multimodal Densities?},
+  author = {Mangoubi, Oren and Pillai, Natesh S. and Smith, Aaron},
+  year = {2018},
+  month = sep,
+  number = {arXiv:1808.03230},
+  eprint = {1808.03230},
+  primaryclass = {cs, math, stat},
+  publisher = {{arXiv}},
+  url = {http://arxiv.org/abs/1808.03230},
+  urldate = {2024-01-11},
+  abstract = {Hamiltonian Monte Carlo (HMC) is a very popular and generic collection of Markov chain Monte Carlo (MCMC) algorithms. One explanation for the popularity of HMC algorithms is their excellent performance as the dimension d of the target becomes large: under conditions that are satisfied for many common statistical models, optimally-tuned HMC algorithms have a running time that scales like d0.25. In stark contrast, the running time of the usual Random-Walk Metropolis (RWM) algorithm, optimally tuned, scales like d. This superior scaling of the HMC algorithm with dimension is attributed to the fact that it, unlike RWM, incorporates the gradient information in the proposal distribution. In this paper, we investigate a different scaling question: does HMC beat RWM for highly multimodal targets? We find that the answer is often no. We compute the spectral gaps for both the algorithms for a specific class of multimodal target densities, and show that they are identical. The key reason is that, within one mode, the gradient is effectively ignorant about other modes, thus negating the advantage the HMC algorithm enjoys in unimodal targets. We also give heuristic arguments suggesting that the above observation may hold quite generally. Our main tool for answering this question is a novel simple formula for the conductance of HMC using Liouville's theorem. This result allows us to compute the spectral gap of HMC algorithms, for both the classical HMC with isotropic momentum and the recent Riemannian HMC, for multimodal targets.},
+  archiveprefix = {arxiv},
+  langid = {english},
+  keywords = {Computer Science - Machine Learning,Mathematics - Probability,Statistics - Computation,Statistics - Machine Learning,Statistics - Methodology},
+  file = {/Users/tedgro/Zotero/storage/UV2XED6X/Mangoubi et al. - 2018 - Does Hamiltonian Monte Carlo mix faster than a ran.pdf}
+}
+
+@article{zamora-silleroEfficientCharacterizationHighdimensional2011,
+  title = {Efficient Characterization of High-Dimensional Parameter Spaces for Systems Biology},
+  author = {{Zamora-Sillero}, El{\'i}as and Hafner, Marc and Ibig, Ariane and Stelling, Joerg and Wagner, Andreas},
+  year = {2011},
+  month = sep,
+  journal = {BMC Systems Biology},
+  volume = {5},
+  number = {1},
+  pages = {142},
+  issn = {1752-0509},
+  doi = {10.1186/1752-0509-5-142},
+  url = {https://doi.org/10.1186/1752-0509-5-142},
+  urldate = {2024-01-09},
+  abstract = {A biological system's robustness to mutations and its evolution are influenced by the structure of its viable space, the region of its space of biochemical parameters where it can exert its function. In systems with a large number of biochemical parameters, viable regions with potentially complex geometries fill a tiny fraction of the whole parameter space. This hampers explorations of the viable space based on "brute force" or Gaussian sampling.},
+  keywords = {Circadian Oscillator,Negative Feedback Loop,Parameter Point,Parameter Space,Uniform Sampling},
+  file = {/Users/tedgro/Zotero/storage/YTFVBUVJ/Zamora-Sillero et al. - 2011 - Efficient characterization of high-dimensional par.pdf;/Users/tedgro/Zotero/storage/VDL445EL/1752-0509-5-142.html}
+}

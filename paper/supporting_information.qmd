@@ -344,6 +344,51 @@ and <https://github.com/biosustain/Methionine_model/tree/main/data/example_ode_l
 
 To generate Laplace samples we used Maud's Laplace mode.
 
+# Multimodal posterior distributions
+
+While we have not yet observed this in practice, we expect that Maud is capable
+of accurately sampling mildly multi-modal posterior distributions, i.e. those
+for which regions of parameter space with high probability density are not
+very sharply separated. This is because this ability depends primarily on the
+underlying inference algorithm, and adaptive Hamiltonian Monte Carlo is known
+to be able to sample many such posterior distributions. See, for example,
+@mangiolaSccompRobustDifferential2023, which reports the successful use of
+adaptive Hamiltonian Monte Carlo to sample posterior distributions involving
+mixtures of Gaussian distributions, which are typically multi-modal.
+
+Moreover, in cases where it fails to sample a multi-modal posterior distribution
+adaptive Hamiltonian Monte Carlo typically exhibits poor mixing and divergent
+transitions, which Maud is set up to detect automatically, making this case easy
+for users to diagnose.
+
+Nonetheless, it is also well known that strongly multi-modal posterior
+distributions pose a problem for adaptive Hamiltonian Monte Carlo, as well as
+other MCMC algorithms. See [@betancourtmichaelMarkovChainMonte2020, §3.2] for
+a general discussion of this issue. @mangoubiDoesHamiltonianMonte2018 explores
+the related question of the relative performance of Hamiltonian Monte Carlo vs
+random walk Metropolis Hastings, finding that, for certain cases where the target
+distribution exhibits highly disconnected and similarly shaped modes, the two
+algorithms have similar performance.
+
+It is therefore important to pay careful attention to MCMC diagnostics and
+monitor developments in computational statistics that might expand the range of
+posterior distributions that can practically be sampled.
+
+@zamora-silleroEfficientCharacterizationHighdimensional2011 introduces
+the method HYPERSPACE, which is designed to identify disconnected regions
+of a biochemical parameter space and characterise them by estimating
+their dimensions. HYPERSPACE does not perform parameter inference and is
+therefore not directly comparable with algorithms like adaptive Hamiltonian
+Monte Carlo as used in Maud, but could plausibly be adapted into such an
+algorithm, for example by supplementation with importance sampling (see
+@vehtariParetoSmoothedImportance2022). However, any such algorithm would
+be limited by HYPERSPACE's dependency on a random walk Metropolis Hastings
+algorithm. This kind of algorithm's performance is known to scale poorly
+compared with Hamiltonian Monte Carlo algorithms as the number of parameters
+increases: see @mangoubiDoesHamiltonianMonte2018. Since Maud aims to fit models
+with hundreds of parameters, this means that it is unlikely that HYPERSPACE can
+directly be used to improve Maud's efficiency.
+
 # References
 
 ::: {#refs}

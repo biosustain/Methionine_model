@@ -193,7 +193,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, breakable, interior hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, interior hidden, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -862,19 +862,94 @@ in supporting information section 2.
 \hypertarget{statistical-model}{%
 \subsection{Statistical model}\label{statistical-model}}
 
-Maud represents information from measurements using generalised linear
-regression models that probabilistically connect realised measurements
-with true values of the measurable quantities. Information from other
-sources is represented using a prior distribution over a set of latent
-parameters. The parameters and the measurable quantities are connected
-by a generative model encompassing Maud's kinetic model as well as the
-steady state equation \eqref{eq-3}. Together, the measurement model,
-prior model and generative model determine a joint probability function
-that assigns a probability density to any possible combination of
-measurements and parameters.
+Maud uses Markov Chain Monte Carlo to perform posterior inference on a
+Bayesian statistical model. This section introduces these topics and
+then describes exactly what kind of Bayesian statistical model Maud
+uses.
 
-Below we describe the prior and measurement models, as the generative
-model has already been discussed above.
+\hypertarget{bayesian-inference}{%
+\subsubsection{Bayesian inference}\label{bayesian-inference}}
+
+Bayesian statistical inference analyses data by constructing a
+mathematical model with the following three components:
+
+\begin{itemize}
+\item
+  A measurement model or ``likelihood'' that probabilistically describes
+  how likely any possible measurement set is given the true values of
+  the measured quantities, i.e.~a probability density function
+  \(l: \mathfrak{Y}\times\hat{\mathfrak{Y}} \rightarrow [0, 1]\) where
+  \(\mathfrak{Y}\) is the set of all possible measurement sets and
+  \(\hat{\mathfrak{Y}}\) is the set of all possible true measurable
+  values.
+\item
+  A deterministic process model that describes the measured quantities
+  in terms of unknown, possibly unobserved parameters \(\theta\), i.e.~a
+  function \(d: \mathfrak{theta} -> \hat{mathfrak{Y}}\).
+\item
+  A prior model that probabilistically describes how likely any possible
+  set of parameter values is, without considering any information
+  included in the measurement model, i.e.~a probability density function
+  \(\pi : \mathfrak{theta} \rightarrow [0, 1]\).
+\end{itemize}
+
+Together these components determine a joint probability function that
+encapsulates the Bayesian statistical model, i.e.~a function
+\(p: \mathfrak{Y}\times\mathfrak{theta}\rightarrow[0,1]\) such that for
+any \(\theta\) and \(y\), \(p(\theta, y) = \pi(\theta)l(y\mid\theta)\).
+Substantive questions about the implications of the assumptions implicit
+in the model components can be formulated in terms of this joint density
+function.
+
+In particular, questions about what the model implies, given a
+particular measurement set \(y\) can be formulated in terms of the
+conditional probability density function
+\(p_{\mid y}:\mathfrak{theta}\rightarrow[0,1]\). Bayes's theorem
+guarantees that this conditional density is proportional to the product
+of the prior and likelihood,
+i.e.~\(p_{\mid y}(\theta) \propto \pi(\theta)l(y\mid\theta)\) See
+\citep[Ch 1]{gelmanBayesianDataAnalysis2020a} for an extended discussion
+of the theory of Bayesian statistical inference.
+
+The principal computational challenge for Bayesian statistical inference
+is to approximate the values of integrals of the joint density function
+conditional on a known measurement assignment \(y\), also known as the
+posterior distribution. For most non-trivial statistical models the
+posterior distribution cannot be integrated analytically, so numerical
+approximation is required. Markov Chain Monte Carlo or ``MCMC'' is a
+popular method for addressing this problem that uses a Markov chain with
+known properties to generate samples from a target probability
+distribution that can be used to perform Monte Carlo integration.
+Hamiltonian Monte Carlo makes it possible, given an appropriate choice
+of hyperparameters, to efficiently generate samples from even a high
+dimensional continuous posterior distribution, by calculating the
+gradients of the log-scale joint density function. Adaptive Hamiltonian
+Monte Carlo, as used by Stan, uses a range of well-tested methods to
+tune these hyperparameters, allowing efficient MCMC for high dimensional
+posterior distributions with minimal user input.
+
+Alternatives to MCMC for numerically approximating integrals over
+posterior distributions include grid sampling \citep[ Ch.
+10]{gelmanBayesianDataAnalysis2020a}, rejection sampling \citep[Ch.
+10]{gelmanBayesianDataAnalysis2020a}, importance sampling
+\citep{vehtariParetoSmoothedImportance2022} and distributional
+approaches including variational inference and Laplace approximation
+\citep[Ch. 13]{gelmanBayesianDataAnalysis2020a}.
+
+The Laplace approximation is of particular interest because, as
+mentioned above, this has been used for approximate Bayesian inference
+in a similar context to Maud. Laplace approximation of a posterior
+distribution works by first finding the mode of the posterior
+distribution, i.e.~the `maximum a posteriori' parameter configuration
+with the highest posterior density. Next, the second derivative of the
+posterior distribution at this point is found and used to generate a
+normal distribution that either approximates the target distribution, or
+can in turn be used to generate such an approximation.
+
+Maud employs adaptive Hamiltonian Monte Carlo to perform posterior
+inference for a Bayesian statistical model where the process model is
+the kinetic model described above. The next two subsections describe
+Maud's prior and measurement models.
 
 \hypertarget{prior-model}{%
 \subsubsection{Prior model}\label{prior-model}}
