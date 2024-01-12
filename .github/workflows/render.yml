@@ -18,7 +18,7 @@ jobs:
           # To install LaTeX to build PDF book
           tinytex: true
       - run: |
-          quarto add quarto-journals/acs
+          quarto add quarto-journals/acs --no-prompt
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
         with:
