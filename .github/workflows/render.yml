@@ -17,7 +17,8 @@ jobs:
         with:
           # To install LaTeX to build PDF book
           tinytex: true
-
+      - run: |
+          quarto install extension quarto-ext/fontawesome --no-prompt
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
         with:

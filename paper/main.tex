@@ -193,7 +193,7 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, interior hidden, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, interior hidden, enhanced]}{\end{tcolorbox}}\fi
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -878,24 +878,24 @@ mathematical model with the following three components:
   A measurement model or ``likelihood'' that probabilistically describes
   how likely any possible measurement set is given the true values of
   the measured quantities, i.e.~a probability density function
-  \(l: \mathfrak{Y}\times\hat{\mathfrak{Y}} \rightarrow [0, 1]\) where
-  \(\mathfrak{Y}\) is the set of all possible measurement sets and
-  \(\hat{\mathfrak{Y}}\) is the set of all possible true measurable
+  \(l: \mathcal{Y}\times\hat{\mathcal{Y}} \rightarrow [0, 1]\) where
+  \(\mathcal{Y}\) is the set of all possible measurement sets and
+  \(\hat{\mathcal{Y}}\) is the set of all possible true measurable
   values.
 \item
   A deterministic process model that describes the measured quantities
   in terms of unknown, possibly unobserved parameters \(\theta\), i.e.~a
-  function \(d: \mathfrak{theta} -> \hat{mathfrak{Y}}\).
+  function \(d: \mathcal{\theta} -> \hat{\mathcal{Y}}\).
 \item
   A prior model that probabilistically describes how likely any possible
   set of parameter values is, without considering any information
   included in the measurement model, i.e.~a probability density function
-  \(\pi : \mathfrak{theta} \rightarrow [0, 1]\).
+  \(\pi : \mathcal{\theta} \rightarrow [0, 1]\).
 \end{itemize}
 
 Together these components determine a joint probability function that
 encapsulates the Bayesian statistical model, i.e.~a function
-\(p: \mathfrak{Y}\times\mathfrak{theta}\rightarrow[0,1]\) such that for
+\(p: \mathcal{Y}\times\mathcal{\theta}\rightarrow[0,1]\) such that for
 any \(\theta\) and \(y\), \(p(\theta, y) = \pi(\theta)l(y\mid\theta)\).
 Substantive questions about the implications of the assumptions implicit
 in the model components can be formulated in terms of this joint density
@@ -904,7 +904,7 @@ function.
 In particular, questions about what the model implies, given a
 particular measurement set \(y\) can be formulated in terms of the
 conditional probability density function
-\(p_{\mid y}:\mathfrak{theta}\rightarrow[0,1]\). Bayes's theorem
+\(p_{\mid y}:\mathcal{theta}\rightarrow[0,1]\). Bayes's theorem
 guarantees that this conditional density is proportional to the product
 of the prior and likelihood,
 i.e.~\(p_{\mid y}(\theta) \propto \pi(\theta)l(y\mid\theta)\) See

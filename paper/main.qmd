@@ -607,29 +607,29 @@ model with the following three components:
 - A measurement model or "likelihood" that probabilistically describes
 how likely any possible measurement set is given the true values
 of the measured quantities, i.e. a probability density function $l:
-\mathfrak{Y}\times\hat{\mathfrak{Y}} \rightarrow [0, 1]$ where $\mathfrak{Y}$
-is the set of all possible measurement sets and $\hat{\mathfrak{Y}}$ is the set
+\mathcal{Y}\times\hat{\mathcal{Y}} \rightarrow [0, 1]$ where $\mathcal{Y}$
+is the set of all possible measurement sets and $\hat{\mathcal{Y}}$ is the set
 of all possible true measurable values.
 
 - A deterministic process model that describes the measured quantities in
 terms of unknown, possibly unobserved parameters $\theta$, i.e. a function $d:
-\mathfrak{theta} -> \hat{mathfrak{Y}}$.
+\mathcal{\theta} -> \hat{\mathcal{Y}}$.
 
 - A prior model that probabilistically describes how likely any possible set
 of parameter values is, without considering any information included in the
-measurement model, i.e. a probability density function $\pi : \mathfrak{theta}
+measurement model, i.e. a probability density function $\pi : \mathcal{\theta}
 \rightarrow [0, 1]$.
 
 Together these components determine a joint probability function
 that encapsulates the Bayesian statistical model, i.e. a function $p:
-\mathfrak{Y}\times\mathfrak{theta}\rightarrow[0,1]$ such that for any $\theta$
+\mathcal{Y}\times\mathcal{\theta}\rightarrow[0,1]$ such that for any $\theta$
 and $y$, $p(\theta, y) = \pi(\theta)l(y\mid\theta)$. Substantive questions about
 the implications of the assumptions implicit in the model components can be
 formulated in terms of this joint density function.
 
 In particular, questions about what the model implies, given a particular
 measurement set $y$ can be formulated in terms of the conditional probability
-density function $p_{\mid y}:\mathfrak{theta}\rightarrow[0,1]$. Bayes's
+density function $p_{\mid y}:\mathcal{theta}\rightarrow[0,1]$. Bayes's
 theorem guarantees that this conditional density is proportional to the
 product of the prior and likelihood, i.e. $p_{\mid y}(\theta) \propto
 \pi(\theta)l(y\mid\theta)$ See [@gelmanBayesianDataAnalysis2020a, Ch 1] for an
