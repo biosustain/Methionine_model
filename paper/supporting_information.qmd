@@ -194,13 +194,15 @@ term approaches 1.
 \begin{align} 
 Saturation_r &= a \cdot \text{free enzyme ratio}\label{eq-saturation} \\ 
 a &= \prod_{\text{s substrate}}\frac{C_{mic}^s}{k_{M}^{rs}} \nonumber \\ 
-\text{free enzyme ratio} &= \begin{cases} 
-  \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} 
-  + \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} & r\text{ irreversible} \\ 
-  -1 
-  + \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} 
-     + \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} 
-     + \prod_{\text{p product}} (1 + \frac{C_{mic}^p}{k_{M}^{rp}})^{S_pr}  & r\text{ reversible} 
+\text{free enzyme ratio} &= \begin{cases} \begin{aligned}
+  &\prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} \\
+  + &\sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}}\end{aligned} & r\text{ irreversible} \\ 
+  \begin{aligned}
+  -1  &+ \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} \\
+      &+ \prod_{\text{p product}} (1 + \frac{C_{mic}^p}{k_{M}^{rp}})^{S_pr} \\ 
+      &+ \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} 
+  \end{aligned}
+    & r\text{ reversible} 
     \end{cases} \nonumber
 \end{align} 
 

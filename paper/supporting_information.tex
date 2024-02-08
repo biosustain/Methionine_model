@@ -81,10 +81,6 @@
 
 \renewcommand{\thepage}{S\arabic{page}}
 \makeatletter
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -120,23 +116,16 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
-\makeatother
-\makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\makeatother
-\makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
+
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -177,7 +166,6 @@ quantitative modelling of cell metabolism}
 \makeatletter
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, breakable, interior hidden, frame hidden, sharp corners, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \newpage{}
 
@@ -187,8 +175,7 @@ regression facilitates quantitative modelling of cell metabolism''.
 The results of all reported Maud runs can be found at
 \url{https://github.com/biosustain/Methionine_model/blob/main/results}.
 
-\hypertarget{mauds-input-format}{%
-\section{Maud's input format}\label{mauds-input-format}}
+\section{Maud's input format}\label{mauds-input-format}
 
 Maud inputs are structured directories, somewhat inspired by the PEtab
 format \citep{SchmiesterSch2021}. A Maud input directory must contain a
@@ -220,11 +207,9 @@ be interoperable with most SBML targeting software, which typically
 assumes that differential equations are available and does not know
 about Maud's structure.
 
-\hypertarget{mauds-kinetic-model}{%
-\section{Maud's kinetic model}\label{mauds-kinetic-model}}
+\section{Maud's kinetic model}\label{mauds-kinetic-model}
 
-\hypertarget{parameters}{%
-\subsection{Parameters}\label{parameters}}
+\subsection{Parameters}\label{parameters}
 
 Table~\ref{tbl-params} shows all of Maud's unknown parameters along with
 their dimensions
@@ -237,13 +222,12 @@ the user or default values can be used. Although in practice there can
 be considerable uncertainty regarding these quantities, we chose to
 disregard this uncertainty in the interest of simplicity.
 
-\hypertarget{tbl-params}{}
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2500}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4722}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}@{}}
-\caption{\label{tbl-params}Table S1 -- Parameters of Maud's statistical
-model}\tabularnewline
+\caption{Table S1 -- Parameters of Maud's statistical
+model}\label{tbl-params}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Parameter
@@ -299,8 +283,7 @@ computational purposes, as for example to avoid estimating the formation
 energy of a metabolite about which there is no available information due
 to it only participating in irreversible reactions.
 
-\hypertarget{rate-equations}{%
-\subsection{Rate equations}\label{rate-equations}}
+\subsection{Rate equations}\label{rate-equations}
 
 As discussed in the main text, Maud's kinetic model decomposes into
 factors contributing to the flux in a metabolic network in an experiment
@@ -392,13 +375,15 @@ term approaches 1.
 \begin{align} 
 Saturation_r &= a \cdot \text{free enzyme ratio}\label{eq-saturation} \\ 
 a &= \prod_{\text{s substrate}}\frac{C_{mic}^s}{k_{M}^{rs}} \nonumber \\ 
-\text{free enzyme ratio} &= \begin{cases} 
-  \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} 
-  + \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} & r\text{ irreversible} \\ 
-  -1 
-  + \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} 
-     + \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} 
-     + \prod_{\text{p product}} (1 + \frac{C_{mic}^p}{k_{M}^{rp}})^{S_pr}  & r\text{ reversible} 
+\text{free enzyme ratio} &= \begin{cases} \begin{aligned}
+  &\prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} \\
+  + &\sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}}\end{aligned} & r\text{ irreversible} \\ 
+  \begin{aligned}
+  -1  &+ \prod_{\text{s sustrate}} (1 + \frac{C_{mic}^s}{k_{M}^{rs}})^{S_sr} \\
+      &+ \prod_{\text{p product}} (1 + \frac{C_{mic}^p}{k_{M}^{rp}})^{S_pr} \\ 
+      &+ \sum_{\text{c inhibitor}}\frac{C_{mic}^c}{k_I^{rc}} 
+  \end{aligned}
+    & r\text{ reversible} 
     \end{cases} \nonumber
 \end{align}
 
@@ -435,11 +420,9 @@ Phosphorylation_r &= (\frac{\alpha}{\alpha + \beta})^{subunits} \label{eq-phosph
 \beta &= \sum_{\text{d dephosphoylator}} k_{cat\,pme}^{d} \cdot C_{pme}^d \nonumber 
 \end{align}
 
-\hypertarget{sec-methionine-case-study}{%
-\section{Methionine case study}\label{sec-methionine-case-study}}
+\section{Methionine case study}\label{sec-methionine-case-study}
 
-\hypertarget{dataset-generation}{%
-\subsection{Dataset generation}\label{dataset-generation}}
+\subsection{Dataset generation}\label{dataset-generation}
 
 Starting with the model in \citet{saa_construction_2016}, we extracted
 values for enzyme concentrations, boundary conditions and fluxes. We
@@ -451,9 +434,8 @@ shown below in table Table~\ref{tbl-case-study-params}. We manually
 inspected the parameter values to screen for any obviously implausible
 values; we did not find any of these.
 
-\hypertarget{sec-methionine-priors}{%
 \subsection{Prior distributions compared with true parameter
-values}\label{sec-methionine-priors}}
+values}\label{sec-methionine-priors}
 
 Table~\ref{tbl-case-study-params} shows the prior distributions we used
 for independent parameters. The first two columns show the 1\% and 99\%
@@ -463,16 +445,15 @@ scale of the true parameter value according the marginal prior
 distribution. As can be seen from the table, there are 7 parameters for
 which the true value is outside the 1\%-99\% range.
 
-\hypertarget{tbl-case-study-params}{}
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3211}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1560}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1651}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1101}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2477}}@{}}
-\caption{\label{tbl-case-study-params}Table S2 -- Parameter
-specification, marginal prior distributions and true parameter values
-used in our case study.}\tabularnewline
+\caption{Table S2 -- Parameter specification, marginal prior
+distributions and true parameter values used in our case
+study.}\label{tbl-case-study-params}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 parameter name
@@ -564,8 +545,7 @@ parameters, can be found by inspecting the file \texttt{priors.toml}
 which is online at
 \url{https://github.com/biosustain/Methionine_model/blob/main/data/methionine/priors.toml}.
 
-\hypertarget{computation}{%
-\subsection{Computation}\label{computation}}
+\subsection{Computation}\label{computation}
 
 We conducted adaptive Hamiltonian Monte Carlo sampling for the full and
 missing-data datasets. For the full dataset we obtained 1000 post-warmup
@@ -580,9 +560,8 @@ resulting posterior distribution had an \(\hat{R} = 1.01\) for the
 log-probability and did not exhibit post-warmup divergences that were
 not a result of differential equation errors.
 
-\hypertarget{laplace-approximation-case-study}{%
 \section{Laplace approximation case
-study}\label{laplace-approximation-case-study}}
+study}\label{laplace-approximation-case-study}
 
 To compare MCMC sampling with Laplace approximation we used a different
 model with fewer parameters and state variables. This model was chosen
@@ -601,9 +580,8 @@ and
 
 To generate Laplace samples we used Maud's Laplace mode.
 
-\hypertarget{multimodal-posterior-distributions}{%
 \section{Multimodal posterior
-distributions}\label{multimodal-posterior-distributions}}
+distributions}\label{multimodal-posterior-distributions}
 
 While we have not yet observed this in practice, we expect that Maud is
 capable of accurately sampling mildly multi-modal posterior
@@ -653,8 +631,7 @@ as the number of parameters increases: see
 with hundreds of parameters, this means that it is unlikely that
 HYPERSPACE can directly be used to improve Maud's efficiency.
 
-\hypertarget{references}{%
-\section{References}\label{references}}
+\section{References}\label{references}
 
 \renewcommand{\bibsection}{}
 \bibliography{bibliography.bib}

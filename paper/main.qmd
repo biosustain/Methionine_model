@@ -834,11 +834,13 @@ statistical model, biological model, software architecture and user interface,
 writing and maintaining code, documentation and manuscript.
 
 Lars Keld Nielsen: Supervision, writing manuscript, designing statistical model,
-biological model, software architecture and user interface.   # References
+biological model, software architecture and user interface.
 
 ## Conflict of interest
 
-The authors declare no competing financial interest
+The authors declare no competing financial interest.
+
+# References
 
 ::: {#refs}
 :::

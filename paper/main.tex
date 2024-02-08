@@ -80,10 +80,6 @@
 \makeatother
 
 \makeatletter
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -119,23 +115,16 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
-\makeatother
-\makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\makeatother
-\makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
+
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -193,10 +182,8 @@ area, presents a case study illustrating how Maud can be used to analyse
 a metabolic network and explains the biological, statistical and
 computational design decisions underpinning Maud.
 \end{abstract}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, interior hidden, enhanced]}{\end{tcolorbox}}\fi
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
 A kinetic model of cellular metabolism aims to express what is known
 about a cellular process in the form of an \emph{in silico}
@@ -333,8 +320,7 @@ robust MCMC sampling using adaptive Hamiltonian Monte Carlo. Further,
 Maud is a general-purpose application that can be used to fit a wide
 range of Bayesian kinetic models.
 
-\hypertarget{results-and-discussion}{%
-\section{Results and Discussion}\label{results-and-discussion}}
+\section{Results and Discussion}\label{results-and-discussion}
 
 To demonstrate our application's capabilities, we used Maud to analyse
 an artificial dataset based on the human methionine cycle. We generated
@@ -370,17 +356,9 @@ case study for Maud.
 
 \begin{figure}
 
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
+\begin{minipage}{\linewidth}
 
 \includegraphics{./figures/methionine-reactions.png}
-
-}
-
-}
 
 \end{minipage}%
 
@@ -390,11 +368,10 @@ green lines representing allosteric interaction, and the red lines
 representing allosteric inhibition. The bold fonts are the reaction
 names and the regular font represents the metabolites.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{dataset-and-model-specification}{%
 \subsection{Dataset and model
-specification}\label{dataset-and-model-specification}}
+specification}\label{dataset-and-model-specification}
 
 The simulated dataset and underlying kinetic model that we used for our
 analysis can be found at
@@ -452,8 +429,7 @@ except for parameter values, which needed to be inferred from the
 training data and priors. These inputs can be found at
 \url{https://github.com/biosustain/Methionine_model/tree/main/data}.
 
-\hypertarget{posterior-inference}{%
-\subsection{Posterior inference}\label{posterior-inference}}
+\subsection{Posterior inference}\label{posterior-inference}
 
 The prior distributions and corresponding true parameter values used in
 our case study are shown in supporting information section 3.2. They
@@ -513,17 +489,9 @@ to summarise. We address this question in the next section.
 
 \begin{figure}
 
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
+\begin{minipage}{\linewidth}
 
 \includegraphics{./figures/posterior.png}
-
-}
-
-}
 
 \end{minipage}%
 
@@ -539,11 +507,9 @@ correlated parameters, namely \(K_m^{AHC1,hcys-L}\) and
 posterior distribution for two uncorrelated parameters, namely
 \(K_m^{MAT3,atp}\) and \(K_{cat}^{MAT3}\).}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{sec-laplace}{%
-\subsubsection{Comparison with Laplace
-approximation}\label{sec-laplace}}
+\subsubsection{Comparison with Laplace approximation}\label{sec-laplace}
 
 This current case study illustrates the type of kinetic model and
 dataset that Maud can fit. The model we analysed has 10 reactions, 5
@@ -622,17 +588,9 @@ research into this topic to future work.
 
 \begin{figure}
 
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
+\begin{minipage}{\linewidth}
 
 \includegraphics{./figures/laplace.png}
-
-}
-
-}
 
 \end{minipage}%
 
@@ -655,11 +613,10 @@ parameters. This is unsurprising given that the target distribution has
 position-dependent scales which are difficult for a linear approximation
 to capture.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{effect-of-missing-metabolite-concentration-measurements}{%
 \subsection{Effect of missing metabolite concentration
-measurements}\label{effect-of-missing-metabolite-concentration-measurements}}
+measurements}\label{effect-of-missing-metabolite-concentration-measurements}
 
 To gain insight into our model's robustness to missing measurements, we
 also performed a model run with the same 6 experimental datasets, but
@@ -699,17 +656,9 @@ from incomplete metabolomics data.
 
 \begin{figure}
 
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
+\begin{minipage}{\linewidth}
 
 \includegraphics{./figures/missing.png}
-
-}
-
-}
 
 \end{minipage}%
 
@@ -730,11 +679,10 @@ overlap between the two distributions, suggesting that removing the
 However, overall the complete-data model tended to make better
 predictions.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{application-to-regulatory-understanding}{%
 \subsection{Application to regulatory
-understanding}\label{application-to-regulatory-understanding}}
+understanding}\label{application-to-regulatory-understanding}
 
 To demonstrate how Maud's output can be used to yield useful metabolic
 insights we used the results of our case study to explain why the flux
@@ -769,17 +717,9 @@ explanation's robustness.
 
 \begin{figure}
 
-\begin{minipage}[t]{\linewidth}
-
-{\centering 
-
-\raisebox{-\height}{
+\begin{minipage}{\linewidth}
 
 \includegraphics{./figures/decomposition.png}
-
-}
-
-}
 
 \end{minipage}%
 
@@ -798,10 +738,9 @@ as constant across datasets. These plots identify why flux in dataset 12
 is higher than in dataset 1: the flux increase is due to allostery and
 saturation with no control from enzyme concentration changes.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{methods}{%
-\section{Methods}\label{methods}}
+\section{Methods}\label{methods}
 
 Maud is a command line application implementing Bayesian inference for a
 wide range of realistic kinetic models. Maud is written in Python
@@ -830,8 +769,7 @@ level and discuss Maud's statistical model, implementation and how it
 solves the crucial steady state problem. Further details about Maud's
 kinetic model can be found in the supporting information.
 
-\hypertarget{kinetic-model}{%
-\subsection{Kinetic model}\label{kinetic-model}}
+\subsection{Kinetic model}\label{kinetic-model}
 
 Maud's kinetic model decomposes into factors:
 
@@ -859,16 +797,14 @@ inspired by the generalised MWC model of allosteric regulation. Full
 details of all mathematical aspects of Maud's kinetic model can be found
 in supporting information section 2.
 
-\hypertarget{statistical-model}{%
-\subsection{Statistical model}\label{statistical-model}}
+\subsection{Statistical model}\label{statistical-model}
 
 Maud uses Markov Chain Monte Carlo to perform posterior inference on a
 Bayesian statistical model. This section introduces these topics and
 then describes exactly what kind of Bayesian statistical model Maud
 uses.
 
-\hypertarget{bayesian-inference}{%
-\subsubsection{Bayesian inference}\label{bayesian-inference}}
+\subsubsection{Bayesian inference}\label{bayesian-inference}
 
 Bayesian statistical inference analyses data by constructing a
 mathematical model with the following three components:
@@ -877,26 +813,28 @@ mathematical model with the following three components:
 \item
   A measurement model or ``likelihood'' that probabilistically describes
   how likely any possible measurement set is given the true values of
-  the measured quantities, i.e.~a probability density function
-  \(l: \mathcal{Y}\times\hat{\mathcal{Y}} \rightarrow [0, 1]\) where
+  the measured quantities, i.e.~a probability density function \(l:
+  \mathcal{Y}\times\hat{\mathcal{Y}} \rightarrow [0, 1]\) where
   \(\mathcal{Y}\) is the set of all possible measurement sets and
   \(\hat{\mathcal{Y}}\) is the set of all possible true measurable
   values.
 \item
   A deterministic process model that describes the measured quantities
   in terms of unknown, possibly unobserved parameters \(\theta\), i.e.~a
-  function \(d: \mathcal{\theta} -> \hat{\mathcal{Y}}\).
+  function \(d:
+  \mathcal{\theta} -> \hat{\mathcal{Y}}\).
 \item
   A prior model that probabilistically describes how likely any possible
   set of parameter values is, without considering any information
   included in the measurement model, i.e.~a probability density function
-  \(\pi : \mathcal{\theta} \rightarrow [0, 1]\).
+  \(\pi : \mathcal{\theta}
+  \rightarrow [0, 1]\).
 \end{itemize}
 
 Together these components determine a joint probability function that
-encapsulates the Bayesian statistical model, i.e.~a function
-\(p: \mathcal{Y}\times\mathcal{\theta}\rightarrow[0,1]\) such that for
-any \(\theta\) and \(y\), \(p(\theta, y) = \pi(\theta)l(y\mid\theta)\).
+encapsulates the Bayesian statistical model, i.e.~a function \(p:
+\mathcal{Y}\times\mathcal{\theta}\rightarrow[0,1]\) such that for any
+\(\theta\) and \(y\), \(p(\theta, y) = \pi(\theta)l(y\mid\theta)\).
 Substantive questions about the implications of the assumptions implicit
 in the model components can be formulated in terms of this joint density
 function.
@@ -906,10 +844,10 @@ particular measurement set \(y\) can be formulated in terms of the
 conditional probability density function
 \(p_{\mid y}:\mathcal{theta}\rightarrow[0,1]\). Bayes's theorem
 guarantees that this conditional density is proportional to the product
-of the prior and likelihood,
-i.e.~\(p_{\mid y}(\theta) \propto \pi(\theta)l(y\mid\theta)\) See
-\citep[Ch 1]{gelmanBayesianDataAnalysis2020a} for an extended discussion
-of the theory of Bayesian statistical inference.
+of the prior and likelihood, i.e.~\(p_{\mid y}(\theta) \propto
+\pi(\theta)l(y\mid\theta)\) See \citep[Ch
+1]{gelmanBayesianDataAnalysis2020a} for an extended discussion of the
+theory of Bayesian statistical inference.
 
 The principal computational challenge for Bayesian statistical inference
 is to approximate the values of integrals of the joint density function
@@ -951,8 +889,7 @@ inference for a Bayesian statistical model where the process model is
 the kinetic model described above. The next two subsections describe
 Maud's prior and measurement models.
 
-\hypertarget{prior-model}{%
-\subsubsection{Prior model}\label{prior-model}}
+\subsubsection{Prior model}\label{prior-model}
 
 Maud's prior model includes unknown parameters corresponding to
 quantities in the kinetic model that are assumed to be unknown, other
@@ -970,8 +907,7 @@ multivariate normal prior distribution. Location, scale and covariance
 parameters for all these prior distributions can be selected freely by
 the user.
 
-\hypertarget{measurement-model}{%
-\subsubsection{Measurement model}\label{measurement-model}}
+\subsubsection{Measurement model}\label{measurement-model}
 
 Maud's measurement model considers three types of measurement:
 metabolite concentration measurements, enzyme concentration measurements
@@ -1050,8 +986,7 @@ the results of potential labelling experiments, thereby removing the
 need for upstream analysis and avoiding any double counting. This option
 has not yet been pursued, again for the sake of simplicity.
 
-\hypertarget{implementation}{%
-\subsection{Implementation}\label{implementation}}
+\subsection{Implementation}\label{implementation}
 
 Maud uses the Python library click
 \citep{clickdevelopersClickPythonComposable2022} to implement a command
@@ -1077,9 +1012,8 @@ checking of MCMC diagnostics including divergent transitions, effective
 sample size and the improved \(\hat{R}\) statistic proposed in
 \citet{vehtariRankNormalizationFoldingLocalization2021}.
 
-\hypertarget{solving-the-steady-state-problem}{%
 \subsection{Solving the steady state
-problem}\label{solving-the-steady-state-problem}}
+problem}\label{solving-the-steady-state-problem}
 
 Maud's parameters are connected with measurable quantities via the
 steady state equation \eqref{eq-3}. Posterior sampling using adaptive
@@ -1102,8 +1036,7 @@ evolving the ODE system for a short period of time, then using the
 difference between the evolved and starting concentrations as the target
 for a numerical algebra solver.
 
-\hypertarget{supporting-information}{%
-\section{Supporting information}\label{supporting-information}}
+\section{Supporting information}\label{supporting-information}
 
 The analyses described in this paper, as well as instructions for
 reproducing our results, figures and paper, can be found at
@@ -1127,17 +1060,14 @@ information:
   Specification of the prior distribution used for the case studies.
 \end{itemize}
 
-\hypertarget{acknowledgements}{%
-\section{Acknowledgements}\label{acknowledgements}}
+\section{Acknowledgements}\label{acknowledgements}
 
 This research was funded by the Novo Nordisk Foundation (Grant numbers
 NNF20CC0035580 NNF14OC0009473).
 
-\hypertarget{author-information}{%
-\section{Author information}\label{author-information}}
+\section{Author information}\label{author-information}
 
-\hypertarget{author-contribution}{%
-\subsection{Author contribution}\label{author-contribution}}
+\subsection{Author contribution}\label{author-contribution}
 
 Teddy Groves and Nicholas Cowie: Writing code and documentation,
 designing statistical model, biological model, software architecture and
@@ -1146,12 +1076,13 @@ manuscript.
 
 Lars Keld Nielsen: Supervision, writing manuscript, designing
 statistical model, biological model, software architecture and user
-interface. \# References
+interface.
 
-\hypertarget{conflict-of-interest}{%
-\subsection{Conflict of interest}\label{conflict-of-interest}}
+\subsection{Conflict of interest}\label{conflict-of-interest}
 
 The authors declare no competing financial interest
+
+\section{References}\label{references}
 
 \renewcommand{\bibsection}{}
 \bibliography{bibliography.bib}
