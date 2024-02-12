@@ -3248,10 +3248,10 @@ window.Quarto = {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            DTU
+            The University of Queensland
           </p>
         <p class="affiliation">
-            The University of Queensland
+            DTU
           </p>
       </div>
   </div>
@@ -3801,7 +3801,7 @@ Table 2: Table S2 – Parameter specification, marginal prior distributions and
 </section>
 <section id="multimodal-posterior-distributions" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Multimodal posterior distributions</h1>
-<!--  :::{.callout-important title="Changes"} -->
+<!-- :::{.callout-important title="Changes"} -->
 <p>While we have not yet observed this in practice, we expect that Maud is capable of accurately sampling mildly multi-modal posterior distributions, i.e. those for which regions of parameter space with high probability density are not very sharply separated. This is because this ability depends primarily on the underlying inference algorithm, and adaptive Hamiltonian Monte Carlo is known to be able to sample many such posterior distributions. See, for example, <span class="citation" data-cites="mangiolaSccompRobustDifferential2023">Mangiola et al. (<a href="#ref-mangiolaSccompRobustDifferential2023" role="doc-biblioref">2023</a>)</span>, which reports the successful use of adaptive Hamiltonian Monte Carlo to sample posterior distributions involving mixtures of Gaussian distributions, which are typically multi-modal.</p>
 <p>Moreover, in cases where it fails to sample a multi-modal posterior distribution adaptive Hamiltonian Monte Carlo typically exhibits poor mixing and divergent transitions, which Maud is set up to detect automatically, making this case easy for users to diagnose.</p>
 <p>Nonetheless, it is also well known that strongly multi-modal posterior distributions pose a problem for adaptive Hamiltonian Monte Carlo, as well as other MCMC algorithms. See <span class="citation" data-cites="betancourtmichaelMarkovChainMonte2020">(<a href="#ref-betancourtmichaelMarkovChainMonte2020" role="doc-biblioref">Betancourt, Michael 2020, sec. 3.2</a>)</span> for a general discussion of this issue. <span class="citation" data-cites="mangoubiDoesHamiltonianMonte2018">Mangoubi, Pillai, and Smith (<a href="#ref-mangoubiDoesHamiltonianMonte2018" role="doc-biblioref">2018</a>)</span> explores the related question of the relative performance of Hamiltonian Monte Carlo vs random walk Metropolis Hastings, finding that, for certain cases where the target distribution exhibits highly disconnected and similarly shaped modes, the two algorithms have similar performance.</p>
