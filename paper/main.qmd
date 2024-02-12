@@ -595,6 +595,7 @@ be found in supporting information section 2.
 
 ## Statistical model 
 
+<!--:::{.callout-important title="Changes"}-->
 Maud uses Markov Chain Monte Carlo to perform posterior inference on a Bayesian
 statistical model. This section introduces these topics and then describes
 exactly what kind of Bayesian statistical model Maud uses.
@@ -670,6 +671,7 @@ Maud employs adaptive Hamiltonian Monte Carlo to perform posterior inference
 for a Bayesian statistical model where the process model is the kinetic model
 described above. The next two subsections describe Maud's prior and measurement
 models.
+<!--:::-->
 
 ### Prior model 
 
@@ -829,6 +831,8 @@ NNF20CC0035580 NNF14OC0009473).
 
 ## Author contribution
 
+<!--:::{.callout-important title="Changes"}-->
+
 Teddy Groves and Nicholas Cowie: Writing code and documentation, designing
 statistical model, biological model, software architecture and user interface,
 writing and maintaining code, documentation and manuscript.
@@ -839,6 +843,7 @@ biological model, software architecture and user interface.
 ## Conflict of interest
 
 The authors declare no competing financial interest.
+<!--:::-->
 
 # References
 

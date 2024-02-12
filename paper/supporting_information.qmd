@@ -348,6 +348,7 @@ To generate Laplace samples we used Maud's Laplace mode.
 
 # Multimodal posterior distributions
 
+<!--  :::{.callout-important title="Changes"} -->
 While we have not yet observed this in practice, we expect that Maud is capable
 of accurately sampling mildly multi-modal posterior distributions, i.e. those
 for which regions of parameter space with high probability density are not
@@ -390,6 +391,7 @@ compared with Hamiltonian Monte Carlo algorithms as the number of parameters
 increases: see @mangoubiDoesHamiltonianMonte2018. Since Maud aims to fit models
 with hundreds of parameters, this means that it is unlikely that HYPERSPACE can
 directly be used to improve Maud's efficiency.
+<!-- ::: -->
 
 # References
 
